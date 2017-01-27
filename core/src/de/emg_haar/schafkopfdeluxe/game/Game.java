@@ -11,18 +11,11 @@ import java.util.List;
 public abstract class Game {
     private List<Player> players = new ArrayList<>();
     private Deck deck;
-    protected List<Card> trumpCards;
-
     public Game() {
         initialize();
     }
 
-    public void giveCards() {
-        deck = new Deck();
-        for (Player player : players) {
-            player.addCards(deck.deal());
-        }
-    }
+
 
     public abstract void initialize();
 }

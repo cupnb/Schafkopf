@@ -48,4 +48,7 @@ public class Schafkopf extends ApplicationAdapter
 		batch.dispose();
 
 	}
+
+	//test
+
 }

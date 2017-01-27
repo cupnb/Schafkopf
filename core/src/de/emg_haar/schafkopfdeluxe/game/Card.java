@@ -5,4 +5,6 @@ package de.emg_haar.schafkopfdeluxe.game;
  */
 
 public class Card {
+
+
 }

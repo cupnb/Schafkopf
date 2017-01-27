@@ -2,6 +2,7 @@ package de.emg_haar.schafkopfdeluxe.game;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -13,6 +14,11 @@ public class Deck {
     private Stack<Card> cards = new Stack<>();
 
     public Deck() {
+        initialize();
+    }
+
+    public void initialize()
+    {
         for (CardType type : CardType.values()) {
             for (CardRank rank : CardRank.values()) {
                 Card card = new Card(type, rank);
@@ -22,8 +28,8 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
-    public List<Card> deal() {
-        List<Card> deal = new ArrayList<>();
+    public Stack<Card> deal() {
+        Stack<Card> deal = new Stack<>();
         deal.addAll(cards.subList(0, 4));
         cards.subList(0, 4).clear();
         return deal;

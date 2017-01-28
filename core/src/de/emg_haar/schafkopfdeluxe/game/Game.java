@@ -12,6 +12,7 @@ public class Game {
     private Turnstate turnState;
     private int dealer;
 
+
     private Mode mode;
     private Deck deck;
     private Stack<Card> dump;

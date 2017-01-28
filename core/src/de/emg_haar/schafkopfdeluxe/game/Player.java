@@ -1,7 +1,6 @@
 package de.emg_haar.schafkopfdeluxe.game;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Stack;
 
 
@@ -25,6 +24,7 @@ public class Player
         re = false;
         hand = new LinkedList<>();
         //Was muss in Linked List rein?
+        //Karten vielleicht? :D
     }
 
     public void setGame(Game g)
@@ -52,6 +52,7 @@ public class Player
         return re;
     }
 
+    //Die Karten aus dem Stack werden auf die Hand gebracht
     public void addCards(Stack<Card> c)
     {
         hand.add(c.pop());
@@ -60,7 +61,7 @@ public class Player
         hand.add(c.pop());
     }
 
-    public List<Card> getHand()
+    public LinkedList<Card> getHand()
     {
         return hand;
     }
@@ -70,7 +71,7 @@ public class Player
         return name;
     }
 
-    public void showPlayableCards(List <Card> l)
+    public void showPlayableCards(LinkedList<Card> l)
     {
 
     }

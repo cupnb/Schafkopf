@@ -5,21 +5,25 @@ import java.util.List;
 import java.util.Stack;
 
 
-public class Player {
+public abstract class Player {
     private Game game;
     private String name;
     private LinkedList<Card> hand;
 
     public Player(String name) {
         this.name = name;
+        this.game = null;
+        this.hand = new LinkedList<>();
+
     }
 
+    //Methode um die Referenz auf Game einzufuegen
     public void setGame(Game g)
     {
-        game = g;
+        this.game = g;
     }
 
-
+    //Das uebergebene Stack wird auf die Hand gesetzt
     public void addCards(Stack<Card> c)
     {
         hand.add(c.pop());

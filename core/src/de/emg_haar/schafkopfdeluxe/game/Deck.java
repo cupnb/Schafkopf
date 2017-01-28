@@ -1,24 +1,15 @@
 package de.emg_haar.schafkopfdeluxe.game;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Stack;
 
-/**
- * Created by Sebi on 25.11.2016.
- */
 
 public class Deck {
+
     private Stack<Card> cards = new Stack<>();
 
     public Deck() {
-        initialize();
-    }
-
-    public void initialize()
-    {
+        //Karten werden erzeugt
         for (CardType type : CardType.values()) {
             for (CardRank rank : CardRank.values()) {
                 Card card = new Card(type, rank);
@@ -28,6 +19,12 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
+    public void initialize(Stack<Card> prevDumpedCards)
+    {
+        //Hier kommt die Logik zum nicht perfekten Mischen rein
+    }
+
+    //Packt 4 Karten vom Stack in ein neues Stack und gibt dieses zurueck
     public Stack<Card> deal() {
         Stack<Card> deal = new Stack<>();
         deal.addAll(cards.subList(0, 4));
@@ -35,7 +32,4 @@ public class Deck {
         return deal;
     }
 
-    public boolean isDealt() {
-        return (cards.size() == 0);
-    }
 }

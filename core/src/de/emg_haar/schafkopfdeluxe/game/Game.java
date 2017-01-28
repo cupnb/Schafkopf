@@ -8,7 +8,7 @@ public class Game {
     private Random rnd;
 
     private Player[] players;
-    private enum Turnstate{p0, p1, p2, p3}
+    private enum Turnstate{P0, P1, P2, P3}
     private Turnstate turnState;
     private int dealer;
 
@@ -22,11 +22,13 @@ public class Game {
         rnd = new Random();
         players = new Player[4];
 
+        //Referenz von Game wird den Spielern uebergeben
         p0.setGame(this);
         p1.setGame(this);
         p2.setGame(this);
         p3.setGame(this);
-
+        /
+        // /Spieler werden in das Feld gesteckt
         players[0] = p0;
         players[1] = p1;
         players[2] = p2;
@@ -35,6 +37,7 @@ public class Game {
         deck = new Deck();
         dump = new Stack<Card>();
 
+        //Der Geber wird zufaellig bestimmt
         dealer = rnd.nextInt(4);
         roundNumber = 0;
         initialize();
@@ -42,6 +45,7 @@ public class Game {
 
     public void initialize()
     {
+        //Karten werden zu je 4 an die Spieler verteilt
         for (int i = 0; i < 2; i++)
         {
             for (int j = 0; j < 4; j++)
@@ -50,23 +54,26 @@ public class Game {
             }
         }
 
+        //Der anfangende Spieler wird im turnState festgelegt
+
         if (dealer == 0)
         {
-            turnState = Turnstate.p1;
+            turnState = Turnstate.P1;
         }
         else if (dealer == 1)
         {
-            turnState = Turnstate.p2;
+            turnState = Turnstate.P2;
         }
         else if (dealer == 2)
         {
-            turnState = Turnstate.p3;
+            turnState = Turnstate.P3;
         }
         else if (dealer == 3)
         {
-            turnState = Turnstate.p0;
+            turnState = Turnstate.P0;
         }
 
+        //Geber wird um eins erhoeht
         if (dealer == 3)
         {
             dealer = 0;

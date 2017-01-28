@@ -6,12 +6,19 @@ import java.util.Stack;
 
 
 public class Player {
+    private Game game;
     private String name;
     private LinkedList<Card> hand;
 
     public Player(String name) {
         this.name = name;
     }
+
+    public void setGame(Game g)
+    {
+        game = g;
+    }
+
 
     public void addCards(Stack<Card> c)
     {

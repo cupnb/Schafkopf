@@ -1,18 +1,32 @@
 package de.emg_haar.schafkopfdeluxe.game;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 import java.util.Stack;
 
 
-public abstract class Game {
+public class Game {
+    private Random rnd;
+
     private Player[] players;
+    private enum Turnstate{p0, p1, p2, p3}
+    private Turnstate turnState;
+    private int dealer;
+
     private Mode mode;
     private Deck deck;
     private Stack<Card> dump;
+
     private int roundNumber;
+
     public Game(Player p0, Player p1, Player p2, Player p3) {
+        rnd = new Random();
         players = new Player[4];
+
+        p0.setGame(this);
+        p1.setGame(this);
+        p2.setGame(this);
+        p3.setGame(this);
+
         players[0] = p0;
         players[1] = p1;
         players[2] = p2;
@@ -20,6 +34,8 @@ public abstract class Game {
 
         deck = new Deck();
         dump = new Stack<Card>();
+
+        dealer = rnd.nextInt(4);
         roundNumber = 0;
         initialize();
     }
@@ -33,7 +49,40 @@ public abstract class Game {
                 players[j].addCards(deck.deal());
             }
         }
+
+        if (dealer == 0)
+        {
+            turnState = Turnstate.p1;
+        }
+        else if (dealer == 1)
+        {
+            turnState = Turnstate.p2;
+        }
+        else if (dealer == 2)
+        {
+            turnState = Turnstate.p3;
+        }
+        else if (dealer == 3)
+        {
+            turnState = Turnstate.p0;
+        }
+
+        if (dealer == 3)
+        {
+            dealer = 0;
+        }
+        else
+        {
+            dealer = dealer++;
+        }
+
+        players[turnState.ordinal()]. //Hier muss noch die Abfrage wer spielt in Player erstellt werden
+
+        }
+
+
+
     }
- }
+
 
 

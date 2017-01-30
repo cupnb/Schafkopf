@@ -88,6 +88,11 @@ public class Game {
 
         }
 
+    private void showPlayableCards(Player p)
+    {
+        p.showPlayableCards(mode.checkPlayable(p.getHand()));
+    }
+
 
 
     }

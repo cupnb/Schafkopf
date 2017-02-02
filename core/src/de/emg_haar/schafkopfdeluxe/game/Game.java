@@ -84,9 +84,31 @@ public class Game {
             dealer = dealer++;
         }
 
-        players[turnState.ordinal()]. //Hier muss noch die Abfrage wer spielt in Player erstellt werden
+        players[turnState.ordinal()].yourTurn();
+        //Hier muss noch die Abfrage wer spielt in Player erstellt werden
+        //
+
 
         }
+
+    public void nextPlayer()
+    {
+        switch (turnState) {
+            case P3:
+                System.out.println("Spieler 0 ist jetzt dran");
+                turnState = Turnstate.P0;
+            case P0:
+                System.out.println("Spieler 1 ist jetzt dran");
+                turnState = Turnstate.P1;
+            case P1:
+                System.out.println("Spieler 2 ist jetzt dran");
+                turnState = Turnstate.P2;
+            case P2:
+                System.out.println("Spieler 3 ist jetzt dran");
+                turnState = Turnstate.P3;
+        }
+
+    }
 
     private void showPlayableCards(Player p)
     {

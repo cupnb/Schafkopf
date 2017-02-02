@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 
-public class Player
+public abstract class Player
 {
     private LinkedList<Card> hand;
     private String name;
@@ -13,6 +13,8 @@ public class Player
     private boolean player;
     private boolean contra;
     private boolean re;
+
+    private boolean turn;
 
     public Player(String name)
     {
@@ -23,6 +25,8 @@ public class Player
         contra = false;
         re = false;
         hand = new LinkedList<>();
+
+        turn = false;
         //Was muss in Linked List rein?
         //Karten vielleicht? :D
     }
@@ -74,5 +78,10 @@ public class Player
     public void showPlayableCards(LinkedList<Card> l)
     {
 
+    }
+
+    public void yourTurn()
+    {
+        turn = true;
     }
 }

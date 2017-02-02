@@ -29,6 +29,7 @@ public abstract class Player
         turn = false;
         //Was muss in Linked List rein?
         //Karten vielleicht? :D
+
     }
 
     public void setGame(Game g)

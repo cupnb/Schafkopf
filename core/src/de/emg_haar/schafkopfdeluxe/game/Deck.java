@@ -19,6 +19,8 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
+    //P***
+
     public void initialize(Stack<Card> prevDumpedCards)
     {
         //Hier kommt die Logik zum nicht perfekten Mischen rein

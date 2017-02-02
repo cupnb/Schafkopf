@@ -25,6 +25,7 @@ public class Player
         hand = new LinkedList<>();
         //Was muss in Linked List rein?
         //Karten vielleicht? :D
+
     }
 
     public void setGame(Game g)

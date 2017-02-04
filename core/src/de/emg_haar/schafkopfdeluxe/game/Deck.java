@@ -26,6 +26,7 @@ public class Deck {
 
     public void initialize(Stack<Card> prevDumpedCards)
     {
+        int z = 0;
         Random x = new Random();
         int kartenRaus = x.nextInt(15) + 5;
         Random y = new Random();

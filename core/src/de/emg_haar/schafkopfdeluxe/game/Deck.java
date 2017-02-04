@@ -1,21 +1,22 @@
 package de.emg_haar.schafkopfdeluxe.game;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.Stack;
-import java.util.List;
-import java.util.Collections;
 
 public class Deck {
 
     private Stack<Card> cards = new Stack<>();
-    private List<Card> shuffleList = new List<>();
-    private List<Card> shuffleList2 = new List<>();
+    private List<Card> shuffleList = new ArrayList<>();
+    private List<Card> shuffleList2 = new ArrayList<>();
 
     public Deck() {
         //Karten werden erzeugt
-        for (CardType type : CardType.values()) {
+        for (CardColor color : CardColor.values()) {
             for (CardRank rank : CardRank.values()) {
-                Card card = new Card(type, rank);
+                Card card = new Card(color, rank);
                 cards.push(card);
             }
         }

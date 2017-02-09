@@ -85,4 +85,10 @@ public abstract class Player
     {
         turn = true;
     }
+
+    //Methode zum Ansagen, wer spielen will
+    public void play(Mode mode)
+    {
+
+    }
 }

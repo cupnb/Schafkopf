@@ -28,7 +28,7 @@ public class Game {
         p1.setGame(this);
         p2.setGame(this);
         p3.setGame(this);
-        /
+
         // /Spieler werden in das Feld gesteckt
         players[0] = p0;
         players[1] = p1;

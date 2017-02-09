@@ -9,9 +9,6 @@ import java.util.Stack;
 public class Deck {
 
     private Stack<Card> cards = new Stack<>();
-    private List<Card> shuffleList = new ArrayList<>();
-    private List<Card> shuffleList2 = new ArrayList<>();
-
     public Deck() {
         //Karten werden erzeugt
         for (CardColor color : CardColor.values()) {
@@ -25,8 +22,10 @@ public class Deck {
 
     //P***
 
-    public void initialize(Stack<Card> prevDumpedCards)
-    {
+    public void initialize(Stack<Card> prevDumpedCards) {
+        List<Card> shuffleList2 = new ArrayList<>();
+        List<Card> shuffleList = new ArrayList<>();
+
         int z = 0;
         Random x = new Random();
         int kartenRaus = x.nextInt(15) + 5;
@@ -44,8 +43,9 @@ public class Deck {
         for (int l = 0; l < kartenRaus; l++) {
             shuffleList.add(32 - kartenRaus, shuffleList2.remove(1));
         }
+        cards.clear();
         for (int m = 0; m < 32; m++) {
-            prevDumpedCards.push(shuffleList.remove(1));
+            cards.push(shuffleList.remove(1));
         }
     }
 

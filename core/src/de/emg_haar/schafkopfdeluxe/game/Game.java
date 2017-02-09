@@ -7,7 +7,6 @@ import de.emg_haar.schafkopfdeluxe.game.card.Card;
 
 
 public class Game {
-    private Random rnd;
 
     private Player[] players;
     private enum Turnstate{P0, P1, P2, P3}
@@ -22,7 +21,7 @@ public class Game {
     private int roundNumber;
 
     public Game(Player p0, Player p1, Player p2, Player p3) {
-        rnd = new Random();
+        Random rnd = new Random();
         players = new Player[4];
 
         //Referenz von Game wird den Spielern uebergeben

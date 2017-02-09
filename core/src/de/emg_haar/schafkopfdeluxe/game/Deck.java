@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
+import de.emg_haar.schafkopfdeluxe.game.card.Card;
+import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
+import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
+
 public class Deck {
 
     private Stack<Card> cards = new Stack<>();

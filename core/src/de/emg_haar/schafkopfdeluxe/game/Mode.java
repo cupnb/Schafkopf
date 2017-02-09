@@ -2,6 +2,8 @@ package de.emg_haar.schafkopfdeluxe.game;
 
 import java.util.LinkedList;
 
+import de.emg_haar.schafkopfdeluxe.game.card.Card;
+
 /**
  * Created by noah on 30.01.17.
  */

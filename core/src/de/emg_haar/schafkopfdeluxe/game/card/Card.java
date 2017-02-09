@@ -1,4 +1,4 @@
-package de.emg_haar.schafkopfdeluxe.game;
+package de.emg_haar.schafkopfdeluxe.game.card;
 
 /**
  * Created by NoahB on 26.01.17.

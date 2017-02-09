@@ -3,6 +3,8 @@ package de.emg_haar.schafkopfdeluxe.game;
 import java.util.Random;
 import java.util.Stack;
 
+import de.emg_haar.schafkopfdeluxe.game.card.Card;
+
 
 public class Game {
     private Random rnd;

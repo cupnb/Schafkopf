@@ -10,7 +10,10 @@ import de.emg_haar.schafkopfdeluxe.game.card.Card;
 
 public class Mode {
 
-    public enum MODE_TYPE {}
+    public enum MODE_TYPE
+    {
+        SAUSPIELEICHEL, SAUSPIELGRAS, SAUSPIELSCHELLEN, SOLOSCHELLEN, SOLOGRAS, SOLOHERZ, SOLOEICHEL, WENZ
+    }
     private MODE_TYPE mode_type;
 
     public Mode(MODE_TYPE m)

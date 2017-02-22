@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import de.emg_haar.schafkopfdeluxe.game.Player;
+
 /**
  * Created by NoahB on 27.11.16.
  */
@@ -35,7 +37,7 @@ public class MainMenu{
             @Override
             public void changed (ChangeEvent event, Actor actor) {
                 System.out.println("Button Pressed");
-                game = new Game();
+                game = new de.emg_haar.schafkopfdeluxe.game.Game(new Player(), new Player(), new Player(), new Player());
             }
         });
 

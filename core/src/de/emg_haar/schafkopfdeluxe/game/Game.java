@@ -85,12 +85,23 @@ public class Game {
             dealer = dealer++;
         }
 
-        players[turnState.ordinal()].yourTurn();
+
+        loop();
         //Hier muss noch die Abfrage wer spielt in Player erstellt werden
         //
 
 
         }
+
+    public void loop()
+    {
+        for (boolean i = true; )
+        {
+            players[turnState.ordinal()].yourTurn();
+
+        }
+
+    }
 
     public void nextPlayer()
     {

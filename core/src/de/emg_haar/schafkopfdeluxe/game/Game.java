@@ -85,9 +85,9 @@ public class Game {
                     )
     {
         // for-Schleife (höhö): 4x wiederholen
-            // Wechsle zum nächsten Spieler
             // Zeig Spieler den momentanen Stapel
             // Frage nach einer Karte, die er auf dem Stapel wirft und wirf sie drauf
+            // Wechsle zum nächsten Spieler
         // bestimme den Spieler, der den Stich bekommt
         roundNumber++;
         if( roundNumber != 7) {

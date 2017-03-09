@@ -95,7 +95,9 @@ public class Game {
 
     public void loop()
     {
-        for (boolean i = true; )
+        for (int x = 0; x < 4; x++){
+
+        }
         {
             players[turnState.ordinal()].yourTurn();
 

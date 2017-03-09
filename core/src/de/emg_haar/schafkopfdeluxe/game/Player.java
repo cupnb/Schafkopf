@@ -15,12 +15,14 @@ public abstract class Player
     private boolean player;
     private boolean contra;
     private boolean re;
+    private boolean wannaplay;
 
     private boolean turn;
 
     public Player(String name)
     {
         this.name = name;
+        wannaplay = false;
         game = null;
         points = 0;
         player = false;
@@ -85,8 +87,12 @@ public abstract class Player
         turn = true;
     }
 
-    //Methode zum Ansagen, wer spielen will
-    public void play(Mode mode)
+    public boolean iplay(){
+        wannaplay = true;
+        return wannaplay;
+    }
+
+    public Mode play(Mode mode)
     {
 
     }

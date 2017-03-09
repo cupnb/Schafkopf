@@ -90,6 +90,7 @@ public abstract class Player
     public boolean iplay(){
         wannaplay = true;
         return wannaplay;
+        //zum sagen dass ich spielen will
     }
 
     public Mode play(Mode mode)

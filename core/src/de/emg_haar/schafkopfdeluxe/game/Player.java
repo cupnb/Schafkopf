@@ -48,6 +48,8 @@ public abstract class Player
         return player;
     }
 
+    public boolean getWannaplay { return wannaplay; }
+
     public boolean getContra()
     {
         return contra;
@@ -79,17 +81,17 @@ public abstract class Player
 
     public void showPlayableCards(LinkedList<Card> l)
     {
-
+    //spielbare karten werden angezeigt
     }
 
     public void yourTurn()
     {
         turn = true;
+        // du bist dran
     }
 
-    public boolean iplay(){
+    public void iplay(){
         wannaplay = true;
-        return wannaplay;
         //zum sagen dass ich spielen will
     }
 

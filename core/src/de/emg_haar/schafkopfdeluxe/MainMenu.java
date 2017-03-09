@@ -16,8 +16,6 @@ public class MainMenu{
     private Schafkopf schafkopf;
     private Game game;
 
-    private Button button;
-    public Button.ButtonStyle ButtonStyle;
     private TextureAtlas buttonAtlas;
 
     public MainMenu(Schafkopf schafkopf)

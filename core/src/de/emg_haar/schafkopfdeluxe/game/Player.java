@@ -97,6 +97,9 @@ public abstract class Player
 
     public Mode play(Mode mode)
     {
-
+        if (wannaplay == true){
+        Mode x = mode;
+        //checkbox bitteee
+        return x;}
     }
 }

@@ -82,7 +82,12 @@ public class Game {
              players[(auswähler + i)%4].iplay();
          }
         //Abfrage wer SPIELT
-
+        int willspieler = (dealer + 1);
+        Mode[] modefeld = new Mode[4];
+        for (int i = 0; i<4; i++)
+        {
+            modefeld[i] = players[(willspieler + i)%4].play();
+        }
 
 
         //Geber wird um eins erhoeht (ganz am Ende von initialize einbauen)

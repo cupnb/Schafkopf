@@ -75,7 +75,17 @@ public class Game {
             turnState = Turnstate.P0;
         }
 
-        //Geber wird um eins erhoeht
+        //Abfrage wer spielen WILL
+        int auswähler = (dealer + 1);
+         for (int i = 0; i<4; i++)
+         {
+             players[(auswähler + i)%4].iplay();
+         }
+        //Abfrage wer SPIELT
+
+
+
+        //Geber wird um eins erhoeht (ganz am Ende von initialize einbauen)
         if (dealer == 3)
         {
             dealer = 0;
@@ -87,9 +97,6 @@ public class Game {
 
 
         loop();
-        //Hier muss noch die Abfrage wer spielt in Player erstellt werden
-        //
-
 
         }
 

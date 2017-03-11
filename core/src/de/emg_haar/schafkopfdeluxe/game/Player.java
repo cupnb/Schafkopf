@@ -98,22 +98,22 @@ public abstract class Player
         //Ansage, dass Player spielen möchte
     }
 
-    public String Input():
-        while(true){
-    try{
-        System.out.println(">>>");
-        String strTipp = Eingabe.readLine();
-        return strTipp
+    public String Input() {
+        while (true) {
+            try {
+                System.out.println(">>>");
+                String strTipp = Eingabe.readLine();
+                return strTipp;
+            } catch (IOException err) {
+                // do nothing
+            }
+        }
     }
-    catch(IOException err){
-        // do nothing
-    }
-
     //Was will Player spielen, wenn er spielen will
     public Mode play(Mode mode)
     {
         if (wannaplay == true){
         Mode x = mode;
-
+        return x;
     }
 }

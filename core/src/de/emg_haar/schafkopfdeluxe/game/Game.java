@@ -2,7 +2,7 @@ package de.emg_haar.schafkopfdeluxe.game;
 
 import java.util.Random;
 import java.util.Stack;
-
+import java.io.*;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 
 
@@ -12,6 +12,10 @@ public class Game {
     private enum Turnstate{P0, P1, P2, P3}
     private Turnstate turnState;
     private int dealer;
+
+    private InputStreamReader Alpha;
+    private BufferedReader Eingabe;
+
 
 
     private Mode mode;
@@ -23,6 +27,9 @@ public class Game {
     public Game(Player p0, Player p1, Player p2, Player p3) {
         Random rnd = new Random();
         players = new Player[4];
+
+        InputStreamReader Alpha = new InputStreamReader(System.in);
+        BufferedReader Eingabe = new BufferedReader(Alpha);
 
         //Referenz von Game wird den Spielern uebergeben
         p0.setGame(this);
@@ -88,6 +95,16 @@ public class Game {
         {
             modefeld[i] = players[(willspieler + i)%4].play();
         }
+        //vergleicht ob jemand der später spielen will einen höher priorisierten Mode spielen will
+        Mode fürSpiel = null;
+        for (int z = 0; z < 4; z++){
+            if (modefeld[z] != null){
+                if (modefeld[z] > fürSpiel){
+                    fürSpiel = modefeld[z];
+                }
+            }
+        }
+        //Mode fürSpiel ist der endgültige Mode
 
 
         //Geber wird um eins erhoeht (ganz am Ende von initialize einbauen)

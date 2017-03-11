@@ -49,7 +49,7 @@ public abstract class Player
         return player;
     }
 
-    public boolean getWannaplay { return wannaplay; }
+    public boolean getWannaplay() { return wannaplay; }
 
     public boolean getContra()
     {

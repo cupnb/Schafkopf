@@ -97,11 +97,11 @@ public class Game {
         }
 
         //vergleicht ob jemand der später spielen will einen höher priorisierten Mode spielen will
-        Mode fürSpiel = null;
+        mode = null;
         for (int z = 0; z < 4; z++){
             if (modefeld[z] != null){
-                if (modefeld[z] > fürSpiel){
-                    fürSpiel = modefeld[z];
+                if (modefeld[z].getOrdinal() > mode){
+                    mode = modefeld[z];
                 }
             }
         }

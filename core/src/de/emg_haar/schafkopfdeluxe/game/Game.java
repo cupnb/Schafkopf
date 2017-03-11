@@ -100,7 +100,7 @@ public class Game {
         mode = null;
         for (int z = 0; z < 4; z++){
             if (modefeld[z] != null){
-                if (modefeld[z].getOrdinal() > mode){
+                if (modefeld[z].getOrdinal(modefeld[z].toString()) > mode.getOrdinal(mode.toString())){
                     mode = modefeld[z];
                 }
             }

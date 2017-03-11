@@ -33,6 +33,7 @@ public abstract class Player
         turn = false;
     }
 
+    //setter und getter Methoden
     public void setGame(Game g)
     {
         game = g;
@@ -81,25 +82,26 @@ public abstract class Player
 
     public void showPlayableCards(LinkedList<Card> l)
     {
-    //spielbare karten werden angezeigt
+    //spielbare Karten werden angezeigt
     }
 
+    //Die Person ist am Zug
     public void yourTurn()
     {
         turn = true;
-        // du bist dran
     }
 
     public void iplay(){
         wannaplay = true;
-        //zum sagen dass ich spielen will
+        //Ansage, dass Player spielen möchte
     }
 
+    //Was will Player spielen, wenn er spielen will
     public Mode play(Mode mode)
     {
         if (wannaplay == true){
         Mode x = mode;
-        //checkbox bitteee
+        //checkbox bitte
         return x;}
     }
 }

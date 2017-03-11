@@ -95,6 +95,7 @@ public class Game {
         {
             modefeld[i] = players[(willspieler + i)%4].play();
         }
+
         //vergleicht ob jemand der später spielen will einen höher priorisierten Mode spielen will
         Mode fürSpiel = null;
         for (int z = 0; z < 4; z++){

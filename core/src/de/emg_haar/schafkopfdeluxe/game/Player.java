@@ -2,7 +2,7 @@ package de.emg_haar.schafkopfdeluxe.game;
 
 import java.util.LinkedList;
 import java.util.Stack;
-
+import java.io.*;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 
 
@@ -16,6 +16,8 @@ public abstract class Player
     private boolean contra;
     private boolean re;
     private boolean wannaplay;
+    private InputStreamReader Alpha;
+    private BufferedReader Eingabe;
 
     private boolean turn;
 
@@ -96,12 +98,22 @@ public abstract class Player
         //Ansage, dass Player spielen möchte
     }
 
+    public String Input():
+        while(true){
+    try{
+        System.out.println(">>>");
+        String strTipp = Eingabe.readLine();
+        return strTipp
+    }
+    catch(IOException err){
+        // do nothing
+    }
+
     //Was will Player spielen, wenn er spielen will
     public Mode play(Mode mode)
     {
         if (wannaplay == true){
         Mode x = mode;
-        //checkbox bitte
-        return x;}
+
     }
 }

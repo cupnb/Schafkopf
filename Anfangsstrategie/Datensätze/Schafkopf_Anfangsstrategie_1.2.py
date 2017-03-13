@@ -2,6 +2,8 @@ import time
 import random
 import pickle
 
+# hi
+
 def eingabeInInt():
     try:
         i = input(">>> ")

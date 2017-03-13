@@ -12,7 +12,15 @@ public class Mode {
 
     public enum MODE_TYPE
     {
-        SAUSPIELEICHEL, SAUSPIELGRAS, SAUSPIELSCHELLEN, SOLOSCHELLEN, SOLOGRAS, SOLOHERZ, SOLOEICHEL, WENZ
+        SAUSPIELSCHELLEN,
+        SAUSPIELGRAS,
+        SAUSPIELEICHEL,
+        WENZ,
+        SOLOSCHELLEN,
+        SOLOHERZ,
+        SOLOGRAS,
+        SOLOEICHEL,
+        RAMSCH;
     }
     private MODE_TYPE mode_type;
 
@@ -21,6 +29,7 @@ public class Mode {
         mode_type = m;
     }
 
+    //spielbare Karten werden geckeckt und mit einer LinkedList
     public LinkedList<Card> checkPlayable(LinkedList<Card> c)
     {
         if()
@@ -29,5 +38,14 @@ public class Mode {
         }
     }
 
+    public int getOrdinal( String name )
+    {
+        try {
+            return MODE_TYPE.valueOf( name ).ordinal();
+        }
+        catch ( IllegalArgumentException e ) {
+            return -1;
+        }
+    }
 
 }

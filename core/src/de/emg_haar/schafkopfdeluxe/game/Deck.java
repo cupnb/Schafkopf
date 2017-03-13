@@ -25,7 +25,7 @@ public class Deck {
     }
 
     //P***
-
+    //Mischmethode
     public void initialize(Stack<Card> prevDumpedCards) {
         List<Card> shuffleList2 = new ArrayList<>();
         List<Card> shuffleList = new ArrayList<>();

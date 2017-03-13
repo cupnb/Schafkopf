@@ -45,57 +45,63 @@ public class Game {
         initialize();
     }
 
-    public void initialize() {
+    public void initialize()
+    {
         //Karten werden zu je 4 an die Spieler verteilt
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
                 players[j].addCards(deck.deal());
             }
         }
 
         //Der anfangende Spieler wird im turnState festgelegt
 
-        if (dealer == 0) {
+        if (dealer == 0)
+        {
             turnState = Turnstate.P1;
-        } else if (dealer == 1) {
+        }
+        else if (dealer == 1)
+        {
             turnState = Turnstate.P2;
-        } else if (dealer == 2) {
+        }
+        else if (dealer == 2)
+        {
             turnState = Turnstate.P3;
-        } else if (dealer == 3) {
+        }
+        else if (dealer == 3)
+        {
             turnState = Turnstate.P0;
         }
 
         //Geber wird um eins erhoeht
-        if (dealer == 3) {
+        if (dealer == 3)
+        {
             dealer = 0;
-        } else {
+        }
+        else
+        {
             dealer = dealer++;
         }
 
 
-        loop( // anfangender Spieler
-        );
+        loop();
+        //Hier muss noch die Abfrage wer spielt in Player erstellt werden
+        //
 
-        // Ab hier ist alles gespielt.
-        // Bestimme Punkte, Sieger, etc.
-        // Game Over
-    }
 
-    public void loop( // Spieler
-                    )
-    {
-        // for-Schleife (höhö): 4x wiederholen
-            // Zeig Spieler den momentanen Stapel
-            // Frage nach einer Karte, die er auf dem Stapel wirft und wirf sie drauf
-            // Wechsle zum nächsten Spieler
-        // bestimme den Spieler, der den Stich bekommt
-        roundNumber++;
-        if( roundNumber != 7) {
-            loop( // Siegender des Stichs
-            );
         }
-    }
 
+    public void loop()
+    {
+        for (boolean i = true; )
+        {
+            players[turnState.ordinal()].yourTurn();
+
+        }
+
+    }
 
     public void nextPlayer()
     {

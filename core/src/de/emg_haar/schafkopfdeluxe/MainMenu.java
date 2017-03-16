@@ -28,6 +28,7 @@ public class MainMenu{
 
         Button.ButtonStyle btnStyle = new Button.ButtonStyle(drawableUp, drawableDown, drawableChecked);
         button = new Button(btnStyle);
+        
 
         button.addListener(new ChangeListener() {
             @Override

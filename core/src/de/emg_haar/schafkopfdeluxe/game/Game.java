@@ -16,8 +16,6 @@ public class Game {
     private Turnstate turnState;
     private int dealer;
 
-    private InputStreamReader Alpha;
-    private BufferedReader Eingabe;
 
 
 

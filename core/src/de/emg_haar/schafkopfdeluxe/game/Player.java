@@ -16,8 +16,7 @@ public abstract class Player
     private boolean contra;
     private boolean re;
     private boolean wannaplay;
-    private InputStreamReader Alpha;
-    private BufferedReader Eingabe;
+    private boolean online;
 
     private boolean turn;
 
@@ -31,7 +30,7 @@ public abstract class Player
         contra = false;
         re = false;
         hand = new LinkedList<>();
-
+        online = false;
         turn = false;
     }
 
@@ -98,17 +97,7 @@ public abstract class Player
         //Ansage, dass Player spielen möchte
     }
 
-    public String Input() {
-        while (true) {
-            try {
-                System.out.println(">>>");
-                String strTipp = Eingabe.readLine();
-                return strTipp;
-            } catch (IOException err) {
-                // do nothing
-            }
-        }
-    }
+
     //Was will Player spielen, wenn er spielen will
     public Mode.MODE_TYPE play(Mode.MODE_TYPE mode)
     {
@@ -117,4 +106,11 @@ public abstract class Player
             return x;
         }
     }
+
+    public void onlineSpiel()
+    {
+        online = true;
+    }
+    // sagt an ob er ein Bot-Game oder ein Online-Game spielen will
+    //Problem : muss irgendwie in MainMenu vom Player gewählt werden
 }

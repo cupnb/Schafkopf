@@ -51,5 +51,4 @@ public class MainMenu{
         buttonAtlas.dispose();
     }
 
-
 }

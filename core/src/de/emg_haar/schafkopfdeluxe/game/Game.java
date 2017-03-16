@@ -5,6 +5,9 @@ import java.util.Stack;
 import java.io.*;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 
+import static de.emg_haar.schafkopfdeluxe.game.Mode.MODE_TYPE.RAMSCH;
+import static de.emg_haar.schafkopfdeluxe.game.Mode.MODE_TYPE.SAUSPIELEICHEL;
+
 
 public class Game {
 
@@ -84,28 +87,61 @@ public class Game {
 
         //Abfrage wer spielen WILL
         int auswähler = (dealer + 1);
+        int anzahlSpielenWollen = 0;
+        boolean[] willSpieler = new boolean[4];
          for (int i = 0; i<4; i++)
          {
-             players[(auswähler + i)%4].iplay();
+             if(players[(auswähler + i)%4].getWannaplay() == true);
+             {
+                 willSpieler[i] = true;
+                 anzahlSpielenWollen = anzahlSpielenWollen + 1;
+             }
+             else
+             {
+                 willSpieler[i] = false;
+             }
          }
         //Abfrage wer SPIELT
         int willspieler = (dealer + 1);
         Mode[] modefeld = new Mode[4];
-        for (int i = 0; i<4; i++)
+        if(anzahlSpielenWollen  == 0)
         {
-            modefeld[i] = players[(willspieler + i)%4].play();
+            mode.setModeType(RAMSCH);
         }
-
-        //vergleicht ob jemand der später spielen will einen höher priorisierten Mode spielen will
-        mode = null;
-        for (int z = 0; z < 4; z++){
-            if (modefeld[z] != null){
-                if (modefeld[z].getOrdinal(modefeld[z].toString()) > mode.getOrdinal(mode.toString())){
-                    mode = modefeld[z];
+        if(anzahlSpielenWollen == 1)
+        {
+            Player EinzigerWillSpieler = null;
+            for (int p = 0; p < 4; p++)
+            {
+                if (willSpieler[p] == true)
+                {
+                    mode.setModeType(players[p].play(SAUSPIELEICHEL));
+                    //SauspielEichel nur ein Beispiel --> Eingabefeld einfügen
                 }
             }
         }
-        //Mode fürSpiel ist der endgültige Mode
+        if(anzahlSpielenWollen > 1)
+        {
+            for (int i = 0; i < 4; i++) {
+                modefeld[i].setModeType(players[(willspieler + i) % 4].play(SAUSPIELEICHEL));
+            }
+
+            //vergleicht ob jemand der später spielen will einen höher priorisierten Mode spielen will
+            for (int z = 0; z < 4; z++) {
+                if (modefeld[z] != null) {
+                    if (mode == null)
+                    {
+                        mode.setModeType(modefeld[z].getModeType());
+                    }
+                    if (modefeld[z].getOrdinal(modefeld[z].toString()) > mode.getOrdinal(mode.toString())) {
+                        mode.setModeType(modefeld[z].getModeType());
+                        //Mode fürSpiel ist der endgültige Mode
+                    }
+
+                }
+            }
+        }
+
 
 
         //Geber wird um eins erhoeht (ganz am Ende von initialize einbauen)

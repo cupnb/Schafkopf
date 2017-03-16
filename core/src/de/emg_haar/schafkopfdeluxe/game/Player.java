@@ -110,10 +110,11 @@ public abstract class Player
         }
     }
     //Was will Player spielen, wenn er spielen will
-    public Mode play(Mode mode)
+    public Mode.MODE_TYPE play(Mode.MODE_TYPE mode)
     {
-        if (wannaplay == true){
-        Mode x = mode;
-        return x;
+        if (wannaplay == true) {
+            Mode.MODE_TYPE x = mode;
+            return x;
+        }
     }
 }

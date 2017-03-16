@@ -17,16 +17,28 @@ public class Mode {
         SAUSPIELEICHEL,
         WENZ,
         SOLOSCHELLEN,
-        SOLOHERZ,
         SOLOGRAS,
         SOLOEICHEL,
-        RAMSCH;
+        SOLOHERZ,
+        RAMSCH
     }
     private MODE_TYPE mode_type;
 
     public Mode(MODE_TYPE m)
     {
         mode_type = m;
+    }
+
+    //getter Methode
+    public MODE_TYPE getModeType()
+    {
+        return mode_type;
+    }
+
+    //setter Methode
+    public void setModeType(MODE_TYPE m)
+    {
+        m = mode_type;
     }
 
     //spielbare Karten werden geckeckt und mit einer LinkedList

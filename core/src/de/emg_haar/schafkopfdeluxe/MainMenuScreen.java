@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 /**
- * Created by root on 09.03.17.
+ * Created by Sebi on 09.03.17.
  */
 
 public class MainMenuScreen extends ScreenAdapter {

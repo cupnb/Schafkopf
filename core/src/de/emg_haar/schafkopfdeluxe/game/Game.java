@@ -15,7 +15,7 @@ public class Game {
     private enum Turnstate{P0, P1, P2, P3}
     private Turnstate turnState;
     private int dealer;
-
+    private Stack<Card> played;
 
 
 
@@ -46,11 +46,20 @@ public class Game {
 
         deck = new Deck();
         dump = new Stack<Card>();
+        played = new Stack<Card>();
 
         //Der Geber wird zufaellig bestimmt
         dealer = rnd.nextInt(4);
         roundNumber = 0;
         initialize();
+    }
+    public int getStapel(){
+        if (played.empty() == true){
+            return -1;
+        }
+        else{
+            return 0;
+        }
     }
 
     public void initialize()

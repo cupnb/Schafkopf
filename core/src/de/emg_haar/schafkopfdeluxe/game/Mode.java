@@ -3,6 +3,7 @@ package de.emg_haar.schafkopfdeluxe.game;
 import java.util.LinkedList;
 
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
+import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
 
 /**
  * Created by noah on 30.01.17.
@@ -44,9 +45,56 @@ public class Mode {
     //spielbare Karten werden geckeckt und mit einer LinkedList
     public LinkedList<Card> checkPlayable(LinkedList<Card> c)
     {
-        if()
-        {
+        if (game.getStapel() == 0){
+            if(/*Farbe == liegendeFarbe*/){
+                if(/* Farbe == Ruffarbe*/){
+                    if(/*irgendeine karte == rufass*/){
+                        if (/*Karte == rufass*/) {
+                            //spielbar
+                        }
+                        else{
+                            //nicht spielbar
+                        }
+                    }
+                    else{
+                        //spielbar
+                    }
+                }
+                else{
+                    //spielbar
+                }
+            }
+            else{
+                if(/*liegende Farbe vorhanden*/){
+                    //nicht spielbar
+                }
+                else{
+                    //spielbar
+                }
+            }
+        }
+        else{
+            if (mode_type == MODE_TYPE.SAUSPIELEICHEL){
+                if (Card.getColor() == CardColor.EICHEL){
+                    if(/*eine der karten ist rufass*/){
+                        if(/*Card == Rufass*/){
+                            //spielbar
+                        }
+                        else{
+                            if(/* Anzahl Ruffarbbe >=4*/){
+                                //spielbar
+                            }
+                            else{
+                                //nicht spielbar
+                            }
+                        }
+                    }
+                    else{
+                        //spielbar
+                    }
+                }
 
+            }
         }
     }
 

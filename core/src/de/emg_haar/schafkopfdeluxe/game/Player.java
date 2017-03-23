@@ -2,7 +2,6 @@ package de.emg_haar.schafkopfdeluxe.game;
 
 import java.util.LinkedList;
 import java.util.Stack;
-import java.io.*;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 
 
@@ -83,7 +82,7 @@ public abstract class Player
 
     public void showPlayableCards(LinkedList<Card> l)
     {
-    //spielbare Karten werden angezeigt
+
     }
 
     //Die Person ist am Zug

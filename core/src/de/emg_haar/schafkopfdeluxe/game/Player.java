@@ -1,8 +1,9 @@
 package de.emg_haar.schafkopfdeluxe.game;
 
 import java.util.LinkedList;
+import java.util.Scanner;
 import java.util.Stack;
-
+import java.io.*;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 
 
@@ -15,12 +16,16 @@ public abstract class Player
     private boolean player;
     private boolean contra;
     private boolean re;
+    private boolean wannaplay;
+    private InputStreamReader Alpha;
+    private BufferedReader Eingabe;
 
     private boolean turn;
 
     public Player(String name)
     {
         this.name = name;
+        wannaplay = false;
         game = null;
         points = 0;
         player = false;
@@ -29,11 +34,9 @@ public abstract class Player
         hand = new LinkedList<>();
 
         turn = false;
-        //Was muss in Linked List rein?
-        //Karten vielleicht? :D
-
     }
 
+    //setter und getter Methoden
     public void setGame(Game g)
     {
         game = g;
@@ -48,6 +51,8 @@ public abstract class Player
     {
         return player;
     }
+
+    public boolean getWannaplay() { return wannaplay; }
 
     public boolean getContra()
     {
@@ -80,17 +85,26 @@ public abstract class Player
 
     public void showPlayableCards(LinkedList<Card> l)
     {
-
+    //spielbare Karten werden angezeigt
     }
 
+    //Die Person ist am Zug
     public void yourTurn()
     {
         turn = true;
     }
 
-    //Methode zum Ansagen, wer spielen will
-    public void play(Mode mode)
+    public void iplay(){
+        wannaplay = true;
+        //Ansage, dass Player spielen möchte
+    }
+    //Was will Player spielen, wenn er spielen will
+    public Mode play(Mode mode)
     {
+        if (wannaplay) {
+            Mode x = new Mode(Mode.MODE_TYPE.SAUSPIELGRAS);
+            return x;
+        }
 
     }
 }

@@ -26,8 +26,6 @@ public abstract class Player
         game = null;
         points = 0;
         player = false;
-        contra = false;
-        re = false;
         hand = new LinkedList<>();
         online = false;
         turn = false;
@@ -111,5 +109,5 @@ public abstract class Player
         online = true;
     }
     // sagt an ob er ein Bot-Game oder ein Online-Game spielen will
-    //Problem : muss irgendwie in MainMenu vom Player gewählt werden
+    //Problem: muss irgendwie in MainMenu vom Player gewählt werden
 }

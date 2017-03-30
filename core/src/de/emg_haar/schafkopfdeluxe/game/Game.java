@@ -2,6 +2,7 @@ package de.emg_haar.schafkopfdeluxe.game;
 
 import java.util.Random;
 import java.util.Stack;
+import java.util.Scanner;
 import java.io.*;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 
@@ -98,8 +99,9 @@ public class Game {
         boolean[] willSpieler = new boolean[4];
          for (int i = 0; i<4; i++)
          {
-             if(players[(auswähler + i)%4].getWannaplay() == true);
+             if(players[(auswähler + i)%4].getWannaplay() == true)
              {
+
                  willSpieler[i] = true;
                  anzahlSpielenWollen = anzahlSpielenWollen + 1;
              }
@@ -117,7 +119,7 @@ public class Game {
         }
         if(anzahlSpielenWollen == 1)
         {
-            Player EinzigerWillSpieler = null;
+            //Player EinzigerWillSpieler = null;
             for (int p = 0; p < 4; p++)
             {
                 if (willSpieler[p] == true)
@@ -130,6 +132,11 @@ public class Game {
         if(anzahlSpielenWollen > 1)
         {
             for (int i = 0; i < 4; i++) {
+                Scanner scanner = new Scanner(System.in);
+                while(scanner.hasNext()) {
+
+                }
+
                 modefeld[i].setModeType(players[(willspieler + i) % 4].play(SAUSPIELEICHEL));
             }
 
@@ -162,8 +169,10 @@ public class Game {
         }
 
 
-        loop();
-
+        for (int i =0; i<8; i++)
+        {
+            loop();
+        }
         }
 
     public void loop()
@@ -173,7 +182,6 @@ public class Game {
         }
         {
             players[turnState.ordinal()].yourTurn();
-
         }
 
     }

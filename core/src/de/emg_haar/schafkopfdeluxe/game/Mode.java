@@ -1,6 +1,7 @@
 package de.emg_haar.schafkopfdeluxe.game;
 
 import java.util.LinkedList;
+import java.util.Stack;
 
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
@@ -43,59 +44,10 @@ public class Mode {
     }
 
     //spielbare Karten werden geckeckt und mit einer LinkedList
-    public LinkedList<Card> checkPlayable(LinkedList<Card> c)
+    public LinkedList<Card> checkPlayable(LinkedList<Card> hand, Stack<Card> cardsliegen)
     {
-        if (game.getStapel() == 0){
-            if(/*Farbe == liegendeFarbe*/){
-                if(/* Farbe == Ruffarbe*/){
-                    if(/*irgendeine karte == rufass*/){
-                        if (/*Karte == rufass*/) {
-                            //spielbar
-                        }
-                        else{
-                            //nicht spielbar
-                        }
-                    }
-                    else{
-                        //spielbar
-                    }
-                }
-                else{
-                    //spielbar
-                }
-            }
-            else{
-                if(/*liegende Farbe vorhanden*/){
-                    //nicht spielbar
-                }
-                else{
-                    //spielbar
-                }
-            }
-        }
-        else{
-            if (mode_type == MODE_TYPE.SAUSPIELEICHEL){
-                if (Card.getColor() == CardColor.EICHEL){
-                    if(/*eine der karten ist rufass*/){
-                        if(/*Card == Rufass*/){
-                            //spielbar
-                        }
-                        else{
-                            if(/* Anzahl Ruffarbbe >=4*/){
-                                //spielbar
-                            }
-                            else{
-                                //nicht spielbar
-                            }
-                        }
-                    }
-                    else{
-                        //spielbar
-                    }
-                }
-
-            }
-        }
+        return hand;
+        //einfach nur, damit kein Error kommt
     }
 
     public int getOrdinal( String name )

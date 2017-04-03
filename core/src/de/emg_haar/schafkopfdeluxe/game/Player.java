@@ -16,6 +16,10 @@ public abstract class Player
     private boolean re;
     private boolean wannaplay;
     private boolean online;
+    private Player mitspieler;
+    private Stack<Card> stiche;
+    private int punkte;
+    private int stichanzahl;
 
     private boolean turn;
 
@@ -29,6 +33,10 @@ public abstract class Player
         hand = new LinkedList<>();
         online = false;
         turn = false;
+        mitspieler = null;
+        stiche = new LinkedList<Card>;
+        punkte = 0;
+        stichanzahl = 0;
     }
 
     //setter und getter Methoden
@@ -54,9 +62,32 @@ public abstract class Player
         return contra;
     }
 
+    public int stichpunkt(){
+        stichanzahl = stichanzahl + 1;
+    }
+
+    public int getPunkte(){
+        for (int y = stichanzahl; y > 0; y--){
+            int points = points + stiche.pop().getPoints();
+        }
+        return points;
+    }
+
     public boolean getRe()
     {
         return re;
+    }
+
+    public void addStich(Stack<Card> s){
+        for int (int l = 0; l < 5; l++){
+            stiche.push(s.pop());
+        }
+    }
+
+    public Player setMitspieler(Player p){
+        mitspieler = p;
+        return mitspieler;
+        //zum festlegen der teams
     }
 
     //Die Karten aus dem Stack werden auf die Hand gebracht
@@ -102,6 +133,12 @@ public abstract class Player
             Mode.MODE_TYPE x = mode;
             return x;
         }
+    }
+
+    public Card kartelegen(){
+        //spieler wählt karte aus
+        //karte wird zu dump und played hinzugefügt
+        return null;
     }
 
     public void onlineSpiel()

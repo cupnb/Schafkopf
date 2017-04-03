@@ -63,6 +63,11 @@ public class Game {
         }
     }
 
+    public void addgespielteKarte(Card f){
+        dump.add(f);
+        played.add(f);
+    }
+
     public void initialize()
     {
         //Karten werden zu je 4 an die Spieler verteilt
@@ -177,13 +182,41 @@ public class Game {
 
     public void loop()
     {
-        for (int x = 0; x < 4; x++){
-
+        for (int w = 0;w < 8; w++) {
+            Player best = null;
+            Card highest = null;
+            for (int x = 0; x < 4; x++) {
+                players[turnState.ordinal()].yourTurn();
+                Card Spielkarte = players[dealer + 1 + w].kartelegen();
+                if (best == null) {
+                    best = players[dealer + 1 + w];
+                    highest = Spielkarte;
+                } else {
+                    if (Spielkarte > highest) {
+                        highest = Spielkarte;
+                        best = players[dealer + 1 + w];
+                    }
+                }
+            }
+            best.addStich(played);
+            best.stichpunkt();
         }
-        {
-            players[turnState.ordinal()].yourTurn();
+        int punkte1 = 0;
+        int punkte2 = 0;
+        for (int b = 0; b < 4;b++){
+            if (players[b].getPlayer() == true){
+                punkte1 = punkte1 + players[b].getPunkte();
+            }
+            else{
+                punkte2 = punkte2 + players[b].getPunkte();
+            }
         }
-
+        if (punkte1 < punkte2){
+            System.out.println("Team 2 gewinnt!");
+        }
+        else{
+            System.out.println("Team 1 gewinnt!");
+        }
     }
 
     public void nextPlayer()
@@ -207,12 +240,12 @@ public class Game {
 
     private void showPlayableCards(Player p)
     {
-        p.showPlayableCards(mode.checkPlayable(p.getHand()));
+        p.showPlayableCards(mode.checkPlayable(p.getHand()), dump);
     }
 
 
 
-    }
+}
 
 
 

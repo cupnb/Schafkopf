@@ -2,14 +2,14 @@ package de.emg_haar.schafkopfdeluxe;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+
 
 /**
  * Created by Sebi on 09.03.17.
@@ -24,15 +24,15 @@ public class MainMenuScreen extends ScreenAdapter {
     public MainMenuScreen(Schafkopf game) {
         this.game = game;
 
-        guiCam = new OrthographicCamera(320, 480);
-        guiCam.position.set(320 / 2, 480 / 2, 0);
-        stage = new Stage(new ScreenViewport(guiCam));
+        guiCam = new OrthographicCamera();
+        guiCam.setToOrtho(false, 1280, 720);
+        stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         stage.addActor(new MainMenuActor());
+
     }
     @Override
     public void render(float delta) {
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
     }
@@ -48,18 +48,23 @@ public class MainMenuScreen extends ScreenAdapter {
     }
 
     private class MainMenuActor extends Actor {
-        TextureRegion region;
+        private Texture texture = new Texture("spuin.png");
+        private float x = 720, y = 369;
 
-        public MainMenuActor () {
-            region = new TextureRegion();
-        }
+        public MainMenuActor()
+        {
 
-        @Override
-        public void draw (Batch batch, float parentAlpha) {
-            Color color = getColor();
-            batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
-            batch.draw(region, getX(), getY(), getOriginX(), getOriginY(),
-                    getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+            setTouchable(Touchable.enabled);
+            setBounds(x, y, texture.getWidth(), texture.getHeight());
+            addListener(new InputListener(){
+                public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                    System.out.println("Tastendruck");
+                    return true;
+                }
+
+            });
+
         }
     }
 }
+

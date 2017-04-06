@@ -1,0 +1,62 @@
+
+cards.png
+size: 1024,2048
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Blatt_10res
+  rotate: false
+  xy: 2, 1030
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1
+Blatt_7res
+  rotate: false
+  xy: 2, 516
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1
+Blatt_8res
+  rotate: false
+  xy: 260, 1030
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1
+Blatt_9res
+  rotate: false
+  xy: 2, 2
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1
+Blatt_Ares
+  rotate: false
+  xy: 260, 516
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1
+Blatt_Kres
+  rotate: false
+  xy: 518, 1030
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1
+Blatt_Ores
+  rotate: false
+  xy: 260, 2
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1
+Blatt_Ures
+  rotate: false
+  xy: 518, 516
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1

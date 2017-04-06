@@ -13,7 +13,7 @@ public class Schafkopf extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		cardAtlas = new TextureAtlas("cards.pack");
+		cardAtlas = new TextureAtlas("cards.atlas");
 		setScreen(new MainMenuScreen(this));
 	}
 

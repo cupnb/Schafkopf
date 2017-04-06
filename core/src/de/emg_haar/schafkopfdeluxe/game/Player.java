@@ -5,7 +5,7 @@ import java.util.Stack;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 
 
-public abstract class Player
+public class Player
 {
     private LinkedList<Card> hand;
     private String name;
@@ -57,25 +57,15 @@ public abstract class Player
 
     public boolean getWannaplay() { return wannaplay; }
 
-    public boolean getContra()
-    {
-        return contra;
-    }
-
     public int stichpunkt(){
         stichanzahl = stichanzahl + 1;
     }
 
     public int getPunkte(){
-        for (int y = stichanzahl; y > 0; y--){
+        for (int y = stichanzahl * 4; y > 0; y--){
             int points = points + stiche.pop().getPoints();
         }
         return points;
-    }
-
-    public boolean getRe()
-    {
-        return re;
     }
 
     public void addStich(Stack<Card> s){
@@ -132,6 +122,10 @@ public abstract class Player
         if (wannaplay == true) {
             Mode.MODE_TYPE x = mode;
             return x;
+        }
+        else
+        {
+            return null;
         }
     }
 

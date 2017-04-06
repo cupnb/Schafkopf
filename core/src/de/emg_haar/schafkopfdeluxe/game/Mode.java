@@ -11,7 +11,7 @@ import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
  */
 
 public class Mode {
-
+    
     public enum MODE_TYPE
     {
         SAUSPIELSCHELLEN,

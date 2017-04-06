@@ -186,15 +186,15 @@ public class Game {
             Player best = null;
             Card highest = null;
             for (int x = 0; x < 4; x++) {
-                players[turnState.ordinal()].yourTurn();
-                Card Spielkarte = players[dealer + 1 + w].kartelegen();
+                //players[turnState.ordinal()].yourTurn();
+                Card Spielkarte = players[(dealer + 1 + x) % 4].kartelegen();
                 if (best == null) {
-                    best = players[dealer + 1 + w];
+                    best = players[(dealer + 1 + x) % 4];
                     highest = Spielkarte;
                 } else {
                     if (Spielkarte > highest) {
                         highest = Spielkarte;
-                        best = players[dealer + 1 + w];
+                        best = players[(dealer + 1 + x) % 4];
                     }
                 }
             }

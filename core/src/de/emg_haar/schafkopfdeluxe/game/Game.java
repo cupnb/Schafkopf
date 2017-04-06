@@ -240,7 +240,7 @@ public class Game {
 
     private void showPlayableCards(Player p)
     {
-        p.showPlayableCards(mode.checkPlayable(p.getHand()), dump);
+        p.showPlayableCards(mode.checkPlayable(p.getHand(), played));
     }
 
 

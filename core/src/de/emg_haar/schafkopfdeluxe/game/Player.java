@@ -34,7 +34,7 @@ public class Player
         online = false;
         turn = false;
         mitspieler = null;
-        stiche = new LinkedList<Card>;
+        stiche = new Stack<Card>();
         punkte = 0;
         stichanzahl = 0;
     }
@@ -69,7 +69,7 @@ public class Player
     }
 
     public void addStich(Stack<Card> s){
-        for int (int l = 0; l < 5; l++){
+        for (int l = 0; l < 5; l++){
             stiche.push(s.pop());
         }
     }

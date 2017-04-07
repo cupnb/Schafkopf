@@ -24,6 +24,7 @@ public class MainMenuScreen extends ScreenAdapter {
     public MainMenuScreen(Schafkopf game) {
         this.game = game;
 
+
         guiCam = new OrthographicCamera();
         guiCam.setToOrtho(false, 1280, 720);
         stage = new Stage();
@@ -63,7 +64,9 @@ public class MainMenuScreen extends ScreenAdapter {
                 }
 
             });
-
+        }
+        public void draw(SpriteBatch batch, float alpha){
+            batch.draw(texture, x, y);
         }
     }
 }

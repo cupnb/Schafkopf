@@ -1,42 +1,59 @@
 package de.emg_haar.schafkopfdeluxe;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
+
 
 
 /**
  * Created by Sebi on 09.03.17.
  */
 
-public class MainMenuScreen extends ScreenAdapter {
+public class MainMenuScreen implements Screen {
 
-    private OrthographicCamera guiCam;
+    private OrthographicCamera camera;
     private Schafkopf game;
-    private Stage stage;
 
-    public MainMenuScreen(Schafkopf game) {
-        this.game = game;
+    public MainMenuScreen(Schafkopf gam) {
+        game = gam;
 
 
-        guiCam = new OrthographicCamera();
-        guiCam.setToOrtho(false, 1280, 720);
-        stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
-        stage.addActor(new MainMenuActor());
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, 720, 1280);
+
 
     }
+
     @Override
-    public void render(float delta) {
-        stage.act(delta);
-        stage.draw();
+    public void show()
+        {
+
+        }
+
+    @Override
+    public void render(float delta)
+        {
+            if (Gdx.input.isTouched())
+                {
+                    game.setScreen(new GameScreen(game));
+                }
+
+            Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            game.batch.begin();
+            game.font.draw(game.batch, "Bitte Bildschirm beruehren!", 20, 640);
+            game.batch.end();
+
+
     }
+
+    @Override
+    public void resize(int width, int height)
+        {
+
+        }
 
     @Override
     public void pause() {
@@ -44,30 +61,23 @@ public class MainMenuScreen extends ScreenAdapter {
     }
 
     @Override
-    public void dispose() {
-        stage.dispose();
-    }
-
-    private class MainMenuActor extends Actor {
-        private Texture texture = new Texture("spuin.png");
-        private float x = 720, y = 369;
-
-        public MainMenuActor()
+    public void resume()
         {
 
-            setTouchable(Touchable.enabled);
-            setBounds(x, y, texture.getWidth(), texture.getHeight());
-            addListener(new InputListener(){
-                public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                    System.out.println("Tastendruck");
-                    return true;
-                }
+        }
 
-            });
+    @Override
+    public void hide()
+        {
+
         }
-        public void draw(SpriteBatch batch, float alpha){
-            batch.draw(texture, x, y);
+
+    @Override
+    public void dispose()
+        {
+
         }
-    }
+
+
 }
 

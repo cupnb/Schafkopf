@@ -6,8 +6,6 @@ import java.util.Scanner;
 import java.io.*;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 
-import static de.emg_haar.schafkopfdeluxe.game.Mode.MODE_TYPE.RAMSCH;
-import static de.emg_haar.schafkopfdeluxe.game.Mode.MODE_TYPE.SAUSPIELEICHEL;
 
 
 public class Game {
@@ -120,7 +118,7 @@ public class Game {
         Mode[] modefeld = new Mode[4];
         if(anzahlSpielenWollen  == 0)
         {
-            mode.setModeType(RAMSCH);
+            mode.setModeType(Mode.MODE_TYPE.RAMSCH);
         }
         if(anzahlSpielenWollen == 1)
         {
@@ -129,7 +127,7 @@ public class Game {
             {
                 if (willSpieler[p] == true)
                 {
-                    mode.setModeType(players[p].play(SAUSPIELEICHEL));
+                    mode.setModeType(players[p].play("SAUSPIELEICHEL"));
                     //SauspielEichel nur ein Beispiel --> Eingabefeld einfügen
                 }
             }
@@ -142,7 +140,7 @@ public class Game {
 
                 }
 
-                modefeld[i].setModeType(players[(willspieler + i) % 4].play(SAUSPIELEICHEL));
+                modefeld[i].setModeType(players[(willspieler + i) % 4].play("SAUSPIELEICHEL"));
             }
 
             //vergleicht ob jemand der später spielen will einen höher priorisierten Mode spielen will
@@ -192,7 +190,7 @@ public class Game {
                     best = players[(dealer + 1 + x) % 4];
                     highest = Spielkarte;
                 } else {
-                    if (Spielkarte > highest) {
+                    if (Spielkarte.getPoints() > highest.getPoints()) {
                         highest = Spielkarte;
                         best = players[(dealer + 1 + x) % 4];
                     }

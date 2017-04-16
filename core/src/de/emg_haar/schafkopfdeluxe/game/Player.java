@@ -2,11 +2,11 @@ package de.emg_haar.schafkopfdeluxe.game;
 
 import java.util.LinkedList;
 import java.util.Stack;
-import java.io.*;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 
 
-public abstract class Player
+
+public class Player
 {
     private LinkedList<Card> hand;
     private String name;
@@ -16,8 +16,11 @@ public abstract class Player
     private boolean contra;
     private boolean re;
     private boolean wannaplay;
-    private InputStreamReader Alpha;
-    private BufferedReader Eingabe;
+    private boolean online;
+    private Player mitspieler;
+    private Stack<Card> stiche;
+    private int punkte;
+    private int stichanzahl;
 
     private boolean turn;
 
@@ -28,11 +31,13 @@ public abstract class Player
         game = null;
         points = 0;
         player = false;
-        contra = false;
-        re = false;
         hand = new LinkedList<>();
-
+        online = false;
         turn = false;
+        mitspieler = null;
+        stiche = new Stack<Card>();
+        punkte = 0;
+        stichanzahl = 0;
     }
 
     //setter und getter Methoden
@@ -53,14 +58,28 @@ public abstract class Player
 
     public boolean getWannaplay() { return wannaplay; }
 
-    public boolean getContra()
-    {
-        return contra;
+    public int stichpunkt(){
+        stichanzahl = stichanzahl + 1;
+        return stichanzahl;
     }
 
-    public boolean getRe()
-    {
-        return re;
+    public int getPunkte(){
+        for (int y = stichanzahl * 4; y > 0; y--){
+            points = points + stiche.pop().getPoints();
+        }
+        return points;
+    }
+
+    public void addStich(Stack<Card> s){
+        for (int l = 0; l < 5; l++){
+            stiche.push(s.pop());
+        }
+    }
+
+    public Player setMitspieler(Player p){
+        mitspieler = p;
+        return mitspieler;
+        //zum festlegen der teams
     }
 
     //Die Karten aus dem Stack werden auf die Hand gebracht
@@ -84,7 +103,7 @@ public abstract class Player
 
     public void showPlayableCards(LinkedList<Card> l)
     {
-    //spielbare Karten werden angezeigt
+
     }
 
     //Die Person ist am Zug
@@ -98,22 +117,30 @@ public abstract class Player
         //Ansage, dass Player spielen möchte
     }
 
-    public String Input() {
-        while (true) {
-            try {
-                System.out.println(">>>");
-                String strTipp = Eingabe.readLine();
-                return strTipp;
-            } catch (IOException err) {
-                // do nothing
-            }
+
+    //Was will Player spielen, wenn er spielen will
+    public Mode.MODE_TYPE play(String mode)
+    {
+        if (wannaplay == true) {
+            Mode.MODE_TYPE x = Mode.MODE_TYPE.vergleiche(mode);
+            return x;
+        }
+        else
+        {
+            return null;
         }
     }
-    //Was will Player spielen, wenn er spielen will
-    public Mode play(Mode mode)
-    {
-        if (wannaplay == true){
-        Mode x = mode;
-        return x;
+
+    public Card kartelegen(){
+        //spieler wählt karte aus
+        //karte wird zu dump und played hinzugefügt
+        return null;
     }
+
+    public void onlineSpiel()
+    {
+        online = true;
+    }
+    // sagt an ob er ein Bot-Game oder ein Online-Game spielen will
+    //Problem: muss irgendwie in MainMenu vom Player gewählt werden
 }

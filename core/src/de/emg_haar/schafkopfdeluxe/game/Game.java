@@ -2,8 +2,10 @@ package de.emg_haar.schafkopfdeluxe.game;
 
 import java.util.Random;
 import java.util.Stack;
-
+import java.util.Scanner;
+import java.io.*;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
+
 
 
 public class Game {
@@ -12,6 +14,8 @@ public class Game {
     private enum Turnstate{P0, P1, P2, P3}
     private Turnstate turnState;
     private int dealer;
+    private Stack<Card> played;
+
 
 
     private Mode mode;
@@ -23,6 +27,9 @@ public class Game {
     public Game(Player p0, Player p1, Player p2, Player p3) {
         Random rnd = new Random();
         players = new Player[4];
+
+        InputStreamReader Alpha = new InputStreamReader(System.in);
+        BufferedReader Eingabe = new BufferedReader(Alpha);
 
         //Referenz von Game wird den Spielern uebergeben
         p0.setGame(this);
@@ -38,11 +45,25 @@ public class Game {
 
         deck = new Deck();
         dump = new Stack<Card>();
+        played = new Stack<Card>();
 
         //Der Geber wird zufaellig bestimmt
         dealer = rnd.nextInt(4);
         roundNumber = 0;
         initialize();
+    }
+    public int getStapel(){
+        if (played.empty() == true){
+            return -1;
+        }
+        else{
+            return 0;
+        }
+    }
+
+    public void addgespielteKarte(Card f){
+        dump.add(f);
+        played.add(f);
     }
 
     public void initialize()
@@ -75,7 +96,72 @@ public class Game {
             turnState = Turnstate.P0;
         }
 
-        //Geber wird um eins erhoeht
+        //Abfrage wer spielen WILL
+        int auswähler = (dealer + 1);
+        int anzahlSpielenWollen = 0;
+        boolean[] willSpieler = new boolean[4];
+         for (int i = 0; i<4; i++)
+         {
+             if(players[(auswähler + i)%4].getWannaplay() == true)
+             {
+
+                 willSpieler[i] = true;
+                 anzahlSpielenWollen = anzahlSpielenWollen + 1;
+             }
+             else
+             {
+                 willSpieler[i] = false;
+             }
+         }
+        //Abfrage wer SPIELT
+        int willspieler = (dealer + 1);
+        Mode[] modefeld = new Mode[4];
+        if(anzahlSpielenWollen  == 0)
+        {
+            mode.setModeType(Mode.MODE_TYPE.RAMSCH);
+        }
+        if(anzahlSpielenWollen == 1)
+        {
+            //Player EinzigerWillSpieler = null;
+            for (int p = 0; p < 4; p++)
+            {
+                if (willSpieler[p] == true)
+                {
+                    mode.setModeType(players[p].play("SAUSPIELEICHEL"));
+                    //SauspielEichel nur ein Beispiel --> Eingabefeld einfügen
+                }
+            }
+        }
+        if(anzahlSpielenWollen > 1)
+        {
+            for (int i = 0; i < 4; i++) {
+                Scanner scanner = new Scanner(System.in);
+                while(scanner.hasNext()) {
+
+                }
+
+                modefeld[i].setModeType(players[(willspieler + i) % 4].play("SAUSPIELEICHEL"));
+            }
+
+            //vergleicht ob jemand der später spielen will einen höher priorisierten Mode spielen will
+            for (int z = 0; z < 4; z++) {
+                if (modefeld[z] != null) {
+                    if (mode == null)
+                    {
+                        mode.setModeType(modefeld[z].getModeType());
+                    }
+                    if (modefeld[z].getOrdinal(modefeld[z].toString()) > mode.getOrdinal(mode.toString())) {
+                        mode.setModeType(modefeld[z].getModeType());
+                        //Mode fürSpiel ist der endgültige Mode
+                    }
+
+                }
+            }
+        }
+
+
+
+        //Geber wird um eins erhoeht (ganz am Ende von initialize einbauen)
         if (dealer == 3)
         {
             dealer = 0;
@@ -86,21 +172,49 @@ public class Game {
         }
 
 
-        loop();
-        //Hier muss noch die Abfrage wer spielt in Player erstellt werden
-        //
-
-
+        for (int i =0; i<8; i++)
+        {
+            loop();
+        }
         }
 
     public void loop()
     {
-        for (boolean i = true; )
-        {
-            players[turnState.ordinal()].yourTurn();
-
+        for (int w = 0;w < 8; w++) {
+            Player best = null;
+            Card highest = null;
+            for (int x = 0; x < 4; x++) {
+                //players[turnState.ordinal()].yourTurn();
+                Card Spielkarte = players[(dealer + 1 + x) % 4].kartelegen();
+                if (best == null) {
+                    best = players[(dealer + 1 + x) % 4];
+                    highest = Spielkarte;
+                } else {
+                    if (Spielkarte.getPoints() > highest.getPoints()) {
+                        highest = Spielkarte;
+                        best = players[(dealer + 1 + x) % 4];
+                    }
+                }
+            }
+            best.addStich(played);
+            best.stichpunkt();
         }
-
+        int punkte1 = 0;
+        int punkte2 = 0;
+        for (int b = 0; b < 4;b++){
+            if (players[b].getPlayer() == true){
+                punkte1 = punkte1 + players[b].getPunkte();
+            }
+            else{
+                punkte2 = punkte2 + players[b].getPunkte();
+            }
+        }
+        if (punkte1 < punkte2){
+            System.out.println("Team 2 gewinnt!");
+        }
+        else{
+            System.out.println("Team 1 gewinnt!");
+        }
     }
 
     public void nextPlayer()
@@ -124,12 +238,12 @@ public class Game {
 
     private void showPlayableCards(Player p)
     {
-        p.showPlayableCards(mode.checkPlayable(p.getHand()));
+        p.showPlayableCards(mode.checkPlayable(p.getHand(), played));
     }
 
 
 
-    }
+}
 
 
 

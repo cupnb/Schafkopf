@@ -16,7 +16,7 @@ import de.emg_haar.schafkopfdeluxe.game.Player;
 public class MainMenu{
 
     private Schafkopf schafkopf;
-    private Game game;
+    private de.emg_haar.schafkopfdeluxe.game.Game game;
 
     private Button button;
     public Button.ButtonStyle ButtonStyle;
@@ -37,7 +37,7 @@ public class MainMenu{
             @Override
             public void changed (ChangeEvent event, Actor actor) {
                 System.out.println("Button Pressed");
-                game = new de.emg_haar.schafkopfdeluxe.game.Game(new Player(), new Player(), new Player(), new Player());
+                game = new de.emg_haar.schafkopfdeluxe.game.Game(new Player("Ulli"), new Player("Lukas"), new Player("Noah"), new Player("Sebi"));
             }
         });
 
@@ -50,6 +50,5 @@ public class MainMenu{
     {
         buttonAtlas.dispose();
     }
-
 
 }

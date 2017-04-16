@@ -6,6 +6,7 @@ import java.util.List;
 
 public abstract class Player_ {
 
+
     public abstract String getName();
     public abstract void setGame(Game g);
     public abstract void setPlayer();

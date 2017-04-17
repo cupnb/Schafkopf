@@ -101,6 +101,11 @@ public class Player
         return name;
     }
 
+
+    //
+    // Wäre noch wichtig, ich brauche diese Methode noch.
+    // - Alex D.
+    //
     public void showPlayableCards(LinkedList<Card> l)
     {
 

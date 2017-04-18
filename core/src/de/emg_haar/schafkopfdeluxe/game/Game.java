@@ -1,11 +1,12 @@
 package de.emg_haar.schafkopfdeluxe.game;
 
+import java.util.LinkedList;
 import java.util.Random;
 import java.util.Stack;
 import java.util.Scanner;
 import java.io.*;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
-
+import sun.awt.image.ImageWatched;
 
 
 public class Game {
@@ -197,7 +198,7 @@ public class Game {
                 }
             }
             best.addStich(played);
-            best.stichpunkt();
+            best.stichpunkterhöhen();
         }
         int punkte1 = 0;
         int punkte2 = 0;
@@ -241,7 +242,47 @@ public class Game {
         p.showPlayableCards(mode.checkPlayable(p.getHand(), played));
     }
 
+    public int sucheKarte(LinkedList<Card> c1, LinkedList<Card> c2, LinkedList<Card> c3, LinkedList<Card> c4, Card gesucht)
+    {
 
+        for(int i=c1.size(); i<0; i--)
+        {
+            if (c1.getFirst() == gesucht)
+            {
+                return 1;
+            }
+            c1.removeFirst();
+        }
+
+        for(int i=c2.size(); i<0; i--)
+        {
+            if (c2.getFirst() == gesucht)
+            {
+                return 2;
+            }
+            c1.removeFirst();
+        }
+
+        for(int i=c3.size(); i<0; i--)
+        {
+            if (c3.getFirst() == gesucht)
+            {
+                return 3;
+            }
+            c3.removeFirst();
+        }
+
+        for(int i=c4.size(); i<0; i--)
+        {
+            if (c4.getFirst() == gesucht)
+            {
+                return 4;
+            }
+            c4.removeFirst();
+        }
+
+        return -1;
+    }
 
 }
 

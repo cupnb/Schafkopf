@@ -5,6 +5,7 @@ import java.util.Stack;
 
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
+import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
 
 /**
  * Created by noah on 30.01.17.
@@ -114,4 +115,5 @@ public class Mode {
     public void compareString(String name){
         MODE_TYPE.valueOf(name);
     }
+
 }

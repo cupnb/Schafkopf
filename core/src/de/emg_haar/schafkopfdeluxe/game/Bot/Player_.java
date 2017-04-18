@@ -12,6 +12,9 @@ public abstract class Player_ {
     public abstract void setGame( Game g );
     public abstract void setPlayer( boolean p );
     // Was ist das? - Alex D.
+
+    //Damit wird festgelegt, wer mit wem in einem Team ist. Wenn du beispielsweise jetzt auf das Eichelass spielst, wird bei dir und bei der Person, die das Eichelass hat Player gesettet
+    //Ulli
     public abstract boolean getPlayer();
     public abstract boolean getContra();
     public abstract boolean getRe();

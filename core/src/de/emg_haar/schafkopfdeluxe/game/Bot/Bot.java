@@ -27,6 +27,9 @@ public class Bot extends Player_ {
         // Game müsste eine Methode aufrufen, die dem Konstruktor dieser Klasse eine Zahl dalässt.
         // Diese Zahl ist die Position des Bots am Tisch.
 
+        //dann baus dir ein
+        //Ulli
+
         game = null;
         points = 0;
         player = false;

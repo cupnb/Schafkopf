@@ -5,14 +5,14 @@ package de.emg_haar.schafkopfdeluxe.game.card;
  */
 
 public enum CardRank {
-    ASS("ass", 11, 5),
-    ZEHN("zehn", 10, 4),
-    KOENIG("koenig", 4, 3),
-    OBER("ober", 3, 7),
-    UNTER("unter", 2, 6),
-    NEUN("neun", 0, 2),
-    ACHT("acht", 0, 1),
-    SIEBEN("sieben", 0, 0);
+    ASS("ass", 11, 40),
+    ZEHN("zehn", 10, 50),
+    KOENIG("koenig", 4, 40),
+    OBER("ober", 3, 80),
+    UNTER("unter", 2, 70),
+    NEUN("neun", 0, 30),
+    ACHT("acht", 0, 20),
+    SIEBEN("sieben", 0, 10);
 
     private String name;
     private int points;

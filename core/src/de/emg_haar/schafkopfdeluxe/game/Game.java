@@ -245,7 +245,7 @@ public class Game {
     public int sucheKarte(LinkedList<Card> c1, LinkedList<Card> c2, LinkedList<Card> c3, LinkedList<Card> c4, Card gesucht)
     {
 
-        for(int i=c1.size(); i<0; i--)
+        for(int i=c1.size(); i>0; i--)
         {
             if (c1.getFirst() == gesucht)
             {
@@ -254,7 +254,7 @@ public class Game {
             c1.removeFirst();
         }
 
-        for(int i=c2.size(); i<0; i--)
+        for(int i=c2.size(); i>0; i--)
         {
             if (c2.getFirst() == gesucht)
             {
@@ -263,7 +263,7 @@ public class Game {
             c1.removeFirst();
         }
 
-        for(int i=c3.size(); i<0; i--)
+        for(int i=c3.size(); i>0; i--)
         {
             if (c3.getFirst() == gesucht)
             {
@@ -272,7 +272,7 @@ public class Game {
             c3.removeFirst();
         }
 
-        for(int i=c4.size(); i<0; i--)
+        for(int i=c4.size(); i>0; i--)
         {
             if (c4.getFirst() == gesucht)
             {

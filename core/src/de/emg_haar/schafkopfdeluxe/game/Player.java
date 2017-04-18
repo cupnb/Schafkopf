@@ -2,6 +2,7 @@ package de.emg_haar.schafkopfdeluxe.game;
 
 import java.util.LinkedList;
 import java.util.Stack;
+import java.util.Scanner;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 
 
@@ -58,12 +59,15 @@ public class Player
 
     public boolean getWannaplay() { return wannaplay; }
 
-    public int stichpunkt(){
+    public void stichpunkterhöhen(){
         stichanzahl = stichanzahl + 1;
         return stichanzahl;
+        //sollen wir das Return wegmachen, oder die MEthoden typ anstatt void --> int?
+        //Ulli
     }
 
     public int getPunkte(){
+
         for (int y = stichanzahl * 4; y > 0; y--){
             points = points + stiche.pop().getPoints();
         }
@@ -148,4 +152,13 @@ public class Player
     }
     // sagt an ob er ein Bot-Game oder ein Online-Game spielen will
     //Problem: muss irgendwie in MainMenu vom Player gewählt werden
+
+    public Mode.MODE_TYPE ScannerBenutzen()
+    {
+        String input = new String("");
+        Mode.MODE_TYPE modeuebergeben = null;
+        Scanner s = new Scanner(input);
+        modeuebergeben = Mode.MODE_TYPE.input;
+        return modeuebergeben;
+    }
 }

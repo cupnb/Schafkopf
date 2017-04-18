@@ -5,6 +5,7 @@ import java.util.List;
 import de.emg_haar.schafkopfdeluxe.game.Game;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 import java.util.LinkedList;
+import java.util.Stack;
 
 
 public class Bot extends Player_ {
@@ -63,7 +64,10 @@ public class Bot extends Player_ {
         turn = true;
     }
 
-    public void addCards(){
+    public void addCards(Stack<Card> c)
+    //Denke mal, dass du den Stack noch übergeben wolltest, Alex
+    //Ulli
+    {
         hand.add(c.pop());
         hand.add(c.pop());
         hand.add(c.pop());

@@ -91,7 +91,7 @@ public class Mode {
     //setter Methode
     public void setModeType(MODE_TYPE m)
     {
-        m = mode_type;
+        mode_type = m;
     }
 
     //spielbare Karten werden geckeckt und mit einer LinkedList

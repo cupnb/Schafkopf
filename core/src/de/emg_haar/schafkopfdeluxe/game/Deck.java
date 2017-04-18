@@ -24,7 +24,6 @@ public class Deck {
         Collections.shuffle(cards);
     }
 
-    //P***
     //Mischmethode
     public void initialize(Stack<Card> prevDumpedCards) {
         List<Card> shuffleList2 = new ArrayList<>();

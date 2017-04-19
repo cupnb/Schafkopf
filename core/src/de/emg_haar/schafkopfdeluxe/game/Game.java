@@ -484,6 +484,10 @@ public class Game {
         }
     }
 
+    public Card[][] getMatrix()
+    {
+        return matrix;
+    }
 }
 
 

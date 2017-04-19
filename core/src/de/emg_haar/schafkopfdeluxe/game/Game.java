@@ -7,6 +7,7 @@ import java.io.*;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
 import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
+import sun.security.provider.ConfigFile;
 
 //Hauptklasse, die alles steuert, und über die das Game hauptsächlich läuft --> Vergleiche typisches Schafkopfspiel
 public class Game {
@@ -36,6 +37,10 @@ public class Game {
     private int trumpfcolor;
     //Rundennummer (zählt nach jeder gespielte Partie hoch)
     private int roundNumber;
+    //Matrix zum Speichern der Karten --> Nötig für den Bot
+    private Card [][] matrix;
+    //Anzahl der gespielten Stiche
+    private int playedStiche;
 
     public Game(Player p0, Player p1, Player p2, Player p3) {
         //Random Zahl zur Bestimmung des Dealers in der ersten Runde
@@ -68,6 +73,8 @@ public class Game {
         dealer = rnd.nextInt(4);
         roundNumber = 0;
         trumpfcolor = 2;
+        matrix = new Card[4][8];
+        playedStiche = 0;
         initialize();
     }
     public int getStapel(){
@@ -87,6 +94,9 @@ public class Game {
 
     public void initialize()
     {
+        //PlayedStiche wird reseted
+        playedStiche = 0;
+
         //Karten werden zu je 4 an die Spieler verteilt
         for (int i = 0; i < 2; i++)
         {
@@ -286,6 +296,8 @@ public class Game {
     //Methode für einen Stich
     public void loop()
     {
+        //Die Anzahl der gespielten Stiche wird um 1 erhöht
+        playedStiche++;
         //Spieler, der die höchste Karte gelegt hat
         Player best = null;
         //höchste Karte, die gerade im Stich liegt
@@ -294,6 +306,7 @@ public class Game {
         for (int x = 0; x < 4; x++) {
             //players[turnState.ordinal()].yourTurn();
             Card Spielkarte = players[(dealer + 1 + x) % 4].kartelegen();
+            matrix[(dealer + 1 + x) % 4][playedStiche-1] = Spielkarte;
             //Karte wird zu Dump und Played hinzugefügt
             addgespielteKarte(Spielkarte);
             //erste Karte wird hingelegt

@@ -1,6 +1,8 @@
 package de.emg_haar.schafkopfdeluxe.game.Bots;
 
-public class Bot_1 extends Bot {
+import de.emg_haar.schafkopfdeluxe.game.Player;
+
+public class Bot_1 extends Player {
 
     public Bot_1() {
         this.name = "Faust";

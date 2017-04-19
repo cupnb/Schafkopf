@@ -9,27 +9,27 @@ import de.emg_haar.schafkopfdeluxe.game.card.Card;
 public class Player
 {
     //"Hand" des Spielers --> Speichern aller 8 Karten in einer Liste
-    private LinkedList<Card> hand;
+    protected LinkedList<Card> hand;
     //Name des Spielers
-    private String name;
+    protected String name;
     //Spiel, dem der Spieler beiwohnt
-    private Game game;
+    protected Game game;
     //Punkte, die der Spieler besitzt
-    private int points;
+    protected int points;
     //Boolean zum Festlegen von Spieler bzw. Nicht-Spieler
-    private boolean player;
+    protected boolean player;
     //Boolean zum Festlegen, ob der Spieler spielen will, oder nicht
-    private boolean wannaplay;
+    protected boolean wannaplay;
     //Boolean zum festlegen, ob der Spieler online spielt, oder nicht
-    private boolean online;
+    protected boolean online;
     //Speichern der gewonnenen Stiche des Spielers
-    private Stack<Card> stiche;
+    protected Stack<Card> stiche;
     //Speichern der Punkt, die der Spieler hat
-    private int punkte;
+    protected int punkte;
     //Anzahl der Stiche zur
-    private int stichanzahl;
+    protected int stichanzahl;
     //Boolean ob man dran ist oder nicht
-    private boolean turn;
+    protected boolean turn;
 
     //Konstruktor der Klasse Player
     public Player(String name)
@@ -149,7 +149,8 @@ public class Player
         }
     }
 
-    public Card kartelegen(){
+    public Card kartelegen()
+    {
         //spieler wählt karte aus
         //karte wird zu dump und played hinzugefügt
         //habe ich jetzt mal in loop() in Game gemacht -Ulli

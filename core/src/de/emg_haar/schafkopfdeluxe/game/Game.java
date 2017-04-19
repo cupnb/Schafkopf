@@ -22,6 +22,12 @@ public class Game {
     private Mode mode;
     private Deck deck;
     private Stack<Card> dump;
+    private int trumpfcolor;
+    //0 = Wenz
+    //1 = Schellen
+    //2 = Herz
+    //3 = Laub
+    //4 = Eichel
 
     private int roundNumber;
 
@@ -51,6 +57,7 @@ public class Game {
         //Der Geber wird zufaellig bestimmt
         dealer = rnd.nextInt(4);
         roundNumber = 0;
+        trumpfcolor = 2;
         initialize();
     }
     public int getStapel(){
@@ -160,12 +167,32 @@ public class Game {
             }
         }
 
+        if (mode.getModeType() == Mode.MODE_TYPE.SOLOGRAS)
+        {
+            trumpfcolor = 3;
+        }
+
+        if (mode.getModeType() == Mode.MODE_TYPE.SOLOEICHEL)
+        {
+            trumpfcolor = 4;
+        }
+
+        if (mode.getModeType() == Mode.MODE_TYPE.SOLOSCHELLEN)
+        {
+            trumpfcolor = 1;
+        }
+
+        if (mode.getModeType() == Mode.MODE_TYPE.WENZ)
+        {
+            trumpfcolor = 0;
+        }
+
         mode.comparisionOberUnter(players[0].getHand());
         mode.comparisionOberUnter(players[1].getHand());
         mode.comparisionOberUnter(players[2].getHand());
         mode.comparisionOberUnter(players[3].getHand());
 
-        if(mode.getModeType() == Mode.MODE_TYPE.WENZ || mode.getModeType() == Mode.MODE_TYPE.SOLOEICHEL || mode.getModeType() == Mode.MODE_TYPE.SOLOGRAS || mode.getModeType() == Mode.MODE_TYPE.SOLOSCHELLEN)
+        if(trumpfcolor == 0 || trumpfcolor == 1 || trumpfcolor == 3 || trumpfcolor == 4)
         {
             mode.comparisionAktualisieren(players[0].getHand(), mode.getModeType());
             mode.comparisionAktualisieren(players[1].getHand(), mode.getModeType());
@@ -173,7 +200,7 @@ public class Game {
             mode.comparisionAktualisieren(players[3].getHand(), mode.getModeType());
         }
 
-        if(mode.getModeType() == Mode.MODE_TYPE.RAMSCH || mode.getModeType() == Mode.MODE_TYPE.SOLOHERZ || mode.getModeType() == Mode.MODE_TYPE.SAUSPIELEICHEL || mode.getModeType() == Mode.MODE_TYPE.SAUSPIELSCHELLEN || mode.getModeType() == Mode.MODE_TYPE.SAUSPIELGRAS)
+        if(trumpfcolor == 2)
         {
             mode.comparisionSetStandard(players[0].getHand());
             mode.comparisionSetStandard(players[1].getHand());
@@ -195,58 +222,45 @@ public class Game {
         {
             dealer = dealer++;
         }
+
+        ende();
     }
 
     public void loop()
     {
-        for (int w = 0;w < 8; w++) {
-            Player best = null;
-            Card highest = null;
-            for (int x = 0; x < 4; x++) {
-                //players[turnState.ordinal()].yourTurn();
-                Card Spielkarte = players[(dealer + 1 + x) % 4].kartelegen();
-                if (best == null)
+        Player best = null;
+        Card highest = null;
+        for (int x = 0; x < 4; x++) {
+            //players[turnState.ordinal()].yourTurn();
+            Card Spielkarte = players[(dealer + 1 + x) % 4].kartelegen();
+            if (best == null)
+            {
+                best = players[(dealer + 1 + x) % 4];
+                highest = Spielkarte;
+            }
+            else
+            {
+                if (Spielkarte.getColor() == highest.getColor())
                 {
-                    best = players[(dealer + 1 + x) % 4];
-                    highest = Spielkarte;
-                }
-                else
-                {
-                    if (Spielkarte.getColor() == highest.getColor())
-                    {
-                        if(Spielkarte.getRank().getComparision() > highest.getRank().getComparision())
-                        {
-                            highest = Spielkarte;
-                            best = players[(dealer + 1 + x) % 4];
-                        }
-                    }
-                    else
+                    if(Spielkarte.getRank().getComparision() > highest.getRank().getComparision())
                     {
                         highest = Spielkarte;
                         best = players[(dealer + 1 + x) % 4];
-
+                    }
+                }
+                else
+                {
+                    if(Spielkarte.getRank().getComparision() < 60)
+                    {
+                        highest = Spielkarte;
+                        best = players[(dealer + 1 + x) % 4];
                     }
                 }
             }
-            best.addStich(played);
-            best.stichpunkterhöhen();
         }
-        int punkte1 = 0;
-        int punkte2 = 0;
-        for (int b = 0; b < 4;b++){
-            if (players[b].getPlayer() == true){
-                punkte1 = punkte1 + players[b].getPunkte();
-            }
-            else{
-                punkte2 = punkte2 + players[b].getPunkte();
-            }
-        }
-        if (punkte1 < punkte2){
-            System.out.println("Team 2 gewinnt!");
-        }
-        else{
-            System.out.println("Team 1 gewinnt!");
-        }
+        best.addStich(played);
+        best.stichpunkterhöhen();
+
     }
 
     public void nextPlayer()
@@ -315,6 +329,33 @@ public class Game {
         return -1;
     }
 
+    public void ende()
+    {
+        int punktePlayer = 0;
+        int punkteNotPlayer = 0;
+        Player[] playerspp = new Player[2];
+        Player[] notplayerspp = new Player[2];
+        for (int b = 0; b < 4;b++){
+            if (players[b].getPlayer() == true)
+            {
+                playerspp[b%2] = players[b];
+                punktePlayer = punktePlayer + players[b].getPunkte();
+            }
+            else
+            {
+                notplayerspp[b%2] = players[b];
+                punkteNotPlayer = punkteNotPlayer + players[b].getPunkte();
+            }
+        }
+        if (punktePlayer <= punkteNotPlayer)
+        {
+            System.out.println(notplayerspp[0].getName() +" und " +notplayerspp[1] +" haben gewonnen!");
+        }
+        else
+        {
+            System.out.println(playerspp[0].getName() +" und " +playerspp[1]  +" haben gewonnen!");
+        }
+    }
 
 }
 

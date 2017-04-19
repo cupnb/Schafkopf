@@ -6,6 +6,8 @@ import java.util.Stack;
 import java.util.Scanner;
 import java.io.*;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
+import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
+import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
 import sun.awt.image.ImageWatched;
 
 
@@ -124,30 +126,29 @@ public class Game {
         //Abfrage wer SPIELT
         int willspieler = (dealer + 1);
         Mode[] modefeld = new Mode[4];
+        int endgültigerPlayer = 4;
+        //4 = Ramsch
         if(anzahlSpielenWollen  == 0)
         {
             mode.setModeType(Mode.MODE_TYPE.RAMSCH);
         }
         if(anzahlSpielenWollen == 1)
         {
-            //Player EinzigerWillSpieler = null;
             for (int p = 0; p < 4; p++)
             {
                 if (willSpieler[p] == true)
                 {
                     mode.setModeType(players[p].play("SAUSPIELEICHEL"));
                     //SauspielEichel nur ein Beispiel --> Eingabefeld einfügen
+                    endgültigerPlayer = p;
                 }
             }
         }
         if(anzahlSpielenWollen > 1)
         {
-            for (int i = 0; i < 4; i++) {
-                Scanner scanner = new Scanner(System.in);
-                while(scanner.hasNext()) {
 
-                }
-
+            for (int i = 0; i < 4; i++)
+            {
                 modefeld[i].setModeType(players[(willspieler + i) % 4].play("SAUSPIELEICHEL"));
             }
 
@@ -157,14 +158,38 @@ public class Game {
                     if (mode == null)
                     {
                         mode.setModeType(modefeld[z].getModeType());
+                        endgültigerPlayer = z;
                     }
                     if (modefeld[z].getOrdinal(modefeld[z].toString()) > mode.getOrdinal(mode.toString())) {
                         mode.setModeType(modefeld[z].getModeType());
+                        endgültigerPlayer = z;
                         //Mode fürSpiel ist der endgültige Mode
                     }
 
                 }
             }
+        }
+        if(endgültigerPlayer<4)
+        {
+            players[endgültigerPlayer].setPlayer(true);
+        }
+
+        if (mode.getModeType() == Mode.MODE_TYPE.SAUSPIELEICHEL)
+        {
+            int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(),CardRank.ASS, CardColor.EICHEL);
+            players[now].setPlayer(true);
+        }
+
+        if (mode.getModeType() == Mode.MODE_TYPE.SAUSPIELSCHELLEN)
+        {
+            int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(),CardRank.ASS, CardColor.SCHELLEN);
+            players[now].setPlayer(true);
+        }
+
+        if (mode.getModeType() == Mode.MODE_TYPE.SAUSPIELGRAS)
+        {
+            int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(),CardRank.ASS, CardColor.LAUB);
+            players[now].setPlayer(true);
         }
 
         if (mode.getModeType() == Mode.MODE_TYPE.SOLOGRAS)
@@ -287,41 +312,41 @@ public class Game {
         p.showPlayableCards(mode.checkPlayable(p.getHand(), played));
     }
 
-    public int sucheKarte(LinkedList<Card> c1, LinkedList<Card> c2, LinkedList<Card> c3, LinkedList<Card> c4, Card gesucht)
+    public int sucheKarte(LinkedList<Card> c1, LinkedList<Card> c2, LinkedList<Card> c3, LinkedList<Card> c4, CardRank gesuchtRank, CardColor gesuchtColor)
     {
 
         for(int i=c1.size(); i>0; i--)
         {
-            if (c1.getFirst() == gesucht)
+            if (c1.getFirst().getColor() == gesuchtColor && c1.getFirst().getRank() == gesuchtRank)
             {
-                return 1;
+                return 0;
             }
             c1.removeFirst();
         }
 
         for(int i=c2.size(); i>0; i--)
         {
-            if (c2.getFirst() == gesucht)
+            if (c2.getFirst().getColor() == gesuchtColor && c2.getFirst().getRank() == gesuchtRank)
             {
-                return 2;
+                return 1;
             }
             c1.removeFirst();
         }
 
         for(int i=c3.size(); i>0; i--)
         {
-            if (c3.getFirst() == gesucht)
+            if (c3.getFirst().getColor() == gesuchtColor && c3.getFirst().getRank() == gesuchtRank)
             {
-                return 3;
+                return 2;
             }
             c3.removeFirst();
         }
 
         for(int i=c4.size(); i>0; i--)
         {
-            if (c4.getFirst() == gesucht)
+            if (c4.getFirst().getColor() == gesuchtColor && c4.getFirst().getRank() == gesuchtRank)
             {
-                return 4;
+                return 3;
             }
             c4.removeFirst();
         }
@@ -333,27 +358,40 @@ public class Game {
     {
         int punktePlayer = 0;
         int punkteNotPlayer = 0;
-        Player[] playerspp = new Player[2];
-        Player[] notplayerspp = new Player[2];
-        for (int b = 0; b < 4;b++){
-            if (players[b].getPlayer() == true)
+        if(mode.getModeType() == Mode.MODE_TYPE.RAMSCH)
+        {
+            int lost = 5;
+            int most = 0;
+            for(int i = 0; i<4; i++)
             {
-                playerspp[b%2] = players[b];
-                punktePlayer = punktePlayer + players[b].getPunkte();
+                if(players[i].getPunkte()> most)
+                {
+                    most = players[i].getPunkte();
+                    lost = i;
+                }
+            }
+            System.out.println(players[lost].getName() +" hat verloren!");
+        }
+        else {
+            Player[] playerspp = new Player[2];
+            Player[] notplayerspp = new Player[3];
+            for (int b = 0; b < 4; b++) {
+                if (players[b].getPlayer() == true) {
+                    playerspp[b % 2] = players[b];
+                    punktePlayer = punktePlayer + players[b].getPunkte();
+                } else {
+                    notplayerspp[b % 2] = players[b];
+                    punkteNotPlayer = punkteNotPlayer + players[b].getPunkte();
+                }
+            }
+
+            if (punktePlayer <= punkteNotPlayer) {
+                System.out.println(notplayerspp[0].getName() + " und " + notplayerspp[1] + " haben gewonnen!");
             }
             else
             {
-                notplayerspp[b%2] = players[b];
-                punkteNotPlayer = punkteNotPlayer + players[b].getPunkte();
+                System.out.println(playerspp[0].getName() + " und " + playerspp[1] + " haben gewonnen!");
             }
-        }
-        if (punktePlayer <= punkteNotPlayer)
-        {
-            System.out.println(notplayerspp[0].getName() +" und " +notplayerspp[1] +" haben gewonnen!");
-        }
-        else
-        {
-            System.out.println(playerspp[0].getName() +" und " +playerspp[1]  +" haben gewonnen!");
         }
     }
 

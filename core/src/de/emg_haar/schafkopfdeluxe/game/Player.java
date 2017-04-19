@@ -61,9 +61,6 @@ public class Player
 
     public void stichpunkterhöhen(){
         stichanzahl = stichanzahl + 1;
-        return stichanzahl;
-        //sollen wir das Return wegmachen, oder die MEthoden typ anstatt void --> int?
-        //Ulli
     }
 
     public int getPunkte(){

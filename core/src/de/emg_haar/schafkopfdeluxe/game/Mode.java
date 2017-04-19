@@ -4,8 +4,8 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
-import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
-import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
+
+import static de.emg_haar.schafkopfdeluxe.game.Mode.MODE_TYPE.*;
 
 /**
  * Created by noah on 30.01.17.
@@ -58,7 +58,7 @@ public class Mode {
             else if(value.equalsIgnoreCase(SAUSPIELEICHEL.toString()))
                 return MODE_TYPE.SAUSPIELEICHEL;
             else if(value.equalsIgnoreCase(WENZ.toString()))
-                return MODE_TYPE.WENZ;
+                return WENZ;
             else if(value.equalsIgnoreCase(SOLOSCHELLEN.toString()))
                 return MODE_TYPE.SOLOSCHELLEN;
             else if(value.equalsIgnoreCase(SOLOGRAS.toString()))
@@ -116,4 +116,201 @@ public class Mode {
         MODE_TYPE.valueOf(name);
     }
 
+    //geeignet für Wenz und alle Soli (außer Herz)
+    public void comparisionAktualisieren(LinkedList<Card> c1, Mode.MODE_TYPE m)
+    {
+        Card temporary = null;
+        for(int i = c1.size(); i>0; i--)
+        {
+            temporary = c1.getFirst();
+            c1.removeFirst();
+            if (m == WENZ && temporary.getRank().getName().equals("zehn"))
+            {
+                temporary.getRank().setComparision(35);
+            }
+
+            if (m == WENZ && temporary.getRank().getName().equals("ober"))
+            {
+                temporary.getRank().setComparision(36);
+            }
+
+            if (m == SOLOSCHELLEN && temporary.getRank().getName().equals("sieben") && temporary.getColor().equals("schellen"))
+            {
+                temporary.getRank().setComparision(61);
+            }
+
+            if (m == SOLOSCHELLEN && temporary.getRank().getName().equals("acht") && temporary.getColor().equals("schellen"))
+            {
+                temporary.getRank().setComparision(62);
+            }
+
+            if (m == SOLOSCHELLEN && temporary.getRank().getName().equals("neun") && temporary.getColor().equals("schellen"))
+            {
+                temporary.getRank().setComparision(63);
+            }
+
+            if (m == SOLOSCHELLEN && temporary.getRank().getName().equals("koenig") && temporary.getColor().equals("schellen"))
+            {
+                temporary.getRank().setComparision(64);
+            }
+
+            if (m == SOLOSCHELLEN && temporary.getRank().getName().equals("zehn") && temporary.getColor().equals("schellen"))
+            {
+                temporary.getRank().setComparision(65);
+            }
+
+            if (m == SOLOSCHELLEN && temporary.getRank().getName().equals("ass") && temporary.getColor().equals("schellen"))
+            {
+                temporary.getRank().setComparision(66);
+            }
+
+            if (m == SOLOGRAS && temporary.getRank().getName().equals("sieben") && temporary.getColor().equals("laub"))
+            {
+                temporary.getRank().setComparision(61);
+            }
+
+            if (m == SOLOGRAS && temporary.getRank().getName().equals("acht") && temporary.getColor().equals("laub"))
+            {
+                temporary.getRank().setComparision(62);
+            }
+
+            if (m == SOLOGRAS && temporary.getRank().getName().equals("neun") && temporary.getColor().equals("laub"))
+            {
+                temporary.getRank().setComparision(63);
+            }
+
+            if (m == SOLOGRAS && temporary.getRank().getName().equals("koenig") && temporary.getColor().equals("laub"))
+            {
+                temporary.getRank().setComparision(64);
+            }
+
+            if (m == SOLOGRAS && temporary.getRank().getName().equals("zehn") && temporary.getColor().equals("laub"))
+            {
+                temporary.getRank().setComparision(65);
+            }
+
+            if (m == SOLOGRAS && temporary.getRank().getName().equals("ass") && temporary.getColor().equals("laub"))
+            {
+                temporary.getRank().setComparision(66);
+            }
+
+            if (m == SOLOEICHEL && temporary.getRank().getName().equals("sieben") && temporary.getColor().equals("eichel"))
+            {
+                temporary.getRank().setComparision(61);
+            }
+
+            if (m == SOLOEICHEL && temporary.getRank().getName().equals("acht") && temporary.getColor().equals("eichel"))
+            {
+                temporary.getRank().setComparision(62);
+            }
+
+            if (m == SOLOEICHEL && temporary.getRank().getName().equals("neun") && temporary.getColor().equals("eichel"))
+            {
+                temporary.getRank().setComparision(63);
+            }
+
+            if (m == SOLOEICHEL && temporary.getRank().getName().equals("koenig") && temporary.getColor().equals("eichel"))
+            {
+                temporary.getRank().setComparision(64);
+            }
+
+            if (m == SOLOEICHEL && temporary.getRank().getName().equals("zehn") && temporary.getColor().equals("eichel"))
+            {
+                temporary.getRank().setComparision(65);
+            }
+
+            if (m == SOLOEICHEL && temporary.getRank().getName().equals("ass") && temporary.getColor().equals("eichel"))
+            {
+                temporary.getRank().setComparision(66);
+            }
+
+        }
+    }
+
+    //geeignet für Ramsch, Solo Herz und alle Sauspiele
+    public void comparisionSetStandard(LinkedList<Card> c1)
+    {
+        Card temporary = null;
+        for(int i = c1.size(); i>0; i--)
+        {
+            if (temporary.getRank().getName().equals("sieben") && temporary.getColor().getName().equals("herz"))
+            {
+                temporary.getRank().setComparision(61);
+            }
+
+            if (temporary.getRank().getName().equals("acht") && temporary.getColor().getName().equals("herz"))
+            {
+                temporary.getRank().setComparision(62);
+            }
+
+            if (temporary.getRank().getName().equals("neun") && temporary.getColor().getName().equals("herz"))
+            {
+                temporary.getRank().setComparision(63);
+            }
+
+            if (temporary.getRank().getName().equals("koenig") && temporary.getColor().getName().equals("herz"))
+            {
+                temporary.getRank().setComparision(64);
+            }
+
+            if (temporary.getRank().getName().equals("zehn") && temporary.getColor().getName().equals("herz"))
+            {
+                temporary.getRank().setComparision(65);
+            }
+
+            if (temporary.getRank().getName().equals("ass") && temporary.getColor().getName().equals("herz"))
+            {
+                temporary.getRank().setComparision(66);
+            }
+        }
+    }
+
+    //muss immer gemacht werden
+    public void comparisionOberUnter(LinkedList<Card> c1)
+    {
+        Card temporary = null;
+        for(int i = c1.size(); i>0; i--)
+        {
+            if (temporary.getRank().getName().equals("unter") && temporary.getColor().getName().equals("schellen"))
+            {
+                temporary.getRank().setComparision(71);
+            }
+
+            if (temporary.getRank().getName().equals("unter") && temporary.getColor().getName().equals("herz"))
+            {
+                temporary.getRank().setComparision(72);
+            }
+
+            if (temporary.getRank().getName().equals("unter") && temporary.getColor().getName().equals("laub"))
+            {
+                temporary.getRank().setComparision(73);
+            }
+
+            if (temporary.getRank().getName().equals("unter") && temporary.getColor().getName().equals("eichel"))
+            {
+                temporary.getRank().setComparision(74);
+            }
+
+            if (temporary.getRank().getName().equals("ober") && temporary.getColor().getName().equals("schellen"))
+            {
+                temporary.getRank().setComparision(81);
+            }
+
+            if (temporary.getRank().getName().equals("ober") && temporary.getColor().getName().equals("herz"))
+            {
+                temporary.getRank().setComparision(82);
+            }
+
+            if (temporary.getRank().getName().equals("ober") && temporary.getColor().getName().equals("laub"))
+            {
+                temporary.getRank().setComparision(83);
+            }
+
+            if (temporary.getRank().getName().equals("ober") && temporary.getColor().getName().equals("eichel"))
+            {
+                temporary.getRank().setComparision(84);
+            }
+
+        }
+    }
 }

@@ -1,11 +1,12 @@
 package de.emg_haar.schafkopfdeluxe.game.card;
 
+
 /**
  * Created by Sebi on 04.02.2017.
  */
 
 public enum CardRank {
-    ASS("ass", 11, 40),
+    ASS("ass", 11, 60),
     ZEHN("zehn", 10, 50),
     KOENIG("koenig", 4, 40),
     OBER("ober", 3, 80),
@@ -37,5 +38,10 @@ public enum CardRank {
     public void setComparision(int comparision)
     {
         this.comparison = comparision;
+    }
+
+    public int getComparision()
+    {
+        return comparison;
     }
 }

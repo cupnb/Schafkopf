@@ -160,7 +160,31 @@ public class Game {
             }
         }
 
+        mode.comparisionOberUnter(players[0].getHand());
+        mode.comparisionOberUnter(players[1].getHand());
+        mode.comparisionOberUnter(players[2].getHand());
+        mode.comparisionOberUnter(players[3].getHand());
 
+        if(mode.getModeType() == Mode.MODE_TYPE.WENZ || mode.getModeType() == Mode.MODE_TYPE.SOLOEICHEL || mode.getModeType() == Mode.MODE_TYPE.SOLOGRAS || mode.getModeType() == Mode.MODE_TYPE.SOLOSCHELLEN)
+        {
+            mode.comparisionAktualisieren(players[0].getHand(), mode.getModeType());
+            mode.comparisionAktualisieren(players[1].getHand(), mode.getModeType());
+            mode.comparisionAktualisieren(players[2].getHand(), mode.getModeType());
+            mode.comparisionAktualisieren(players[3].getHand(), mode.getModeType());
+        }
+
+        if(mode.getModeType() == Mode.MODE_TYPE.RAMSCH || mode.getModeType() == Mode.MODE_TYPE.SOLOHERZ || mode.getModeType() == Mode.MODE_TYPE.SAUSPIELEICHEL || mode.getModeType() == Mode.MODE_TYPE.SAUSPIELSCHELLEN || mode.getModeType() == Mode.MODE_TYPE.SAUSPIELGRAS)
+        {
+            mode.comparisionSetStandard(players[0].getHand());
+            mode.comparisionSetStandard(players[1].getHand());
+            mode.comparisionSetStandard(players[2].getHand());
+            mode.comparisionSetStandard(players[3].getHand());
+        }
+
+        for (int i =0; i<8; i++)
+        {
+            loop();
+        }
 
         //Geber wird um eins erhoeht (ganz am Ende von initialize einbauen)
         if (dealer == 3)
@@ -171,13 +195,7 @@ public class Game {
         {
             dealer = dealer++;
         }
-
-
-        for (int i =0; i<8; i++)
-        {
-            loop();
-        }
-        }
+    }
 
     public void loop()
     {
@@ -187,13 +205,26 @@ public class Game {
             for (int x = 0; x < 4; x++) {
                 //players[turnState.ordinal()].yourTurn();
                 Card Spielkarte = players[(dealer + 1 + x) % 4].kartelegen();
-                if (best == null) {
+                if (best == null)
+                {
                     best = players[(dealer + 1 + x) % 4];
                     highest = Spielkarte;
-                } else {
-                    if (Spielkarte.getPoints() > highest.getPoints()) {
+                }
+                else
+                {
+                    if (Spielkarte.getColor() == highest.getColor())
+                    {
+                        if(Spielkarte.getRank().getComparision() > highest.getRank().getComparision())
+                        {
+                            highest = Spielkarte;
+                            best = players[(dealer + 1 + x) % 4];
+                        }
+                    }
+                    else
+                    {
                         highest = Spielkarte;
                         best = players[(dealer + 1 + x) % 4];
+
                     }
                 }
             }
@@ -283,6 +314,7 @@ public class Game {
 
         return -1;
     }
+
 
 }
 

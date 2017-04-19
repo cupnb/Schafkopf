@@ -7,7 +7,6 @@ import java.io.*;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
 import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
-import sun.security.provider.ConfigFile;
 
 //Hauptklasse, die alles steuert, und über die das Game hauptsächlich läuft --> Vergleiche typisches Schafkopfspiel
 public class Game {
@@ -28,19 +27,13 @@ public class Game {
     private Deck deck;
     //Stack, der alle Karten aufnimmt --> wird zum Mischen in der nächsten Runde verwendet
     private Stack<Card> dump;
-    //Beschreibung der Trumpffarbe mithilfe eines int
-    //0 = Wenz
-    //1 = Schellen
-    //2 = Herz
-    //3 = Laub
-    //4 = Eichel
-    private int trumpfcolor;
     //Rundennummer (zählt nach jeder gespielte Partie hoch)
     private int roundNumber;
     //Matrix zum Speichern der Karten --> Nötig für den Bot
     private Card [][] matrix;
     //Anzahl der gespielten Stiche
     private int playedStiche;
+
 
     public Game(Player p0, Player p1, Player p2, Player p3) {
         //Random Zahl zur Bestimmung des Dealers in der ersten Runde
@@ -72,7 +65,6 @@ public class Game {
         //Der Geber wird zufaellig bestimmt
         dealer = rnd.nextInt(4);
         roundNumber = 0;
-        trumpfcolor = 2;
         matrix = new Card[4][8];
         playedStiche = 0;
         initialize();
@@ -94,6 +86,8 @@ public class Game {
 
     public void initialize()
     {
+        //Ruffarbe wird zurückgesetzt
+        mode.setCallingColor(-1);
         //PlayedStiche wird reseted
         playedStiche = 0;
 
@@ -212,6 +206,7 @@ public class Game {
         {
             int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(),CardRank.ASS, CardColor.EICHEL);
             players[now].setPlayer(true);
+            mode.setCallingColor(3);
         }
 
         //Zweiter Spieler wird gesucht: Bei Sauspiel Schellen
@@ -219,6 +214,7 @@ public class Game {
         {
             int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(),CardRank.ASS, CardColor.SCHELLEN);
             players[now].setPlayer(true);
+            mode.setCallingColor(1);
         }
 
         //Zweiter Spieler wird gesucht: Bei Sauspiel Gras
@@ -226,51 +222,54 @@ public class Game {
         {
             int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(),CardRank.ASS, CardColor.LAUB);
             players[now].setPlayer(true);
+            mode.setCallingColor(2);
         }
 
         //Trumpfcolor wird aufgrund des MOdes ferstgelegt
         if (mode.getModeType() == Mode.MODE_TYPE.SOLOGRAS)
         {
-            trumpfcolor = 3;
+            mode.setTrumpfcolor(3);
         }
 
         if (mode.getModeType() == Mode.MODE_TYPE.SOLOEICHEL)
         {
-            trumpfcolor = 4;
+            mode.setTrumpfcolor(4);
         }
 
         if (mode.getModeType() == Mode.MODE_TYPE.SOLOSCHELLEN)
         {
-            trumpfcolor = 1;
+            mode.setTrumpfcolor(1);
         }
 
         if (mode.getModeType() == Mode.MODE_TYPE.WENZ)
         {
-            trumpfcolor = 0;
+            mode.setTrumpfcolor(0);
         }
 
         //Vergleichswerte für Ober und Unter werden angepasst (z.B. Eichel Ober ist über Schellen Ober)
-        mode.comparisionOberUnter(players[0].getHand());
-        mode.comparisionOberUnter(players[1].getHand());
-        mode.comparisionOberUnter(players[2].getHand());
-        mode.comparisionOberUnter(players[3].getHand());
+        for(int a = 0; a<4; a++)
+        {
+            mode.comparisionOberUnter(players[a].getHand());
+        }
 
         //Vergleichswerte der Trumpfarbe werden angepasst (solange es nicht Herz ist) bzw. die Vergleichswerte werden für einen Wenz angepasst
-        if(trumpfcolor == 0 || trumpfcolor == 1 || trumpfcolor == 3 || trumpfcolor == 4)
+        if(mode.getTrumpfcolor() == 0 || mode.getTrumpfcolor() == 1 || mode.getTrumpfcolor() == 3 || mode.getTrumpfcolor() == 4)
         {
-            mode.comparisionAktualisieren(players[0].getHand(), mode.getModeType());
-            mode.comparisionAktualisieren(players[1].getHand(), mode.getModeType());
-            mode.comparisionAktualisieren(players[2].getHand(), mode.getModeType());
-            mode.comparisionAktualisieren(players[3].getHand(), mode.getModeType());
+
+            for(int b = 0; b<4; b++)
+            {
+                mode.comparisionAktualisieren(players[b].getHand(), mode.getModeType());
+            }
         }
 
         //Vergleichswerte von Herz werden erhöht, wenn Herz Trumpffarbe ist
-        if(trumpfcolor == 2)
+        if(mode.getTrumpfcolor() == 2)
         {
-            mode.comparisionSetStandard(players[0].getHand());
-            mode.comparisionSetStandard(players[1].getHand());
-            mode.comparisionSetStandard(players[2].getHand());
-            mode.comparisionSetStandard(players[3].getHand());
+            for(int s = 0; s<4; s++)
+            {
+                mode.comparisionSetStandard(players[s].getHand());
+            }
+
         }
 
         //Aufruf der Methode loop führt 8 Stiche durch
@@ -489,6 +488,3 @@ public class Game {
         return matrix;
     }
 }
-
-
-

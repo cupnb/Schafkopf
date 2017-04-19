@@ -78,9 +78,25 @@ public class Mode {
 
     private MODE_TYPE mode_type;
 
+    //Ruffarbe des Modes (bei Soli, Ramsch oder Wenz --> null)
+    //1 = Schellen
+    //2 = Laub
+    //3 = Eichel
+    //-1 = keine
+    private int callingColor;
+    //Beschreibung der Trumpffarbe mithilfe eines int
+    //0 = Wenz
+    //1 = Schellen
+    //2 = Herz
+    //3 = Laub
+    //4 = Eichel
+    private int trumpfcolor;
+
     public Mode(MODE_TYPE m)
     {
         mode_type = m;
+        callingColor = -1;
+        trumpfcolor = -1;
     }
 
     //getter Methode
@@ -93,6 +109,30 @@ public class Mode {
     public void setModeType(MODE_TYPE m)
     {
         mode_type = m;
+    }
+
+    //getter Methode
+    public int getCallingColor()
+    {
+        return callingColor;
+    }
+
+    //setter Methode
+    public void setCallingColor(int x)
+    {
+        callingColor = x;
+    }
+
+    //getter Methode
+    public int getTrumpfcolor()
+    {
+        return trumpfcolor;
+    }
+
+    //setter Methode
+    public void setTrumpfcolor(int y)
+    {
+        callingColor = y;
     }
 
     //spielbare Karten werden geckeckt und mit einer LinkedList

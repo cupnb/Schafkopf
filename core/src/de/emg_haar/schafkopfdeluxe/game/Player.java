@@ -158,7 +158,7 @@ public class Player
         String input = new String("");
         Mode.MODE_TYPE modeuebergeben = null;
         Scanner s = new Scanner(input);
-        modeuebergeben = ;
+        modeuebergeben = modeuebergeben.vergleiche(input);
         return modeuebergeben;
     }
 }

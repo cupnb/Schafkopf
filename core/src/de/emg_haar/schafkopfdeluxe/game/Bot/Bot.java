@@ -1,3 +1,6 @@
+//Wäre ganz cool Alex, wenn du hier die Kommentare reinmachen könntest
+//Ulli
+
 package de.emg_haar.schafkopfdeluxe.game.Bot;
 
 import java.util.List;
@@ -15,8 +18,6 @@ public class Bot extends Player_ {
     protected Game game;
     protected int points;
     protected boolean player;
-    protected boolean contra;
-    protected boolean re;
     protected boolean turn;
 
     public Bot() {
@@ -53,14 +54,6 @@ public class Bot extends Player_ {
 
     public boolean getPlayer(){
         return player;
-    }
-
-    public boolean getContra(){
-        return contra;
-    }
-
-    public boolean getRe(){
-        return re;
     }
 
     public void yourTurn(){

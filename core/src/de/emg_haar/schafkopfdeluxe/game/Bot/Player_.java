@@ -1,3 +1,6 @@
+//Wäre ganz cool Alex, wenn du hier die Kommentare reinmachen könntest
+//Ulli
+
 package de.emg_haar.schafkopfdeluxe.game.Bot;
 
 import de.emg_haar.schafkopfdeluxe.game.Game;
@@ -16,8 +19,7 @@ public abstract class Player_ {
     //Damit wird festgelegt, wer mit wem in einem Team ist. Wenn du beispielsweise jetzt auf das Eichelass spielst, wird bei dir und bei der Person, die das Eichelass hat Player gesettet
     //Ulli
     public abstract boolean getPlayer();
-    public abstract boolean getContra();
-    public abstract boolean getRe();
+
     public abstract void yourTurn();
 
     public abstract void addCards(Stack<Card> c);

@@ -1,11 +1,8 @@
 package de.emg_haar.schafkopfdeluxe.game.card;
 
-
-/**
- * Created by Sebi on 04.02.2017.
- */
-
+//Klasse für den Rank einer Karte (z.B. Ass)
 public enum CardRank {
+    //Festlegung der 8 Ranks
     ASS("ass", 11, 60),
     ZEHN("zehn", 10, 50),
     KOENIG("koenig", 4, 40),
@@ -15,31 +12,39 @@ public enum CardRank {
     ACHT("acht", 0, 20),
     SIEBEN("sieben", 0, 10);
 
+    //Name des Ranks (z.B. "ass")
     private String name;
+    //Punktanzahl des jeweiligen Ranks
     private int points;
+    //Wert zum Vergleich von 2 Karten --> Wird gebracuht um in verschieden Modi verschiedene Werte für die Karten festzulegen
     private int comparison;
 
+    //Konstruktor der Klasse CardRank
     CardRank(String displayName, int points, int comparision) {
         this.name = displayName;
         this.points = points;
         this.comparison = comparision;
     }
 
+    //getter Methode von name
     public String getName()
     {
         return name;
     }
 
+    //getter Methode von points
     public int getPoints()
     {
         return points;
     }
 
+    //setter Methode von comparision
     public void setComparision(int comparision)
     {
         this.comparison = comparision;
     }
 
+    //getter Methode von comparision
     public int getComparision()
     {
         return comparison;

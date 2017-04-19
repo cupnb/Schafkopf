@@ -58,6 +58,15 @@ public class Player
     {
         player = p;
     }
+    // -#-#-#-#-#-#- Frage -#-#-#-#-#-#-
+    // Was ist das?
+    // - Alex D.
+    // -#-#-#-#-#-# Antwort #-#-#-#-#-#-
+    // Damit wird festgelegt, wer mit wem in einem Team ist.
+    // Wenn du beispielsweise jetzt auf das Eichelass spielst,
+    // wird bei dir und bei der Person, die das Eichelass hat Player gesettet.
+    // - Ulli
+    // -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 
     //getter Methode von player
     public boolean getPlayer()
@@ -109,12 +118,6 @@ public class Player
     {
         return name;
     }
-
-
-    //
-    // Wäre noch wichtig, ich brauche diese Methode noch.
-    // - Alex D.
-    //
 
     //zeigt die spielbaren Karten einer Person
     public void showPlayableCards(LinkedList<Card> l)

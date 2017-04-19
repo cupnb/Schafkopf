@@ -1,4 +1,4 @@
-package de.emg_haar.schafkopfdeluxe.game.Bot;
+package de.emg_haar.schafkopfdeluxe.game.Bots;
 
 public class Bot_1 extends Bot {
 
@@ -8,7 +8,8 @@ public class Bot_1 extends Bot {
     }
 
     // -#-#-#-#-#- Anmerkung -#-#-#-#-#-#-
-    // Hier kommen die verfeinerten Bot-Methoden
+    // Hier kommen die verfeinerten Bot-Methoden.
     // - Alex D.
     // -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
+
 }

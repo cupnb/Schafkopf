@@ -22,14 +22,6 @@ public class Bot extends Player_ {
     public Bot() {
 
         name = "Nathanael";
-
-        // Ich würde gerne bei mehreren Nathanaels durchnummerieren.
-        // Game müsste eine Methode aufrufen, die dem Konstruktor dieser Klasse eine Zahl dalässt.
-        // Diese Zahl ist die Position des Bots am Tisch.
-
-        //dann baus dir ein
-        //Ulli
-
         game = null;
         points = 0;
         player = false;

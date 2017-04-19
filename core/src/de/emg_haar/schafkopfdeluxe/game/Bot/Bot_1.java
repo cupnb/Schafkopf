@@ -7,5 +7,8 @@ public class Bot_1 extends Bot {
         name = "Faust";
     }
 
+    // -#-#-#-#-#- Anmerkung -#-#-#-#-#-#-
     // Hier kommen die verfeinerten Bot-Methoden
+    // - Alex D.
+    // -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 }

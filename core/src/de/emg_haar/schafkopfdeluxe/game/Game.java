@@ -312,7 +312,7 @@ public class Game {
             {
                 if(players[u].isBot() == true)
                 {
-                    players[u].getMatrix(matrix);
+                    players[u].setMatrix(matrix);
                 }
             }
             //Karte wird zu Dump und Played hinzugefügt
@@ -472,7 +472,7 @@ public class Game {
                 }
                 //Speichern der Punkte der Nicht-Spieler
                 else
-                    {
+                {
                     notplayerspp[b % 2] = players[b];
                     punkteNotPlayer = punkteNotPlayer + players[b].getPunkte();
                 }

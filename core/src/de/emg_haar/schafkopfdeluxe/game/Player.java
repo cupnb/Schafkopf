@@ -180,7 +180,7 @@ public class Player
         return bot;
     }
 
-    public void getMatrix(Card[][] newMatrix)
+    public void setMatrix(Card[][] newMatrix)
     {
         botMatrix = newMatrix;
     }

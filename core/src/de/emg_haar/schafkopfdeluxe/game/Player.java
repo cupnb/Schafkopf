@@ -194,4 +194,5 @@ public class Player
         modeuebergeben = modeuebergeben.vergleiche(input);
         return modeuebergeben;
     }
+
 }

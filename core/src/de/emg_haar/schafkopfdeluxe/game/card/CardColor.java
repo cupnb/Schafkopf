@@ -20,4 +20,9 @@ public enum CardColor {
     public String getName() {
         return name;
     }
+
+    public int convertToInt()
+    {
+
+    }
 }

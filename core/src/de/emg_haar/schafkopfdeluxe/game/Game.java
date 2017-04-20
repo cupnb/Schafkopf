@@ -33,6 +33,12 @@ public class Game {
     private Card [][] matrix;
     //Anzahl der gespielten Stiche
     private int playedStiche;
+    //Ruffarbe des Modes (bei Soli, Ramsch oder Wenz --> null)
+    //1 = Schellen
+    //2 = Laub
+    //3 = Eichel
+    //-1 = keine
+    private int callingColor;
 
 
     public Game(Player p0, Player p1, Player p2, Player p3) {
@@ -67,6 +73,7 @@ public class Game {
         roundNumber = 0;
         matrix = new Card[4][8];
         playedStiche = 0;
+        callingColor = -1;
         initialize();
     }
     public int getStapel(){
@@ -87,7 +94,7 @@ public class Game {
     public void initialize()
     {
         //Ruffarbe wird zurückgesetzt
-        mode.setCallingColor(-1);
+        setCallingColor(-1);
         //PlayedStiche wird reseted
         playedStiche = 0;
 
@@ -206,7 +213,7 @@ public class Game {
         {
             int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(),CardRank.ASS, CardColor.EICHEL);
             players[now].setPlayer(true);
-            mode.setCallingColor(3);
+            setCallingColor(3);
         }
 
         //Zweiter Spieler wird gesucht: Bei Sauspiel Schellen
@@ -214,7 +221,7 @@ public class Game {
         {
             int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(),CardRank.ASS, CardColor.SCHELLEN);
             players[now].setPlayer(true);
-            mode.setCallingColor(1);
+            setCallingColor(1);
         }
 
         //Zweiter Spieler wird gesucht: Bei Sauspiel Gras
@@ -222,7 +229,7 @@ public class Game {
         {
             int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(),CardRank.ASS, CardColor.LAUB);
             players[now].setPlayer(true);
-            mode.setCallingColor(2);
+            setCallingColor(2);
         }
 
         //Trumpfcolor wird aufgrund des MOdes ferstgelegt
@@ -295,6 +302,8 @@ public class Game {
     //Methode für einen Stich
     public void loop()
     {
+        //Stack mit dem Karten des letzten Stichs werden geleert
+        playedLeeren();
         //Die Anzahl der gespielten Stiche wird um 1 erhöht
         playedStiche++;
         //Spieler, der die höchste Karte gelegt hat
@@ -425,6 +434,26 @@ public class Game {
         }
 
         return -1;
+    }
+
+    //getter Methode
+    public int getCallingColor()
+    {
+        return callingColor;
+    }
+
+    //setter Methode
+    public void setCallingColor(int x)
+    {
+        callingColor = x;
+    }
+
+    public void playedLeeren()
+    {
+        for(int i = played.size(); i>0; i--)
+        {
+            played.pop();
+        }
     }
 
     //Methode, die am Ende aufgerufen wird

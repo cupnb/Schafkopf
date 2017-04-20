@@ -83,19 +83,11 @@ public class Mode {
     //2 = Laub
     //3 = Eichel
     //-1 = keine
-    private int callingColor;
-    //Beschreibung der Trumpffarbe mithilfe eines int
-    //0 = Wenz
-    //1 = Schellen
-    //2 = Herz
-    //3 = Laub
-    //4 = Eichel
     private int trumpfcolor;
 
     public Mode(MODE_TYPE m)
     {
         mode_type = m;
-        callingColor = -1;
         trumpfcolor = -1;
     }
 
@@ -112,18 +104,6 @@ public class Mode {
     }
 
     //getter Methode
-    public int getCallingColor()
-    {
-        return callingColor;
-    }
-
-    //setter Methode
-    public void setCallingColor(int x)
-    {
-        callingColor = x;
-    }
-
-    //getter Methode
     public int getTrumpfcolor()
     {
         return trumpfcolor;
@@ -132,7 +112,7 @@ public class Mode {
     //setter Methode
     public void setTrumpfcolor(int y)
     {
-        callingColor = y;
+        trumpfcolor = y;
     }
 
     //spielbare Karten werden geckeckt und mit einer LinkedList

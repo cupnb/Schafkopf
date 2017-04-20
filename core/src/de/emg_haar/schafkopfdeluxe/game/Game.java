@@ -305,7 +305,16 @@ public class Game {
         for (int x = 0; x < 4; x++) {
             //players[turnState.ordinal()].yourTurn();
             Card Spielkarte = players[(dealer + 1 + x) % 4].kartelegen();
+            //matrix wird mit der jeweiligen karte befüllt
             matrix[(dealer + 1 + x) % 4][playedStiche-1] = Spielkarte;
+            //Übergeben der aktualisierten Matrix an die Player, wenn der Player ein Bot ist
+            for (int u=0;u<4;u++)
+            {
+                if(players[u].isBot() == true)
+                {
+                    players[u].getMatrix(matrix);
+                }
+            }
             //Karte wird zu Dump und Played hinzugefügt
             addgespielteKarte(Spielkarte);
             //erste Karte wird hingelegt

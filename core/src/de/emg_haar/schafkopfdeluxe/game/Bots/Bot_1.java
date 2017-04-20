@@ -17,11 +17,14 @@ public class Bot_1 extends Bot {
     protected int punkte;
     protected int stichanzahl;
     protected boolean turn;
+    protected boolean bot;
 
     */
 
-    public Bot_1(){
+    public Bot_1()
+    {
         this.name = "Faust";
+        bot = true;
     }
 
     // -#-#-#-#-#- Anmerkung -#-#-#-#-#-#-

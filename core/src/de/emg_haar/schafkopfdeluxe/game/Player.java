@@ -30,6 +30,10 @@ public class Player
     protected int stichanzahl;
     //Boolean ob man dran ist oder nicht
     protected boolean turn;
+    //Boolean zur UNterschiedung zwischen Bot und Human
+    protected boolean bot;
+    //Matrix, die für den Bot gebraucht wird --> Muss Karten speichern können
+    protected Card [][] botMatrix;
 
     //Konstruktor der Klasse Player
     public Player(String name)
@@ -45,6 +49,8 @@ public class Player
         stiche = new Stack<Card>();
         punkte = 0;
         stichanzahl = 0;
+        bot = false;
+        botMatrix = new Card[4][8];
     }
 
     //setter Methode von game
@@ -164,8 +170,20 @@ public class Player
     public void onlineSpiel()
     {
         online = true;
+        //Problem: muss irgendwie in MainMenu vom Player gewählt werden
     }
-    //Problem: muss irgendwie in MainMenu vom Player gewählt werden
+
+    //getter Methode von bot
+
+
+    public boolean isBot() {
+        return bot;
+    }
+
+    public void getMatrix(Card[][] newMatrix)
+    {
+        botMatrix = newMatrix;
+    }
 
     //Scanner - noch in Arbeit
     public Mode.MODE_TYPE ScannerBenutzen()

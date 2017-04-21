@@ -386,7 +386,7 @@ public class Game {
     //spielbare KArten werden dem Spieler gezeigt
     private void showPlayableCards(Player p)
     {
-        p.showPlayableCards(mode.checkPlayable(p.getHand(), played));
+        p.showPlayableCards(mode.showPlayableCards(p.getHand(), played, callingColor));
     }
 
     //Suche nach einer bestimmten Karte aufgrund von 4 Listen und dem/der CardRank/CardColor

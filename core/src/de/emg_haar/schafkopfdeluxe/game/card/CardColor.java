@@ -23,6 +23,22 @@ public enum CardColor {
 
     public int convertToInt()
     {
+        if(getName().equals("eichel"))
+        {
+            return 3;
+        }
 
+        else if(getName().equals("laub"))
+        {
+            return 2;
+        }
+        else if(getName().equals("schellen"))
+        {
+            return 1;
+        }
+        else
+        {
+            return -1;
+        }
     }
 }

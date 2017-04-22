@@ -13,8 +13,12 @@ public class Game {
 
     //Feld für die Spieler; 4 Spieler werden dem Feld im Konstruktor zugewiesen
     private Player[] players;
+
     //dient zur Bestimmung, wer dran ist
-    private enum Turnstate{P0, P1, P2, P3}
+    private enum Turnstate {
+        P0, P1, P2, P3
+    }
+
     //speichert, wer dran ist
     private Turnstate turnState;
     //Person, die imaginär die Karten austeilt; wichtig für Ansage wer spielt und wer rauskommt
@@ -30,7 +34,7 @@ public class Game {
     //Rundennummer (zählt nach jeder gespielte Partie hoch)
     private int roundNumber;
     //Matrix zum Speichern der Karten --> Nötig für den Bot
-    private Card [][] matrix;
+    private Card[][] matrix;
     //Anzahl der gespielten Stiche
     private int playedStiche;
     //Ruffarbe des Modes (bei Soli, Ramsch oder Wenz --> null)
@@ -76,53 +80,45 @@ public class Game {
         callingColor = -1;
         initialize();
     }
-    public int getStapel(){
-        if (played.empty() == true){
+
+    public int getStapel() {
+        if (played.empty() == true) {
             return -1;
-        }
-        else{
+        } else {
             return 0;
         }
     }
 
     //Fügt eine gespielte Karte zu dump und played hinzu
-    public void addgespielteKarte(Card f){
+    public void addgespielteKarte(Card f) {
         dump.add(f);
         played.add(f);
     }
 
-    public void initialize()
-    {
+    public void initialize() {
         //Ruffarbe wird zurückgesetzt
         setCallingColor(-1);
+        //Ruffarbe wird auf den Standard gesetzt
+        mode.setTrumpfcolor(2);
         //PlayedStiche wird reseted
         playedStiche = 0;
 
         //Karten werden zu je 4 an die Spieler verteilt
-        for (int i = 0; i < 2; i++)
-        {
-            for (int j = 0; j < 4; j++)
-            {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 4; j++) {
                 players[j].addCards(deck.deal());
             }
         }
 
         //Der anfangende Spieler wird im turnState festgelegt
 
-        if (dealer == 0)
-        {
+        if (dealer == 0) {
             turnState = Turnstate.P1;
-        }
-        else if (dealer == 1)
-        {
+        } else if (dealer == 1) {
             turnState = Turnstate.P2;
-        }
-        else if (dealer == 2)
-        {
+        } else if (dealer == 2) {
             turnState = Turnstate.P3;
-        }
-        else if (dealer == 3)
-        {
+        } else if (dealer == 3) {
             turnState = Turnstate.P0;
         }
 
@@ -135,19 +131,15 @@ public class Game {
         //boolean Feld zur Bestimmung, wer spielen will und wer davon spielt
         boolean[] willSpieler = new boolean[4];
         //for: Abfrage wer spielen will --> True setzen des jeweiligen Indexes
-        for (int i = 0; i<4; i++)
-        {
-             if(players[(auswähler + i)%4].getWannaplay() == true)
-             {
+        for (int i = 0; i < 4; i++) {
+            if (players[(auswähler + i) % 4].getWannaplay() == true) {
 
-                 willSpieler[i] = true;
-                 //Anzahl der Personen, die spielen wollen wird um 1 erhöht
-                 anzahlSpielenWollen = anzahlSpielenWollen + 1;
-             }
-             else
-             {
-                 willSpieler[i] = false;
-             }
+                willSpieler[i] = true;
+                //Anzahl der Personen, die spielen wollen wird um 1 erhöht
+                anzahlSpielenWollen = anzahlSpielenWollen + 1;
+            } else {
+                willSpieler[i] = false;
+            }
         }
         //Abfrage wer SPIELT
         //int zum Anfänger des Auswahlverfahrens
@@ -157,17 +149,13 @@ public class Game {
         //int zur Festlegung des endgültigen Spielers --> Festlegen von Spieler und NIcht-Spieler
         int endgültigerPlayer = 4;
         //Wenn niemand spielen will --> Ramsch
-        if(anzahlSpielenWollen  == 0)
-        {
+        if (anzahlSpielenWollen == 0) {
             mode.setModeType(Mode.MODE_TYPE.RAMSCH);
         }
         //Wenn genau eine Person spielen will, dann wird der gewünschte Mode der Person genommen
-        if(anzahlSpielenWollen == 1)
-        {
-            for (int p = 0; p < 4; p++)
-            {
-                if (willSpieler[p] == true)
-                {
+        if (anzahlSpielenWollen == 1) {
+            for (int p = 0; p < 4; p++) {
+                if (willSpieler[p] == true) {
                     mode.setModeType(players[p].play("SAUSPIELEICHEL"));
                     //SauspielEichel nur ein Beispiel --> Eingabefeld einfügen
                     endgültigerPlayer = p;
@@ -175,11 +163,9 @@ public class Game {
             }
         }
         //Wenn mehr als eine Person spielen will, wird aufgrnd der Ordinalzahl des Modes abgewägt, was gespielt wird
-        if(anzahlSpielenWollen > 1)
-        {
+        if (anzahlSpielenWollen > 1) {
             //Modes der Spieler, die spielen wollen werden aufgenommen in das Mode Array
-            for (int i = 0; i < 4; i++)
-            {
+            for (int i = 0; i < 4; i++) {
                 modefeld[i].setModeType(players[(willspieler + i) % 4].play("SAUSPIELEICHEL"));
             }
 
@@ -187,8 +173,7 @@ public class Game {
             for (int z = 0; z < 4; z++) {
                 if (modefeld[z] != null) {
                     //erster Mode wird gesetzt
-                    if (mode == null)
-                    {
+                    if (mode == null) {
                         mode.setModeType(modefeld[z].getModeType());
                         endgültigerPlayer = z;
                     }
@@ -202,96 +187,79 @@ public class Game {
             }
             //Mode fürSpiel ist der endgültige Mode
         }
-        if(endgültigerPlayer<4)
-        {
+        if (endgültigerPlayer < 4) {
             //Spieler wird gesetzt
             players[endgültigerPlayer].setPlayer(true);
         }
 
         //Zweiter Spieler wird gesucht: Bei Sauspiel Eichel
-        if (mode.getModeType() == Mode.MODE_TYPE.SAUSPIELEICHEL)
-        {
-            int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(),CardRank.ASS, CardColor.EICHEL);
+        if (mode.getModeType() == Mode.MODE_TYPE.SAUSPIELEICHEL) {
+            int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(), CardRank.ASS, CardColor.EICHEL);
             players[now].setPlayer(true);
             setCallingColor(3);
         }
 
         //Zweiter Spieler wird gesucht: Bei Sauspiel Schellen
-        if (mode.getModeType() == Mode.MODE_TYPE.SAUSPIELSCHELLEN)
-        {
-            int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(),CardRank.ASS, CardColor.SCHELLEN);
+        if (mode.getModeType() == Mode.MODE_TYPE.SAUSPIELSCHELLEN) {
+            int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(), CardRank.ASS, CardColor.SCHELLEN);
             players[now].setPlayer(true);
             setCallingColor(1);
         }
 
         //Zweiter Spieler wird gesucht: Bei Sauspiel Gras
-        if (mode.getModeType() == Mode.MODE_TYPE.SAUSPIELGRAS)
-        {
-            int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(),CardRank.ASS, CardColor.LAUB);
+        if (mode.getModeType() == Mode.MODE_TYPE.SAUSPIELGRAS) {
+            int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(), CardRank.ASS, CardColor.LAUB);
             players[now].setPlayer(true);
             setCallingColor(2);
         }
 
         //Trumpfcolor wird aufgrund des MOdes ferstgelegt
-        if (mode.getModeType() == Mode.MODE_TYPE.SOLOGRAS)
-        {
+        if (mode.getModeType() == Mode.MODE_TYPE.SOLOGRAS) {
             mode.setTrumpfcolor(3);
         }
 
-        if (mode.getModeType() == Mode.MODE_TYPE.SOLOEICHEL)
-        {
+        if (mode.getModeType() == Mode.MODE_TYPE.SOLOEICHEL) {
             mode.setTrumpfcolor(4);
         }
 
-        if (mode.getModeType() == Mode.MODE_TYPE.SOLOSCHELLEN)
-        {
+        if (mode.getModeType() == Mode.MODE_TYPE.SOLOSCHELLEN) {
             mode.setTrumpfcolor(1);
         }
 
-        if (mode.getModeType() == Mode.MODE_TYPE.WENZ)
-        {
+        if (mode.getModeType() == Mode.MODE_TYPE.WENZ) {
             mode.setTrumpfcolor(0);
         }
 
         //Vergleichswerte für Ober und Unter werden angepasst (z.B. Eichel Ober ist über Schellen Ober)
-        for(int a = 0; a<4; a++)
-        {
+        for (int a = 0; a < 4; a++) {
             mode.comparisionOberUnter(players[a].getHand());
         }
 
         //Vergleichswerte der Trumpfarbe werden angepasst (solange es nicht Herz ist) bzw. die Vergleichswerte werden für einen Wenz angepasst
-        if(mode.getTrumpfcolor() == 0 || mode.getTrumpfcolor() == 1 || mode.getTrumpfcolor() == 3 || mode.getTrumpfcolor() == 4)
-        {
+        if (mode.getTrumpfcolor() == 0 || mode.getTrumpfcolor() == 1 || mode.getTrumpfcolor() == 3 || mode.getTrumpfcolor() == 4) {
 
-            for(int b = 0; b<4; b++)
-            {
+            for (int b = 0; b < 4; b++) {
                 mode.comparisionAktualisieren(players[b].getHand(), mode.getModeType());
             }
         }
 
         //Vergleichswerte von Herz werden erhöht, wenn Herz Trumpffarbe ist
-        if(mode.getTrumpfcolor() == 2)
-        {
-            for(int s = 0; s<4; s++)
-            {
+        if (mode.getTrumpfcolor() == 2) {
+            for (int s = 0; s < 4; s++) {
                 mode.comparisionSetStandard(players[s].getHand());
             }
 
         }
 
         //Aufruf der Methode loop führt 8 Stiche durch
-        for (int i =0; i<8; i++)
-        {
+        for (int i = 0; i < 8; i++) {
             loop();
         }
 
         //Geber wird um eins erhoeht (ganz am Ende von initialize einbauen)
-        if (dealer == 3)
-        {
+        if (dealer == 3) {
             dealer = 0;
-        }
-        else
-        {
+        } else {
             dealer = dealer++;
         }
 
@@ -300,8 +268,7 @@ public class Game {
     }
 
     //Methode für einen Stich
-    public void loop()
-    {
+    public void loop() {
         //Stack mit dem Karten des letzten Stichs werden geleert
         playedLeeren();
         //Die Anzahl der gespielten Stiche wird um 1 erhöht
@@ -315,41 +282,32 @@ public class Game {
             //players[turnState.ordinal()].yourTurn();
             Card Spielkarte = players[(dealer + 1 + x) % 4].kartelegen();
             //matrix wird mit der jeweiligen karte befüllt
-            matrix[(dealer + 1 + x) % 4][playedStiche-1] = Spielkarte;
+            matrix[(dealer + 1 + x) % 4][playedStiche - 1] = Spielkarte;
             //Übergeben der aktualisierten Matrix an die Player, wenn der Player ein Bot ist
-            for (int u=0;u<4;u++)
-            {
-                if(players[u].isBot() == true)
-                {
+            for (int u = 0; u < 4; u++) {
+                if (players[u].isBot() == true) {
                     players[u].setMatrix(matrix);
                 }
             }
             //Karte wird zu Dump und Played hinzugefügt
             addgespielteKarte(Spielkarte);
             //erste Karte wird hingelegt
-            if (best == null)
-            {
+            if (best == null) {
                 //bester Spieler wird auf den Anfangsspieler gesetzt
                 best = players[(dealer + 1 + x) % 4];
                 //Karte wird als höchste bezeichnet
                 highest = Spielkarte;
-            }
-            else
-            {
+            } else {
                 //Vergleich der Spielkarten aufgrund der Farbe --> Farbe mit der höheren Zahl bei gleicher Farbe wird highest
-                if (Spielkarte.getColor() == highest.getColor())
-                {
-                    if(Spielkarte.getRank().getComparision() > highest.getRank().getComparision())
-                    {
+                if (Spielkarte.getColor() == highest.getColor()) {
+                    if (Spielkarte.getRank().getComparision() > highest.getRank().getComparision()) {
                         highest = Spielkarte;
                         best = players[(dealer + 1 + x) % 4];
                     }
                 }
                 //Wenn es nicht die gleiche Farbe ist, bleibt die liegende Karte die höchste, außer der Vergleichswert ist größer als 60 (Vergleichswerte höher 60 --> Trumpf)
-                else
-                {
-                    if(Spielkarte.getRank().getComparision() < 60)
-                    {
+                else {
+                    if (Spielkarte.getRank().getComparision() < 60) {
                         highest = Spielkarte;
                         best = players[(dealer + 1 + x) % 4];
                     }
@@ -364,8 +322,7 @@ public class Game {
     }
 
     //nächster Spieler wird ausgewählt
-    public void nextPlayer()
-    {
+    public void nextPlayer() {
         switch (turnState) {
             case P3:
                 System.out.println("Spieler 0 ist jetzt dran");
@@ -384,50 +341,40 @@ public class Game {
     }
 
     //spielbare KArten werden dem Spieler gezeigt
-    private void showPlayableCards(Player p)
-    {
+    private void showPlayableCards(Player p) {
         p.showPlayableCards(mode.showPlayableCards(p.getHand(), played, callingColor));
     }
 
     //Suche nach einer bestimmten Karte aufgrund von 4 Listen und dem/der CardRank/CardColor
-    public int sucheKarte(LinkedList<Card> c1, LinkedList<Card> c2, LinkedList<Card> c3, LinkedList<Card> c4, CardRank gesuchtRank, CardColor gesuchtColor)
-    {
+    public int sucheKarte(LinkedList<Card> c1, LinkedList<Card> c2, LinkedList<Card> c3, LinkedList<Card> c4, CardRank gesuchtRank, CardColor gesuchtColor) {
 
         //1. Liste wird durchsucht
-        for(int i=c1.size(); i>0; i--)
-        {
-            if (c1.getFirst().getColor() == gesuchtColor && c1.getFirst().getRank() == gesuchtRank)
-            {
+        for (int i = c1.size(); i > 0; i--) {
+            if (c1.getFirst().getColor() == gesuchtColor && c1.getFirst().getRank() == gesuchtRank) {
                 return 0;
             }
             c1.removeFirst();
         }
 
         //2. Liste wird durchsucht
-        for(int i=c2.size(); i>0; i--)
-        {
-            if (c2.getFirst().getColor() == gesuchtColor && c2.getFirst().getRank() == gesuchtRank)
-            {
+        for (int i = c2.size(); i > 0; i--) {
+            if (c2.getFirst().getColor() == gesuchtColor && c2.getFirst().getRank() == gesuchtRank) {
                 return 1;
             }
             c1.removeFirst();
         }
 
         //3. Liste wird durchsucht
-        for(int i=c3.size(); i>0; i--)
-        {
-            if (c3.getFirst().getColor() == gesuchtColor && c3.getFirst().getRank() == gesuchtRank)
-            {
+        for (int i = c3.size(); i > 0; i--) {
+            if (c3.getFirst().getColor() == gesuchtColor && c3.getFirst().getRank() == gesuchtRank) {
                 return 2;
             }
             c3.removeFirst();
         }
 
         //4. Liste wird durchsucht
-        for(int i=c4.size(); i>0; i--)
-        {
-            if (c4.getFirst().getColor() == gesuchtColor && c4.getFirst().getRank() == gesuchtRank)
-            {
+        for (int i = c4.size(); i > 0; i--) {
+            if (c4.getFirst().getColor() == gesuchtColor && c4.getFirst().getRank() == gesuchtRank) {
                 return 3;
             }
             c4.removeFirst();
@@ -437,45 +384,37 @@ public class Game {
     }
 
     //getter Methode
-    public int getCallingColor()
-    {
+    public int getCallingColor() {
         return callingColor;
     }
 
     //setter Methode
-    public void setCallingColor(int x)
-    {
+    public void setCallingColor(int x) {
         callingColor = x;
     }
 
-    public void playedLeeren()
-    {
-        for(int i = played.size(); i>0; i--)
-        {
+    public void playedLeeren() {
+        for (int i = played.size(); i > 0; i--) {
             played.pop();
         }
     }
 
     //Methode, die am Ende aufgerufen wird
-    public void ende()
-    {
+    public void ende() {
         //Punkte der Spieler
         int punktePlayer = 0;
         //Punkte der Nichtspieler
         int punkteNotPlayer = 0;
         //Feststellen des Verlierers aufgrund der Punktanzahl
-        if(mode.getModeType() == Mode.MODE_TYPE.RAMSCH)
-        {
+        if (mode.getModeType() == Mode.MODE_TYPE.RAMSCH) {
             //int zum Speichern des Spielers mit der höchsten Punktezahl
             int lost = 5;
             //int zum Speichern des Punktestands dieses Spielers
             int most = 0;
             //4 Spieler werden durchgegangen
-            for(int i = 0; i<4; i++)
-            {
+            for (int i = 0; i < 4; i++) {
                 //Wenn der nächste Spieler mehr Punkte hat, wird er gespeichert
-                if(players[i].getPunkte()> most)
-                {
+                if (players[i].getPunkte() > most) {
                     //Festelegung der Punkte zum weiteren Vergleich
                     most = players[i].getPunkte();
                     //Festlegung des Spielers zum späteren Aufrufen
@@ -483,40 +422,47 @@ public class Game {
                 }
             }
             //Bekanntmachung des Verlierers
-            System.out.println(players[lost].getName() +" hat verloren!");
-        }
-        else
-        {
+            System.out.println(players[lost].getName() + " hat verloren!");
+        } else {
             //Spieler werden festgelegt in einem Feld
             Player[] playerspp = new Player[2];
             //Nicht-Spieler werden festgelegt in einem Feld
             Player[] notplayerspp = new Player[3];
             //Durchlaufen der 4 Spieler
-            for (int b = 0; b < 4; b++)
-            {
+            for (int b = 0; b < 4; b++) {
                 //Speichern der Punkte der Spieler
                 if (players[b].getPlayer() == true) {
                     playerspp[b % 2] = players[b];
                     punktePlayer = punktePlayer + players[b].getPunkte();
                 }
                 //Speichern der Punkte der Nicht-Spieler
-                else
-                {
-                    notplayerspp[b % 2] = players[b];
+                else {
+                    notplayerspp[b % 3] = players[b];
                     punkteNotPlayer = punkteNotPlayer + players[b].getPunkte();
                 }
             }
 
             //Auswertung der Punktzahl
-            if (punktePlayer <= punkteNotPlayer)
+            if (mode.getModeType() == Mode.MODE_TYPE.RAMSCH)
             {
-                //Bekanntmachung, dass die NIcht-Spieler gewonnen haben
-                System.out.println(notplayerspp[0].getName() + " und " + notplayerspp[1] + " haben gewonnen!");
+                if (punktePlayer <= punkteNotPlayer) {
+                    //Bekanntmachung, dass die NIcht-Spieler gewonnen haben
+                    System.out.println(notplayerspp[0].getName() + " und " + notplayerspp[1].getName() + " haben gewonnen!");
+                } else {
+                    //Bekanntmachung, dass die Spieler gewonnen haben
+                    System.out.println(playerspp[0].getName() + " und " + playerspp[1] + " haben gewonnen!");
+                }
+
             }
             else
             {
-                //Bekanntmachung, dass die Spieler gewonnen haben
-                System.out.println(playerspp[0].getName() + " und " + playerspp[1] + " haben gewonnen!");
+                if (punktePlayer <= punkteNotPlayer) {
+                    //Bekanntmachung, dass die NIcht-Spieler gewonnen haben
+                    System.out.println(notplayerspp[0].getName() + " und " + notplayerspp[1] +" und " + notplayerspp[2].getName() + " haben gewonnen!");
+                } else {
+                    //Bekanntmachung, dass der Spieler gewonnen haben
+                    System.out.println(playerspp[0].getName() +  " hat gewonnen!");
+                }
             }
         }
     }

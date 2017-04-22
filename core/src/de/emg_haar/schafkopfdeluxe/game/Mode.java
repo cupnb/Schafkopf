@@ -11,9 +11,9 @@ import static de.emg_haar.schafkopfdeluxe.game.Mode.MODE_TYPE.*;
  * Created by noah on 30.01.17.
  */
 
+//Klasse die alles um den Spielmodus enthält
 public class Mode {
-
-
+    //Enumeration für alle Modes
     public enum MODE_TYPE
     {
         SAUSPIELSCHELLEN,
@@ -26,6 +26,7 @@ public class Mode {
         SOLOHERZ,
         RAMSCH;
 
+        //Methode, die einen Modues zum String macht
         public String toString(){
             switch(this){
                 case SAUSPIELSCHELLEN :
@@ -50,6 +51,7 @@ public class Mode {
             return null;
         }
 
+        //Vergleichen von zwei Modes
         public static MODE_TYPE vergleiche(String value){
             if(value.equalsIgnoreCase(SAUSPIELSCHELLEN.toString()))
                 return MODE_TYPE.SAUSPIELSCHELLEN;

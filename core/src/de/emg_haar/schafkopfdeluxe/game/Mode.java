@@ -516,4 +516,42 @@ public class Mode {
 
         }
     }
+
+    public boolean SauSpielSpielbar(LinkedList<Card> c1, Mode c2)
+    {
+        if(c2.getModeType() == SAUSPIELEICHEL || c2.getModeType() == SAUSPIELSCHELLEN || c2.getModeType() == SAUSPIELGRAS)
+        {
+            if(c2.getModeType() == SAUSPIELGRAS)
+            {
+                return assSuchen(c1, c2, "laub");
+            }
+            else if(c2.getModeType() == SAUSPIELSCHELLEN)
+            {
+                return assSuchen(c1, c2, "schellen");
+            }
+             else
+            {
+                return assSuchen(c1, c2, "eichel");
+            }
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public boolean assSuchen(LinkedList<Card> c3, Mode c4, String colorNew)
+    {
+        Card juhu = null;
+        for(int g=c3.size(); g>0; g--)
+        {
+            juhu = c3.getFirst();
+            c3.removeFirst();
+            if(juhu.getRank().getName().equals("ass") && juhu.getColor().getName().equals(colorNew))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }

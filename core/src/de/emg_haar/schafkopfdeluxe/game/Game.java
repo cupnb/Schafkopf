@@ -443,7 +443,7 @@ public class Game {
             }
 
             //Auswertung der Punktzahl
-            if (mode.getModeType() == Mode.MODE_TYPE.RAMSCH)
+            if (mode.getModeType() != Mode.MODE_TYPE.SOLOEICHEL || mode.getModeType() != Mode.MODE_TYPE.SOLOGRAS || mode.getModeType() != Mode.MODE_TYPE.SOLOSCHELLEN)
             {
                 if (punktePlayer <= punkteNotPlayer) {
                     //Bekanntmachung, dass die NIcht-Spieler gewonnen haben

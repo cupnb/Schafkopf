@@ -270,7 +270,7 @@ public class Game {
     //Methode für einen Stich
     public void loop() {
         //Stack mit dem Karten des letzten Stichs werden geleert
-        playedLeeren();
+        played.clear();
         //Die Anzahl der gespielten Stiche wird um 1 erhöht
         playedStiche++;
         //Spieler, der die höchste Karte gelegt hat
@@ -391,12 +391,6 @@ public class Game {
     //setter Methode
     public void setCallingColor(int x) {
         callingColor = x;
-    }
-
-    public void playedLeeren() {
-        for (int i = played.size(); i > 0; i--) {
-            played.pop();
-        }
     }
 
     //Methode, die am Ende aufgerufen wird

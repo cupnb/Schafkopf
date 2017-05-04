@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
+import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
 
 import static de.emg_haar.schafkopfdeluxe.game.Mode.MODE_TYPE.*;
 
@@ -133,8 +134,7 @@ public class Mode {
         //Erste Karte von der LinkedList wird einem Index zugeordnet und danach aus der LinkedList gelöscht
         for(int j=c1.size(); j>0; j--)
         {
-            temporaryArray[j]= c1.getFirst();
-            c1.removeFirst();
+            temporaryArray[j]= c1.removeFirst();
         }
         //LinkedList die am Ende zurückgegeben wird
         LinkedList<Card> giveBack = new LinkedList<Card>();
@@ -202,15 +202,7 @@ public class Mode {
                             }
                         }
                         //Wenn y größer vier, darf sie gespielt werden
-                        if(y >= 4)
-                        {
-                            return true;
-                        }
-                        //Sonst nicht
-                        else
-                        {
-                            return false;
-                        }
+                        return y >= 4;
                     }
                 }
                 //Wenn das Ass nicht da ist, darf er die Karte spielen
@@ -229,7 +221,7 @@ public class Mode {
         //Wenn unten eine Karte liegt
         else {
             //Wenn die unterste Karte die gleiche Farbe hat, wie die Karte, die geprüft wird und die Karte kein Ober bzw. Unter ist
-            if (c1.getColor() == unten.getColor() && c1.getRank().getName() != "unter" && c1.getRank().getName() != "ober")
+            if (c1.getColor() == unten.getColor() && c1.getRank() != CardRank.UNTER && c1.getRank() != CardRank.OBER)
             {
                 //Wenn die angespielte Farbe die Ruffarbe ist (Farbe, auf die gespielt wird)
                 if (c1.getColor().convertToInt() == Ruffarbe) {
@@ -245,7 +237,7 @@ public class Mode {
                     if (ass == true)
                     {
                         //Wenn die Karte das Ass ist, darf er sie legen
-                        if (c1.getRank().getName().equals("ass"))
+                        if (c1.getRank() == CardRank.ASS)
                         {
                             return true;
                         }
@@ -266,7 +258,7 @@ public class Mode {
                     {
                     return true;
                 }
-            } else if (c1.getRank().getName().equals("unter") && c1.getRank().getName().equals("ober")) {
+            } else if (c1.getRank() == CardRank.UNTER && c1.getRank() == CardRank.OBER) {
                 //Boolean zum Herausfinden, ob eine weitere Karte der gleichen Farbe in der Hand ist, die nicht der gespielte Ober bzw. Unter ist
                 boolean weitereKarteOU = false;
                 //Durchsuchen des Feldes auf andere Karten der gleichen Farben, die nicht der gesuchte Ober bzw. Unter sind
@@ -276,13 +268,7 @@ public class Mode {
                     }
                 }
                 //Wenn keine weitere Karte der Farbe vorhanden ist, darf die Karte gelegt werden
-                if (weitereKarteOU == false) {
-                    return true;
-                }
-                //Sonst darf er die Karte nicht legen
-                else {
-                    return false;
-                }
+                return !weitereKarteOU;
             }
             //Wenn die unterste Karte eine andere Farbe hat und die Karte kein Ober bzw. Unter ist
             else {
@@ -294,13 +280,7 @@ public class Mode {
                     }
                 }
                 //Wenn keine weitere Karte der Farbe vorhanden ist, darf die Karte gelegt werden
-                if (weitereKarte == false) {
-                    return true;
-                }
-                //Sonst darf er die Karte nicht legen
-                else {
-                    return false;
-                }
+                return !weitereKarte;
             }
         }
     }
@@ -519,35 +499,20 @@ public class Mode {
 
     public boolean SauSpielSpielbar(LinkedList<Card> c1, Mode c2)
     {
-        if(c2.getModeType() == SAUSPIELEICHEL || c2.getModeType() == SAUSPIELSCHELLEN || c2.getModeType() == SAUSPIELGRAS)
-        {
-            if(c2.getModeType() == SAUSPIELGRAS)
-            {
-                return assSuchen(c1, c2, "laub");
-            }
-            else if(c2.getModeType() == SAUSPIELSCHELLEN)
-            {
-                return assSuchen(c1, c2, "schellen");
-            }
-             else
-            {
-                return assSuchen(c1, c2, "eichel");
-            }
-        }
-        else
-        {
-            return true;
+        switch(c2.getModeType()) {
+            case SAUSPIELGRAS: return assSuchen(c1, c2, "laub");
+            case SAUSPIELEICHEL: return assSuchen(c1, c2, "eichel");
+            case SAUSPIELSCHELLEN: return assSuchen(c1, c2, "schellen");
+            default: return true;
         }
     }
 
     public boolean assSuchen(LinkedList<Card> c3, Mode c4, String colorNew)
     {
-        Card juhu = null;
         for(int g=c3.size(); g>0; g--)
         {
-            juhu = c3.getFirst();
-            c3.removeFirst();
-            if(juhu.getRank().getName().equals("ass") && juhu.getColor().getName().equals(colorNew))
+            Card card = c3.removeFirst();
+            if(card.getRank() == CardRank.ASS && card.getColor().getName().equals(colorNew))
             {
                 return false;
             }

@@ -164,8 +164,10 @@ public class Player
 
     public Card kartelegen(int k)
     {
-        Card playingCard = hand[k];
-        hand.remove(hand[k]);
+        Mode m = game.getMode();
+        m.showPlayableCards(hand);
+        Card playingCard = hand.get(k);
+        hand.remove(hand.get(k));
         game.addgespielteKarte(playingCard);
         return playingCard;
         //habe ich jetzt mal in loop() in Game gemacht -Ulli

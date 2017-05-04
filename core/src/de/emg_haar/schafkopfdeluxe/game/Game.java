@@ -89,6 +89,11 @@ public class Game {
         }
     }
 
+    public Mode getMode()
+    {
+        return mode;
+    }
+
     //Fügt eine gespielte Karte zu dump und played hinzu
     public void addgespielteKarte(Card f) {
         dump.add(f);

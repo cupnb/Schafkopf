@@ -8,6 +8,8 @@ import de.emg_haar.schafkopfdeluxe.game.card.Card;
 import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
 import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
 
+import static de.emg_haar.schafkopfdeluxe.game.Mode.MODE_TYPE.RAMSCH;
+
 //Hauptklasse, die alles steuert, und über die das Game hauptsächlich läuft --> Vergleiche typisches Schafkopfspiel
 public class Game {
 
@@ -50,6 +52,8 @@ public class Game {
         Random rnd = new Random();
         //Initialisierung des Feld Players (siehe Attribute)
         players = new Player[4];
+        //Mode wird zurückgesetzt
+        mode = null;
 
         //irgendein Graphikzeugs
         InputStreamReader Alpha = new InputStreamReader(System.in);
@@ -150,15 +154,19 @@ public class Game {
         int endgültigerPlayer = 4;
         //Wenn niemand spielen will --> Ramsch
         if (anzahlSpielenWollen == 0) {
-            mode.setModeType(Mode.MODE_TYPE.RAMSCH);
+            mode.setModeType(RAMSCH);
         }
         //Wenn genau eine Person spielen will, dann wird der gewünschte Mode der Person genommen
         if (anzahlSpielenWollen == 1) {
             for (int p = 0; p < 4; p++) {
                 if (willSpieler[p] == true) {
-                    mode.setModeType(players[p].play("SAUSPIELEICHEL"));
-                    //SauspielEichel nur ein Beispiel --> Eingabefeld einfügen
-                    endgültigerPlayer = p;
+                    //es wird nachgeprüft, ob der Spieler mit seiner Hand spielen darf --> Sauspiel darf nur ohne die Rufass gespielt werden
+                    if (mode.SauSpielSpielbar(players[p].getHand(), mode))
+                    {
+                        mode.setModeType(players[p].play("SAUSPIELEICHEL"));
+                        //SauspielEichel nur ein Beispiel --> Eingabefeld einfügen
+                        endgültigerPlayer = p;
+                    }
                 }
             }
         }
@@ -186,6 +194,10 @@ public class Game {
                 }
             }
             //Mode fürSpiel ist der endgültige Mode
+        }
+        if(mode == null)
+        {
+            mode.setModeType(RAMSCH);
         }
         if (endgültigerPlayer < 4) {
             //Spieler wird gesetzt
@@ -281,7 +293,7 @@ public class Game {
         for (int x = 0; x < 4; x++) {
             //players[turnState.ordinal()].yourTurn();
             Card Spielkarte = players[(dealer + 1 + x) % 4].kartelegen();
-            //matrix wird mit der jeweiligen karte befüllt
+            //matrix wird mit der jeweiligen Karte befüllt
             matrix[(dealer + 1 + x) % 4][playedStiche - 1] = Spielkarte;
             //Übergeben der aktualisierten Matrix an die Player, wenn der Player ein Bot ist
             for (int u = 0; u < 4; u++) {
@@ -400,7 +412,7 @@ public class Game {
         //Punkte der Nichtspieler
         int punkteNotPlayer = 0;
         //Feststellen des Verlierers aufgrund der Punktanzahl
-        if (mode.getModeType() == Mode.MODE_TYPE.RAMSCH) {
+        if (mode.getModeType() == RAMSCH) {
             //int zum Speichern des Spielers mit der höchsten Punktezahl
             int lost = 5;
             //int zum Speichern des Punktestands dieses Spielers

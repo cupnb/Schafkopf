@@ -499,11 +499,23 @@ public class Mode {
 
     public boolean SauSpielSpielbar(LinkedList<Card> c1, Mode c2)
     {
-        switch(c2.getModeType()) {
-            case SAUSPIELGRAS: return assSuchen(c1, c2, "laub");
-            case SAUSPIELEICHEL: return assSuchen(c1, c2, "eichel");
-            case SAUSPIELSCHELLEN: return assSuchen(c1, c2, "schellen");
-            default: return true;
+        //Wenn ein Spiel ein Sauspiel ist, dann
+        if (c2.getModeType() == SAUSPIELGRAS || c2.getModeType() == SAUSPIELSCHELLEN || c2.getModeType() == SAUSPIELEICHEL)
+        {
+            switch (c2.getModeType()) {
+                case SAUSPIELGRAS:
+                    return assSuchen(c1, c2, "laub");
+                case SAUSPIELEICHEL:
+                    return assSuchen(c1, c2, "eichel");
+                case SAUSPIELSCHELLEN:
+                    return assSuchen(c1, c2, "schellen");
+                default:
+                    return true;
+            }
+        }
+        else
+        {
+            return false;
         }
     }
 

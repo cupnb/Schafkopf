@@ -163,7 +163,7 @@ public class Player
     {
         int k = 0; //brauchen scanner
         Mode m = game.getMode();
-        m.showPlayableCards(hand);
+        m.showPlayableCards(hand,game.getDump(), game.getCallingColor());
         Card playingCard = hand.get(k);
         hand.remove(hand.get(k));
         game.addgespielteKarte(playingCard);

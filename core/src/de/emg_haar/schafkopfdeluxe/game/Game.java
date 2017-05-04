@@ -100,6 +100,11 @@ public class Game {
         played.add(f);
     }
 
+    public Stack getDump()
+    {
+        return dump;
+    }
+
     public void initialize() {
         //Ruffarbe wird zurückgesetzt
         setCallingColor(-1);

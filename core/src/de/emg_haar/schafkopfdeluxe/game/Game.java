@@ -285,7 +285,7 @@ public class Game {
         //for: 4 Spieler legen Karte
         for (int x = 0; x < 4; x++) {
             //players[turnState.ordinal()].yourTurn();
-
+            //scanner benötigt für karteneingabe
             Card Spielkarte = players[(dealer + 1 + x) % 4].kartelegen();
             //matrix wird mit der jeweiligen karte befüllt
             matrix[(dealer + 1 + x) % 4][playedStiche - 1] = Spielkarte;

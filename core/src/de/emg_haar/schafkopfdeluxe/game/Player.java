@@ -157,13 +157,11 @@ public class Player
             return null;
         }
     }
-    public Card karteWählen()
-    {
 
-    }
     //mögliche karten werden gezeigt, eine ausgewählt und gelegt
-    public Card kartelegen(int k)
+    public Card kartelegen()
     {
+        int k = 0; //brauchen scanner
         Mode m = game.getMode();
         m.showPlayableCards(hand);
         Card playingCard = hand.get(k);

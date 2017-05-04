@@ -158,12 +158,17 @@ public class Player
         }
     }
 
+    //mögliche karten werden gezeigt, eine ausgewählt und gelegt
     public Card kartelegen()
     {
-        //spieler wählt karte aus
-        //karte wird zu dump und played hinzugefügt
+        int k = 0; //brauchen scanner
+        Mode m = game.getMode();
+        m.showPlayableCards(hand);
+        Card playingCard = hand.get(k);
+        hand.remove(hand.get(k));
+        game.addgespielteKarte(playingCard);
+        return playingCard;
         //habe ich jetzt mal in loop() in Game gemacht -Ulli
-        return null;
     }
 
     // sagt an ob er ein Bot-Game oder ein Online-Game spielen will

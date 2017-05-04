@@ -161,7 +161,7 @@ public class Player
     {
 
     }
-
+    //mögliche karten werden gezeigt, eine ausgewählt und gelegt
     public Card kartelegen(int k)
     {
         Mode m = game.getMode();

@@ -408,6 +408,10 @@ public class Bot_1 extends Bot {
         if( anzahlUnter >= 3 || ( anzahlUnter == 2 && EichelUnter == true ) ) {
 
             // Wir sortieren die Karten in folgende Unterlisten:
+            /**
+             * Wofür ist die temphand da und wieso brauchst du diese Unterlisten?
+             * Ulli
+             */
             LinkedList<Card> temphand = new LinkedList();
             LinkedList<Card> UnterListe = new LinkedList();
             LinkedList<Card> EichelListe = new LinkedList();
@@ -508,6 +512,10 @@ public class Bot_1 extends Bot {
                 // - - - - - - - - - -
                 // Ulli, bitte hilf mir!
                 // - - - - - - - - - -
+
+                /**
+                 * Was genau brauchst du jetzt? :D
+                 */
 
             }
 

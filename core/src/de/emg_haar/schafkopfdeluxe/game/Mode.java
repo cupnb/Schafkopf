@@ -120,7 +120,7 @@ public class Mode {
 
     //spielbare Karten werden geckeckt und mit einer LinkedList
     //Methode zur anzeigen der spielbaren Karten
-    public LinkedList showPlayableCards(LinkedList<Card> c1, Stack<Card> c2, int Ruffarbe)
+    public LinkedList showPlayableCards(LinkedList<Card> c1, Stack<Card> c2, int Ruffarbe, MODE_TYPE c3)
     {
         //Karte, die im Stich ganz unten liegt
         Card unten = null;
@@ -141,11 +141,23 @@ public class Mode {
         //Alle Karten im Array werden geprüft
         for(int i=temporaryArray.length; i>0; i--)
         {
-            //Wenn die "Prüfung" positiv ausfällt, wird die Karte zur LinkedList hinzugefügt
-            if(pruefen(temporaryArray[i-1], unten, temporaryArray, Ruffarbe) == true)
+            //Wenn der Mode ein Sauspiel ist, wird das Prüfen darauf angepasst
+            if(c3 == SAUSPIELEICHEL || c3 == SAUSPIELGRAS || c3 == SAUSPIELSCHELLEN)
             {
-                //Karte wird zur LinkedList hinzugefügt
-                giveBack.addFirst(temporaryArray[i-1]);
+                //Wenn das Prüfen positiv ausfällt, wird die Karte zur LinkedList hinzugefügt
+                if (pruefenSauSpiel(temporaryArray[i - 1], unten, temporaryArray, Ruffarbe) == true) {
+                    //Karte wird zur LinkedList hinzugefügt
+                    giveBack.addFirst(temporaryArray[i - 1]);
+                }
+            }
+            //Wenn der Mode ein Solo, Wenz oder Ramsch ist, wird das Prüfen darauf angepasst
+            else
+            {
+                //Wenn das Prüfen positiv ausfällt, wird die Karte zur LinkedList hinzugefügt
+                if (pruefenSoloRamschWenz(temporaryArray[i - 1], unten, temporaryArray, c3) == true) {
+                    //Karte wird zur LinkedList hinzugefügt
+                    giveBack.addFirst(temporaryArray[i - 1]);
+                }
             }
         }
         //LinkedList wird zurückgegeben
@@ -153,7 +165,7 @@ public class Mode {
     }
 
     //Methode zum Prüfen einer Karte und ob sie gespielt werden darf bzw. nicht
-    public boolean pruefen(Card c1, Card unten, Card[] c3, int Ruffarbe)
+    public boolean pruefenSauSpiel(Card c1, Card unten, Card[] c3, int Ruffarbe)
     {
         //Boolean zur Bestimmung, ob das Ass auf der Hand ist
         boolean ass = false;
@@ -282,6 +294,47 @@ public class Mode {
                 //Wenn keine weitere Karte der Farbe vorhanden ist, darf die Karte gelegt werden
                 return !weitereKarte;
             }
+        }
+    }
+
+    public boolean pruefenSoloRamschWenz(Card c1, Card unten, Card[] c3, MODE_TYPE c4)
+    {
+        if(c4 == SOLOEICHEL || c4 == SOLOGRAS || c4 == SOLOHERZ || c4 == SOLOSCHELLEN) {
+            //Wenn noch keine Karte liegt, darf der Spiler frei wählen, welche Karte er legen will --> Jede Karte darf gelegt werden
+            if (unten == null) {
+                return true;
+            }
+            //Wenn die unterste Karte die gleiche Farbe hat, wie die geprüfte und die Karte kein Ober bzw. Unter ist, darf sie gelegt werden
+            if (c1.getColor() == unten.getColor() && c1.getRank() != CardRank.UNTER && c1.getRank() != CardRank.OBER) {
+                return true;
+            }
+            //Sonst wird geschaut, ob noch weitere Karten der Farbe auf der Hand sind
+            else {
+                //Boolean, der auf true gesetzt wird, sobald der Player eine Farbkarte der zuerst gespielten Karte hat
+                boolean farbeVorhanden = false;
+                //Durchlaufen des Feldes zum Suchen einer Farbkarte der zuerst gespielten Karte
+                for (int i = 0; i < c3.length; i--) {
+                    //Wenn der Spieler eine weitere Farbkarte auf der Hand hat, wird der Boolean auf true gesetzt
+                    if (c1.getColor() == unten.getColor() && c1.getRank() != CardRank.UNTER && c1.getRank() != CardRank.OBER) {
+                        farbeVorhanden = true;
+                    }
+                }
+                //Wenn eine Farbkarte vorhanden ist, darf der Spieler sie nicht spielen
+                //Wenn er keine weitere Farbkarte vorhanden ist, darf er sie legen
+                return !farbeVorhanden;
+            }
+        }
+        else if (c4 == WENZ)
+        {
+            //Nächste Woche Programmierteam
+            //Ulli
+            return false;
+        }
+        else
+        {
+            //Nächste Woche Programmierteam
+            //Ulli
+            return false;
         }
     }
 

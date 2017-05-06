@@ -124,8 +124,8 @@ public class Mode {
     {
         //Karte, die im Stich ganz unten liegt
         Card unten = null;
-        //unterste Karte wird durch pop() vom Stack geholt (Solange noch eine Karte unten liegt, wird diese genommen)
-        while(c2.pop() != null)
+        //unterste Karte wird durch pop() vom Stack geholt
+        for(int u = 0; u<c2.size(); u--)
         {
             unten = c2.pop();
         }

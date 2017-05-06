@@ -408,7 +408,7 @@ public class Bot_1 extends Bot {
         if( anzahlUnter >= 3 || ( anzahlUnter == 2 && EichelUnter == true ) ) {
 
             // Wir sortieren die Karten in folgende Unterlisten:
-            /**
+            /*
              * Wofür ist die temphand da und wieso brauchst du diese Unterlisten?
              * Ulli
              */
@@ -490,31 +490,45 @@ public class Bot_1 extends Bot {
                 }
 
                 /*
-                Einfacher Spatz (z.B. Schell-7): 1 Stich für die Gegner
-                2 kleine Karten einer Farbe (König oder kleiner, z.B. Schell-König, Schell-9): Wahrscheinlich 2 Stiche, evtl. 1 Stich für die Gegner
-                Besetzter 10er ohne König (z.B. Schell-Zehn, Schell-9): 1-2 Stiche für die Gegner
-                Mit König besetzter 10er (z.B. Schell-Zehn, Schell-König): 1 Stich für die Gegner
-                Besetzte Sau (z.B. Schell-Ass und Schell-Ober): Wahrscheinlich 1 Stich, evtl. 0 Stiche für die Gegner
-                3 kleine Karten einer Farbe (König oder kleiner, z.B. Schell-Ober, Schell-8, Schell-7): Wahrscheinlich 2 Stiche, evtl. 1 oder 3 Stiche für die Gegner
-                Besetzter 10er mit 2 kleinen Karten ohne König (z.B. Schell-Zehn, Schell-9, Schell-8): Wahrscheinlich 1-2 Stiche, evtl. 3 Stiche für die Gegner
-                Besetzter 10er mit König und kleiner Karte (z.B. Schell-Zehn, Schell-König, Schell-8): Wahrscheinlich 1 Stich, evtl. 2 Stiche für die Gegner
-                Besetzte Sau mit 2 kleinen Karten (König oder kleiner, z.B. Schell-Ass, Schell-König, Schell-8): Wahrscheinlich 1 Stich, evtl. 0 oder 2 Stiche für die Gegner
-                Sau, 10 und kleine Karte (z.B. Schell-Ass, Schell-Zehn, Schell-9): Wahrscheinlich 0 Stiche, evtl. 1 Stich für die Gegner
-                4 kleine Karten einer Farbe (z.B. Schell-König, Schell-Ober, Schell-9, Schell-8): Wahrscheinlich 1-2 Stiche für die Gegner
-                10er und 3 kleine Karten (z.B. Schell-Zehn, Schell-König, Schell-Ober, Schell-9): Wahrscheinlich 1 Stich, evtl. 2 Stiche (ohne König) für die Gegner
-                Sau und 3 kleine Karten (z.B. Schell-Ass, Schell-Ober, Schell-9, Schell-8): Wahrscheinlich 1 Stich, evtl. 0 oder 2 Stiche für die Gegner
-                Sau, 10 und 2 kleine Karten (z.B. Schell-Ass, Schell-Zehn, Schell-9, Schell-8): Wahrscheinlich 0 Stiche, evtl. 1 Stich für die Gegner
-                5 oder 6 Karten einer Farbe ohne Sau (z.B. Schell-König, Schell-Ober, Schell-9, Schell-8, Schell-7): Wahrscheinlich 1 Stich, evtl. 2 Stiche (nur bei 5 Karten und ohne 10) für die Gegner
-                5 Karten einer Farbe mit Sau (z.B. Schell-Ass, Schell-König, Schell-Ober, Schell-9, Schell-8): Wahrscheinlich 0 Stiche, evtl. 1 Stich (ohne 10er) für die Gegner
-                6 Karten einer Farbe mit Sau (z.B. Schell-Ass, Schell-König, Schell-Ober, Schell-9, Schell-8, Schell-7): 0 Stiche für die Gegner
-                 */
 
-                // - - - - - - - - - -
-                // Ulli, bitte hilf mir!
-                // - - - - - - - - - -
+                kleine Karte heißt: König oder schwächer
 
-                /**
-                 * Was genau brauchst du jetzt? :D
+                1 Karte:
+                Alles außer Sau => 1 Stich
+                Sau => 0 Stiche
+
+                2 Karten:
+                2 kleine Karten => 2 Stiche
+                10er ohne König => 2 Stiche
+                10er mit König =>  1 Stich
+                Sau ohne 10er => 1 Stich
+                Sau mit 10er => 0 Stiche
+
+                3 Karten:
+                3 kleine Karten => 2 Stiche
+                10er mit 2 kleinen Karten ohne König => 2 Stiche
+                10er mit König und kleiner Karte => 1 Stich
+                Sau mit 2 kleinen Karten => 1 Stich
+                Sau, 10 und kleine Karte => 0 Stiche
+
+                4 Karten:
+                4 kleine Karten => 2 Stiche
+                10er und 3 kleine Karten => 2 Stiche
+                10er mit König und 2 kleinen Karten => 1 Stich
+                Sau und 3 kleinen Karten => 1 Stich
+                Sau, 10 und 2 kleine Karten => 0 Stiche
+
+                5 Karten:
+                ohne Sau und ohne 10er => 2 Stiche
+                ohne Sau und mit 10er => 1 Stich
+                mit Sau und ohne 10er => 1 Stich
+                mit Sau und mit 10er => 0 Stiche
+
+                6 Karten:
+                ohne Sau und ohne 10er => 2 Stiche
+                ohne Sau und mit 10er => 1 Stich
+                mit Sau => 0 Stiche
+
                  */
 
             }
@@ -527,7 +541,30 @@ public class Bot_1 extends Bot {
 
         // Besondere Wenze
 
+        if( anzahlUnter == 2 && EichelUnter == false && anzahlSau >= 3) {
+            return "WENZ";
+        }
 
+        if ( anzahlUnter == 1 && EichelUnter == true && anzahlSau >= 3 && (anzahlSchmier - anzahlSau) >= 2 ){
+            return "WENZ";
+        }
+
+        if ( anzahlUnter == 0 && anzahlSau == 4 && anzahlSchmier == 4) {
+            return "WENZ";
+        }
+
+
+        // Schritt 6: Sauspiel
+
+        // Ist das Blatt gut genug?
+        boolean Sauspiel = false;
+
+        if( anzahlTrumpf >= 6 ) {
+            Sauspiel = true;
+        }
+        if( anzahlTrumpf == 5 ) {
+
+        }
 
     }
 

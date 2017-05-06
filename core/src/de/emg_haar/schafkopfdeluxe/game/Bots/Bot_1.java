@@ -494,7 +494,7 @@ public class Bot_1 extends Bot {
                 kleine Karte heißt: König oder schwächer
 
                 1 Karte:
-                Alles außer Sau => 1 Stich
+                keine Sau => 1 Stich
                 Sau => 0 Stiche
 
                 2 Karten:
@@ -506,16 +506,16 @@ public class Bot_1 extends Bot {
 
                 3 Karten:
                 3 kleine Karten => 2 Stiche
-                10er mit 2 kleinen Karten ohne König => 2 Stiche
+                10er mit 2 kleinen Karten => 2 Stiche
                 10er mit König und kleiner Karte => 1 Stich
                 Sau mit 2 kleinen Karten => 1 Stich
-                Sau, 10 und kleine Karte => 0 Stiche
+                Sau, 10er und kleine Karte => 0 Stiche
 
                 4 Karten:
                 4 kleine Karten => 2 Stiche
                 10er und 3 kleine Karten => 2 Stiche
-                10er mit König und 2 kleinen Karten => 1 Stich
-                Sau und 3 kleinen Karten => 1 Stich
+                10er mit König und 2 kleine Karten => 1 Stich
+                Sau und 3 kleine Karten => 1 Stich
                 Sau, 10 und 2 kleine Karten => 0 Stiche
 
                 5 Karten:

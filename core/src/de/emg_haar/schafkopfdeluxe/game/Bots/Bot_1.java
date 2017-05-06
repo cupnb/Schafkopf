@@ -493,6 +493,9 @@ public class Bot_1 extends Bot {
 
                 kleine Karte heißt: König oder schwächer
 
+                0 Karten:
+                => 0 Stiche
+
                 1 Karte:
                 keine Sau => 1 Stich
                 Sau => 0 Stiche

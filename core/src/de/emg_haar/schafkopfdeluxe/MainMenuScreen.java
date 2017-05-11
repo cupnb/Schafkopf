@@ -27,12 +27,12 @@ public class MainMenuScreen implements Screen
 
                 Label title = new Label("Hauptmenu", game.skin);
                 title.setAlignment(Align.center);
-                title.setY((Gdx.graphics.getHeight() / 4) * 3);
+                title.setX((Gdx.graphics.getWidth() / 4));
                 title.setWidth(Gdx.graphics.getWidth());
                 stage.addActor(title);
 
                 TextButton startButton = new TextButton("Spielen", game.skin);
-                startButton.setY((Gdx.graphics.getHeight() / 4) * 3);
+                startButton.setX((Gdx.graphics.getHeight() / 4) * 3);
                 startButton.setWidth(Gdx.graphics.getWidth() / 2);
                 startButton.addListener(new InputListener()
                     {
@@ -73,6 +73,7 @@ public class MainMenuScreen implements Screen
 
                 camera = new OrthographicCamera();
                 camera.setToOrtho(false, 720, 1280);
+
 
 
             }

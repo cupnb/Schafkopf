@@ -154,7 +154,7 @@ public class Player
     //Was will Player spielen, wenn er spielen will
     public Mode.MODE_TYPE play(String mode)
     {
-        Scanner scan = new Scanner(System.in)
+        Scanner scan = new Scanner(System.in);
         int l = scan.nextInt();
         //darf nur gemacht werden, wenn wannaplay true ist
         if (wannaplay == true) {

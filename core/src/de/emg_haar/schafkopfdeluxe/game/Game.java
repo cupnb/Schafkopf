@@ -2,6 +2,7 @@ package de.emg_haar.schafkopfdeluxe.game;
 
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Stack;
 import java.io.*;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
@@ -173,6 +174,9 @@ public class Game {
                     //es wird nachgeprüft, ob der Spieler mit seiner Hand spielen darf --> Sauspiel darf nur ohne die Rufass gespielt werden
                     if (mode.SauSpielSpielbar(players[p].getHand(), mode))
                     {
+                        System.out.println("Gib einen Mode ein");
+                        Scanner sc = new Scanner(System.in);
+                        int k = sc.nextInt();
                         mode.setModeType(players[p].play("SAUSPIELEICHEL"));
                         //SauspielEichel nur ein Beispiel --> Eingabefeld einfügen
                         endgültigerPlayer = p;
@@ -302,7 +306,6 @@ public class Game {
         //for: 4 Spieler legen Karte
         for (int x = 0; x < 4; x++) {
             //players[turnState.ordinal()].yourTurn();
-            //scanner benötigt für karteneingabe
             Card Spielkarte = players[(dealer + 1 + x) % 4].kartelegen();
             //matrix wird mit der jeweiligen Karte befüllt
             matrix[(dealer + 1 + x) % 4][playedStiche - 1] = Spielkarte;
@@ -363,10 +366,6 @@ public class Game {
 
     }
 
-    //spielbare KArten werden dem Spieler gezeigt
-    private void showPlayableCards(Player p) {
-        p.showPlayableCards(mode.showPlayableCards(p.getHand(), played, callingColor, mode.getModeType()));
-    }
 
     //Suche nach einer bestimmten Karte aufgrund von 4 Listen und dem/der CardRank/CardColor
     public int sucheKarte(LinkedList<Card> c1, LinkedList<Card> c2, LinkedList<Card> c3, LinkedList<Card> c4, CardRank gesuchtRank, CardColor gesuchtColor) {

@@ -134,6 +134,7 @@ public class Player
     //setter MEthode von wannaplay
     public void setWannaplay()
     {
+        System.out.println("Spielst du?");
         Scanner sca = new Scanner(System.in);
         int k = sca.nextInt();
         if (k == 1)
@@ -154,6 +155,7 @@ public class Player
     //Was will Player spielen, wenn er spielen will
     public Mode.MODE_TYPE play(String mode)
     {
+        System.out.println("Was spielst du?");
         Scanner scan = new Scanner(System.in);
         int l = scan.nextInt();
         //darf nur gemacht werden, wenn wannaplay true ist
@@ -171,7 +173,8 @@ public class Player
     public Card kartelegen()
     {
         Mode m = game.getMode();
-        m.showPlayableCards(hand,game.getDump(), game.getCallingColor());
+        m.showPlayableCards(hand, game.getDump(), game.getCallingColor(), game.getMode().getModeType());
+        System.out.println("Gib eine Karte ein");
         Scanner sc = new Scanner(System.in);
         int k = sc.nextInt();
         while (k > hand.size() - 1 || k < 1){

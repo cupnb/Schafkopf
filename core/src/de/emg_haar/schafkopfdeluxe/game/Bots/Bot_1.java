@@ -5,6 +5,7 @@ import de.emg_haar.schafkopfdeluxe.game.Mode;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
 import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
+import sun.awt.image.ImageWatched;
 
 public class Bot_1 extends Bot {
 
@@ -473,6 +474,11 @@ public class Bot_1 extends Bot {
                 }
             }
 
+            verlust = verlust + verlustpruefen(EichelListe);
+            verlust = verlust + verlustpruefen(GrasListe);
+            verlust = verlust + verlustpruefen(HerzListe);
+            verlust = verlust + verlustpruefen(SchelleListe);
+
 
             // Wir gehen alle Listen durch
             for( int i = 0; i <= 3; i++ ) {
@@ -571,6 +577,102 @@ public class Bot_1 extends Bot {
 
     }
 
+    //Verlust an Stichen wird geprüft, die beim Wenz verloren gehen
+    public int verlustpruefen(LinkedList<Card> c1)
+    {
+        //Wenn die LinkedList leer ist, dann geht kein Stich verloren, weil der Bot 0 Karten der Farbe auf der Hand hat
+        if (c1.getFirst() == null) {
+            return 0;
+        }
+        //Boolean Array zur Bestimmung, ob das Ass, die Zehn und Der König auf der Gand sind
+        //c2[0] --> Ass
+        //c2[1] --> Zehn
+        //c2[2] --> König
+        boolean[] c2 = new boolean[3];
+        //LinkedList wird geclonet, damit man eine LinkedList leeren kann
+        LinkedList<Card> c3 = (LinkedList<Card>) c1.clone();
+        //LinkedList wird durchsucht, ob das Ass, die zehn und der König auf der Hand sind
+        for(int z = c3.size(); z>0; z--)
+        {
+            //Durchsuchen
+            int rank = rankFinden(c3.getFirst());
+            //True setzen
+            c2[rank] = true;
+            //Erste Karte entfernen, damit die nächste genommen werden kann
+            c3.removeFirst();
+        }
+
+        //Durchlaufen, je nachdem wie viele Karten der Farbe der Bot hat
+        switch(c1.size())
+        {
+            //Wenn er eine Karte davon auf der Hand hat
+            case 1:
+                //Wenn die Karte das Ass ist
+                if (c2[0])
+                {
+                    //Dann gehen null Stiche weg
+                    return 0;
+                }
+                else
+                {
+                    //Sonst geht 1 Stich weg
+                    return 1;
+                }
+            case 2:
+                //Wenn die Zehn vorhanden ist
+                if(c2[1])
+                {
+                    //Und wenn der König vorhanden ist
+                    if(c2[2])
+                    {
+                        //Dann geht ein Stich weg
+                        return 1;
+                    }
+                    //Oder wenn und das Ass vorhanden ist
+                    else if(c2[0])
+                    {
+                        //Geht kein Stich weg
+                        return 0;
+                    }
+                }
+                //Wenn die Zehn nicht vorhanden ist, sondern das Ass mit einer anderen Karte
+                else if(c2[0])
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 2;
+                }
+            case 3:
+                if(c2[0])
+                {
+
+                }
+                else
+                {
+                    return 2;
+                }
+            default:
+                return 123456789;
+        }
 
     }
+
+    //Karte wird geprüft, ob sie ein Ass, König oder Zehn ist --> Sonst automatisch König
+    public int rankFinden(Card c1)
+    {
+        switch (c1.getRank()) {
+            case ASS:
+                return 0;
+            case ZEHN:
+                return 1;
+            case KOENIG:
+                return 2;
+            default:
+                return 2;
+        }
+
+    }
+
 }

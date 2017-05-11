@@ -125,12 +125,6 @@ public class Player
         return name;
     }
 
-    //zeigt die spielbaren Karten einer Person
-    public void showPlayableCards(LinkedList<Card> l)
-    {
-
-    }
-
     //Die Person ist am Zug
     public void yourTurn()
     {
@@ -138,15 +132,30 @@ public class Player
     }
 
     //setter MEthode von wannaplay
-    public void setWannaplay(boolean wannaplayNew)
+    public void setWannaplay()
     {
-        wannaplay = wannaplayNew;
+        Scanner sca = new Scanner(System.in);
+        int k = sca.nextInt();
+        if (k == 1)
+        {
+            wannaplay = true;
+        }
+        else if (k == 0)
+        {
+            wannaplay = false;
+        }
+        else
+        {
+            k = sca.nextInt();
+        }
     }
 
 
     //Was will Player spielen, wenn er spielen will
     public Mode.MODE_TYPE play(String mode)
     {
+        Scanner scan = new Scanner(System.in)
+        int l = scan.nextInt();
         //darf nur gemacht werden, wenn wannaplay true ist
         if (wannaplay == true) {
             Mode.MODE_TYPE x = Mode.MODE_TYPE.vergleiche(mode);
@@ -161,11 +170,15 @@ public class Player
     //mögliche karten werden gezeigt, eine ausgewählt und gelegt
     public Card kartelegen()
     {
-        int k = 0; //brauchen scanner
         Mode m = game.getMode();
         m.showPlayableCards(hand,game.getDump(), game.getCallingColor());
-        Card playingCard = hand.get(k);
-        hand.remove(hand.get(k));
+        Scanner sc = new Scanner(System.in);
+        int k = sc.nextInt();
+        while (k > hand.size() - 1 || k < 1){
+            k = sc.nextInt();
+        }
+        Card playingCard = hand.get(k - 1);
+        hand.remove(hand.get(k - 1));
         game.addgespielteKarte(playingCard);
         return playingCard;
         //habe ich jetzt mal in loop() in Game gemacht -Ulli

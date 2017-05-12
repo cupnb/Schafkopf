@@ -534,6 +534,7 @@ public class Bot_1 extends Bot {
                 mit Sau und mit 10er => 0 Stiche
 
                 6 Karten:
+                HALLO ALEX D.: MIT 6 KARTEN KANN EINEM NICHT DIE 10 UND DAS ASS NICHT BESITZEN!!!!!!!!!!!!!!!!!!!!!!!!!!
                 ohne Sau und ohne 10er => 2 Stiche
                 ohne Sau und mit 10er => 1 Stich
                 mit Sau => 0 Stiche
@@ -618,6 +619,7 @@ public class Bot_1 extends Bot {
                     //Sonst geht 1 Stich weg
                     return 1;
                 }
+            //Wenn er 2 Karten davon auf der Hand hat
             case 2:
                 //Wenn die Zehn vorhanden ist
                 if(c2[1])
@@ -635,24 +637,130 @@ public class Bot_1 extends Bot {
                         return 0;
                     }
                 }
-                //Wenn die Zehn nicht vorhanden ist, sondern das Ass mit einer anderen Karte
+                //Wenn die Zehn nicht vorhanden ist, sondern das Ass mit einer anderen Karte, aber das Ass vorhanden ist
                 else if(c2[0])
                 {
+                    //Ass mit einer Karte, die nicht die 10 ist --> 1 Stich geht flöten
                     return 1;
                 }
                 else
                 {
+                    //in allen anderen Fällen --> 2 Stiche gehen flöten
                     return 2;
                 }
+            //Wenn er 3 Karten davon auf der Hand hat
             case 3:
+                //Wenn das Ass vorhanden ist
                 if(c2[0])
                 {
-
+                    //Und wenn die 10 vorhanden ist
+                    if(c2[1])
+                    {
+                        //Dann geht kein Stich flöten
+                        return 0;
+                    }
+                    //Wenn das Ass mit 2 kleinen Karten vorhanden ist
+                    else if(!c2[2])
+                    {
+                        //Dann geht ein Stich flöten
+                        return 1;
+                    }
                 }
+                //Wenn die 10 vorhanden ist, aber das Ass nicht
+                if(c2[1])
+                {
+                    //Und wenn der König vorhanden ist
+                    if(c2[2])
+                    {
+                        //Dann geht ein Stich weg
+                        return 1;
+                    }
+                }
+                //Sonst
                 else
                 {
+                    //Gehen 2 Stiche flöten
                     return 2;
                 }
+            //Wenn er 4 Karten auf der Hand hat
+            case 4:
+                //Wenn das Ass vorhanden ist
+                if(c2[0])
+                {
+                    //Und wenn die 10 vorhanden ist
+                    if(c2[1])
+                    {
+                        //Geht kein Stich flöten
+                        return 0;
+                    }
+                    //Wenn das Ass mit 3 kleinen Karten vorhanden ist
+                    else if(!c2[2])
+                    {
+                        //Dann geht ein Stich flöten
+                        return 1;
+                    }
+                }
+                //Wenn die 10 vorhanden ist, aber nicht das Ass
+                else if(c2[1])
+                {
+                    //Und wenn der König vorhanden ist
+                    if(c2[2])
+                    {
+                        //Dann geht ein Stich flöten
+                        return 1;
+                    }
+                }
+                //Sonst
+                else
+                    {
+                    //Gehen 2 Stiche flöten
+                    return 2;
+                }
+            //Wenn er 5 Karten davon auf der Hand hat
+            case 5:
+                //Wenn das Ass vorhanden ist
+                if(c2[0])
+                {
+                    //Und wenn die 10 vorhanden ist
+                    if(c2[1])
+                    {
+                        //Dann geht kein Stich flöten
+                        return 0;
+                    }
+                    //Ass ohne 10
+                    else
+                    {
+                        //Dann geht ein Stich flöten
+                        return 1;
+                    }
+                }
+                //Wenn das Ass nicht vorhanden ist, aber die 10 vorhanden ist
+                else if(c2[1])
+                {
+                    //Dann geht ein Stich flöten
+                    return 1;
+                }
+                //Wenn weder ASs noch 10 vorhanden sind
+                else
+                {
+                    //Dann gehen 2 Stiche flöten
+                    return 2;
+                }
+            //Wenn er 6 Karten davon auf der Hand hat
+            case 6:
+                //Wenn das Ass vorhanden ist
+                if(c2[0])
+                {
+                    //Gehen kein Stich flöten
+                    return 0;
+                }
+                //Wenn das Ass nicht vorhanden ist
+                else
+                {
+                    //Geht ein Stich flöten
+                    return 1;
+                }
+            //Default muss gesetzt werden, weil sonst die Methode nicht funktioniert
             default:
                 return 123456789;
         }

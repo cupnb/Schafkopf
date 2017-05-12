@@ -185,7 +185,13 @@ public class Player
     public Card kartelegen()
     {
         Mode m = game.getMode();
-        m.showPlayableCards(hand, game.getDump(), game.getCallingColor(), game.getMode().getModeType());
+        LinkedList<Card> temp = m.showPlayableCards(hand, game.getDump(), game.getCallingColor(), game.getMode().getModeType());
+        System.out.println("Du hast die Karten : ");
+        for (int tempo = temp.size(); tempo > 0; tempo--)
+        {
+            System.out.println(temp.peekFirst().getColor() + "mit Wert" + temp.poll().getRank());
+            //Gibt spielbare Karten aus
+        }
         System.out.println("Gib eine Karte ein");
         Scanner sc = new Scanner(System.in);
         int k = sc.nextInt();

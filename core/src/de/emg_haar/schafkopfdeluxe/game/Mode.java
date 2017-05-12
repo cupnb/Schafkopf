@@ -120,7 +120,7 @@ public class Mode {
 
     //spielbare Karten werden geckeckt und mit einer LinkedList
     //Methode zur anzeigen der spielbaren Karten
-    public LinkedList showPlayableCards(LinkedList<Card> c1, Stack<Card> c2, int Ruffarbe, MODE_TYPE c3)
+    public LinkedList<Card> showPlayableCards(LinkedList<Card> c1, Stack<Card> c2, int Ruffarbe, MODE_TYPE c3)
     {
         //Karte, die im Stich ganz unten liegt
         Card unten = null;

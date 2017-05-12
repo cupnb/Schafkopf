@@ -406,7 +406,7 @@ public class Bot_1 extends Bot {
         }
 
         // Einen regulären Wenz spielen wir bei 2 oder mehr Untern:
-        if( anzahlUnter >= 3 || ( anzahlUnter == 2 && EichelUnter == true ) ) {
+        if( anzahlUnter >= 3 || ( anzahlUnter == 2 && EichelUnter) ) {
 
             // Wir sortieren die Karten in folgende Unterlisten:
             /*
@@ -423,7 +423,7 @@ public class Bot_1 extends Bot {
             // Stiche, die einen abgehen werden
             int verlust = 0;
 
-            if ( EichelUnter == false ) {
+            if ( !EichelUnter) {
                 verlust++;
             }
 

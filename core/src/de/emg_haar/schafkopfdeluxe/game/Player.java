@@ -153,20 +153,32 @@ public class Player
 
 
     //Was will Player spielen, wenn er spielen will
-    public Mode.MODE_TYPE play(String mode)
+    public Mode.MODE_TYPE play()
     {
-        System.out.println("Was spielst du?");
-        Scanner scan = new Scanner(System.in);
-        int l = scan.nextInt();
+
         //darf nur gemacht werden, wenn wannaplay true ist
         if (wannaplay == true) {
-            Mode.MODE_TYPE x = Mode.MODE_TYPE.vergleiche(mode);
-            return x;
+            System.out.println("Was spielst du?");
+            Scanner scan = new Scanner(System.in);
+            int l = scan.nextInt();
+            switch (l){
+                case 1 : return Mode.MODE_TYPE.SAUSPIELSCHELLEN;
+                case 2 : return Mode.MODE_TYPE.SAUSPIELGRAS;
+                case 3 : return Mode.MODE_TYPE.SAUSPIELEICHEL;
+                case 4 : return Mode.MODE_TYPE.WENZ;
+                case 5 : return Mode.MODE_TYPE.SOLOSCHELLEN;
+                case 6 : return Mode.MODE_TYPE.SOLOGRAS;
+                case 7 : return Mode.MODE_TYPE.SOLOEICHEL;
+                case 8 : return Mode.MODE_TYPE.SOLOHERZ;
+                case 9 : return Mode.MODE_TYPE.RAMSCH;
+                default : System.out.println("Error"); play();
+            }
         }
         else
         {
             return null;
         }
+        return null;
     }
 
     //mögliche karten werden gezeigt, eine ausgewählt und gelegt

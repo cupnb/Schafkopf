@@ -174,11 +174,7 @@ public class Game {
                     //es wird nachgeprüft, ob der Spieler mit seiner Hand spielen darf --> Sauspiel darf nur ohne die Rufass gespielt werden
                     if (mode.SauSpielSpielbar(players[p].getHand(), mode))
                     {
-                        System.out.println("Gib einen Mode ein");
-                        Scanner sc = new Scanner(System.in);
-                        int k = sc.nextInt();
-                        mode.setModeType(players[p].play("SAUSPIELEICHEL"));
-                        //SauspielEichel nur ein Beispiel --> Eingabefeld einfügen
+                        mode.setModeType(players[p].play());
                         endgültigerPlayer = p;
                     }
                 }
@@ -188,7 +184,7 @@ public class Game {
         if (anzahlSpielenWollen > 1) {
             //Modes der Spieler, die spielen wollen werden aufgenommen in das Mode Array
             for (int i = 0; i < 4; i++) {
-                modefeld[i].setModeType(players[(willspieler + i) % 4].play("SAUSPIELEICHEL"));
+                modefeld[i].setModeType(players[(willspieler + i) % 4].play());
             }
 
             //vergleicht ob jemand der später spielen will einen höher priorisierten Mode spielen will (über die Ordinalzahl)

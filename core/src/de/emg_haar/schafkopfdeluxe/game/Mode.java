@@ -145,7 +145,7 @@ public class Mode {
             if(c3 == SAUSPIELEICHEL || c3 == SAUSPIELGRAS || c3 == SAUSPIELSCHELLEN)
             {
                 //Wenn das Prüfen positiv ausfällt, wird die Karte zur LinkedList hinzugefügt
-                if (pruefenSauSpiel(temporaryArray[i - 1], unten, temporaryArray, Ruffarbe) == true) {
+                if (pruefenSauSpiel(temporaryArray[i - 1], unten, temporaryArray, Ruffarbe)) {
                     //Karte wird zur LinkedList hinzugefügt
                     giveBack.addFirst(temporaryArray[i - 1]);
                 }
@@ -185,7 +185,7 @@ public class Mode {
                     }
                 }
                 //Wenn das Ass vorhanden ist
-                if(ass == true)
+                if(ass)
                 {
                     //Wenn die zu überprüfende Karte das Ass ist, darf sie gelegt werden
                     if(c1.getRank().getName().equals("ass"))
@@ -246,7 +246,7 @@ public class Mode {
                         }
                     }
                     //Wenn das Ass auf der Hand vorhanden ist
-                    if (ass == true)
+                    if (ass)
                     {
                         //Wenn die Karte das Ass ist, darf er sie legen
                         if (c1.getRank() == CardRank.ASS)
@@ -275,6 +275,8 @@ public class Mode {
                 boolean weitereKarteOU = false;
                 //Durchsuchen des Feldes auf andere Karten der gleichen Farben, die nicht der gesuchte Ober bzw. Unter sind
                 for (int q = c3.length; q > 0; q--) {
+                    //Kann man die Warnings ändern??
+                    //- Ulli
                     if (c3[q - 1].getColor() == unten.getColor() && c1.getRank().getName() != "unter" && c1.getRank().getName() != "ober") {
                         weitereKarteOU = true;
                     }

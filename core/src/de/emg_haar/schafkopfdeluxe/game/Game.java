@@ -74,8 +74,8 @@ public class Game {
 
         //Initialisierung von Stacks und dem Deck
         deck = new Deck();
-        dump = new Stack<Card>();
-        played = new Stack<Card>();
+        dump = new Stack<>();
+        played = new Stack<>();
 
         //Der Geber wird zufaellig bestimmt
         dealer = rnd.nextInt(4);
@@ -87,7 +87,7 @@ public class Game {
     }
 
     public int getStapel() {
-        if (played.empty() == true) {
+        if (played.empty()) {
             return -1;
         } else {
             return 0;
@@ -117,6 +117,8 @@ public class Game {
         mode.setTrumpfcolor(2);
         //PlayedStiche wird reseted
         playedStiche = 0;
+        //RoundNumber wird mit jeder gespielten Runde erhöht
+        roundNumber++;
 
         //Karten werden zu je 4 an die Spieler verteilt
         for (int i = 0; i < 2; i++) {
@@ -147,7 +149,7 @@ public class Game {
         boolean[] willSpieler = new boolean[4];
         //for: Abfrage wer spielen will --> True setzen des jeweiligen Indexes
         for (int i = 0; i < 4; i++) {
-            if (players[(auswähler + i) % 4].getWannaplay() == true) {
+            if (players[(auswähler + i) % 4].getWannaplay()) {
 
                 willSpieler[i] = true;
                 //Anzahl der Personen, die spielen wollen wird um 1 erhöht
@@ -170,7 +172,7 @@ public class Game {
         //Wenn genau eine Person spielen will, dann wird der gewünschte Mode der Person genommen
         if (anzahlSpielenWollen == 1) {
             for (int p = 0; p < 4; p++) {
-                if (willSpieler[p] == true) {
+                if (willSpieler[p]) {
                     //es wird nachgeprüft, ob der Spieler mit seiner Hand spielen darf --> Sauspiel darf nur ohne die Rufass gespielt werden
                     if (mode.SauSpielSpielbar(players[p].getHand(), mode))
                     {
@@ -307,7 +309,7 @@ public class Game {
             matrix[(dealer + 1 + x) % 4][playedStiche - 1] = Spielkarte;
             //Übergeben der aktualisierten Matrix an die Player, wenn der Player ein Bot ist
             for (int u = 0; u < 4; u++) {
-                if (players[u].isBot() == true) {
+                if (players[u].isBot()) {
                     players[u].setMatrix(matrix);
                 }
             }
@@ -443,7 +445,7 @@ public class Game {
             //Durchlaufen der 4 Spieler
             for (int b = 0; b < 4; b++) {
                 //Speichern der Punkte der Spieler
-                if (players[b].getPlayer() == true) {
+                if (players[b].getPlayer()) {
                     playerspp[b % 2] = players[b];
                     punktePlayer = punktePlayer + players[b].getPunkte();
                 }

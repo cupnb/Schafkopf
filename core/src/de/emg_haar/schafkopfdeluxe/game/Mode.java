@@ -1,21 +1,20 @@
 package de.emg_haar.schafkopfdeluxe.game;
 
+
 import java.util.LinkedList;
 import java.util.Stack;
 
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
+import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
 import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
 
 import static de.emg_haar.schafkopfdeluxe.game.Mode.MODE_TYPE.*;
 
-/**
- * Created by noah on 30.01.17.
- */
 
 //Klasse die alles um den Spielmodus enthält
 public class Mode {
     //Enumeration für alle Modes
-    public enum MODE_TYPE
+    enum MODE_TYPE
     {
         SAUSPIELSCHELLEN,
         SAUSPIELGRAS,
@@ -77,8 +76,6 @@ public class Mode {
         }
     }
 
-    private String string;
-
     private MODE_TYPE mode_type;
 
     //Ruffarbe des Modes (bei Soli, Ramsch oder Wenz --> null)
@@ -95,40 +92,37 @@ public class Mode {
     }
 
     //getter Methode
-    public MODE_TYPE getModeType()
+    MODE_TYPE getModeType()
     {
         return mode_type;
     }
 
     //setter Methode
-    public void setModeType(MODE_TYPE m)
+    void setModeType(MODE_TYPE m)
     {
         mode_type = m;
     }
 
     //getter Methode
-    public int getTrumpfcolor()
+    int getTrumpfcolor()
     {
         return trumpfcolor;
     }
 
     //setter Methode
-    public void setTrumpfcolor(int y)
+    void setTrumpfcolor(int y)
     {
         trumpfcolor = y;
     }
 
     //spielbare Karten werden geckeckt und mit einer LinkedList
     //Methode zur anzeigen der spielbaren Karten
-    public LinkedList<Card> showPlayableCards(LinkedList<Card> c1, Stack<Card> c2, int Ruffarbe, MODE_TYPE c3)
+    LinkedList<Card> showPlayableCards(LinkedList<Card> c1, Stack<Card> c2, int Ruffarbe, MODE_TYPE c3)
     {
         //Karte, die im Stich ganz unten liegt
-        Card unten = null;
+        Card unten;
         //unterste Karte wird durch pop() vom Stack geholt
-        for(int u = c2.size(); u>0; u--)
-        {
-            unten = c2.pop();
-        }
+            unten = c2.lastElement();
         //LinkedList wird in einen Array umgewandelt
         Card[] temporaryArray = new Card[c1.size()];
         //Erste Karte von der LinkedList wird einem Index zugeordnet und danach aus der LinkedList gelöscht
@@ -137,7 +131,7 @@ public class Mode {
             temporaryArray[j]= c1.removeFirst();
         }
         //LinkedList die am Ende zurückgegeben wird
-        LinkedList<Card> giveBack = new LinkedList<Card>();
+        LinkedList<Card> giveBack = new LinkedList<>();
         //Alle Karten im Array werden geprüft
         for(int i=temporaryArray.length; i>0; i--)
         {
@@ -154,7 +148,7 @@ public class Mode {
             else
             {
                 //Wenn das Prüfen positiv ausfällt, wird die Karte zur LinkedList hinzugefügt
-                if (pruefenSoloRamschWenz(temporaryArray[i - 1], unten, temporaryArray, c3) == true) {
+                if (pruefenSoloRamschWenz(temporaryArray[i - 1], unten, temporaryArray, c3)) {
                     //Karte wird zur LinkedList hinzugefügt
                     giveBack.addFirst(temporaryArray[i - 1]);
                 }
@@ -165,7 +159,7 @@ public class Mode {
     }
 
     //Methode zum Prüfen einer Karte und ob sie gespielt werden darf bzw. nicht
-    public boolean pruefenSauSpiel(Card c1, Card unten, Card[] c3, int Ruffarbe)
+    private boolean pruefenSauSpiel(Card c1, Card unten, Card[] c3, int Ruffarbe)
     {
         //Boolean zur Bestimmung, ob das Ass auf der Hand ist
         boolean ass = false;
@@ -203,11 +197,8 @@ public class Mode {
                             //Farbe der Karten wird mit der Ruffarbe abgeglichen --> Ja, dann wird y um 1 erhöht
                             if(c3[k-1].getColor().convertToInt() == Ruffarbe)
                             {
-                                //Ober und Unter der Ruffarbe werden ausgeschlossen --> Zählen nicht als normale Farbkarten
-                                if(c3[k-1].getRank().getName().equals("ober") || c3[k-1].getRank().getName().equals("unter"))
-                                {}
-                                //y wird um 1 erhöht
-                                else
+                                //Ober und Unter der Ruffarbe werden ausgeschlossen --> Zählen nicht als normale Farbkarten --> y wird um 1 erhöht
+                                if(c3[k-1].getRank() != CardRank.OBER|| c3[k-1].getRank() != CardRank.UNTER)
                                 {
                                     y = y+1;
                                 }
@@ -240,30 +231,14 @@ public class Mode {
                     //Durchschauen, ob das Ass auf der Hand ist
                     for (int z = c3.length; z > 0; z--) {
                         //Wenn ja, wird der boolean auf true gesetzt
-                        if (c3[z - 1].getColor().convertToInt() == Ruffarbe && c3[z - 1].getRank().getName().equals("ass"))
-                        {
+                        if (c3[z - 1].getColor().convertToInt() == Ruffarbe && c3[z - 1].getRank().getName().equals("ass")) {
                             ass = true;
                         }
                     }
                     //Wenn das Ass auf der Hand vorhanden ist
-                    if (ass)
-                    {
-                        //Wenn die Karte das Ass ist, darf er sie legen
-                        if (c1.getRank() == CardRank.ASS)
-                        {
-                            return true;
-                        }
-                        //Wenn die Karte nicht das Ass ist, darf er sie nicht legen
-                        else
-                        {
-                            return false;
-                        }
-                    }
+                    //Wenn die Karte das Ass ist, darf er sie legen; Wenn es nicht das Ass sist, dann nicht
                     //Er darf die Karte legen, wenn es nicht das Ass ist
-                    else
-                    {
-                        return true;
-                    }
+                    return !ass || c1.getRank() == CardRank.ASS;
                 }
                 //Er darf die Karte legen, wenn die vorherigen Bedingungen nicht erfüllt sind (RufAss nicht auf Hand vorhanden bzw. Karte ist nicht das RufAss)
                 else
@@ -277,7 +252,7 @@ public class Mode {
                 for (int q = c3.length; q > 0; q--) {
                     //Kann man die Warnings ändern??
                     //- Ulli
-                    if (c3[q - 1].getColor() == unten.getColor() && c1.getRank().getName() != "unter" && c1.getRank().getName() != "ober") {
+                    if (c3[q - 1].getColor() == unten.getColor() && c1.getRank() != CardRank.UNTER && c1.getRank() != CardRank.OBER) {
                         weitereKarteOU = true;
                     }
                 }
@@ -299,7 +274,7 @@ public class Mode {
         }
     }
 
-    public boolean pruefenSoloRamschWenz(Card c1, Card unten, Card[] c3, MODE_TYPE c4)
+    private boolean pruefenSoloRamschWenz(Card c1, Card unten, Card[] c3, MODE_TYPE c4)
     {
         if(c4 == SOLOEICHEL || c4 == SOLOGRAS || c4 == SOLOHERZ || c4 == SOLOSCHELLEN) {
             //Wenn noch keine Karte liegt, darf der Spiler frei wählen, welche Karte er legen will --> Jede Karte darf gelegt werden
@@ -340,7 +315,7 @@ public class Mode {
         }
     }
 
-    public int getOrdinal( String name )
+    int getOrdinal(String name)
     {
         try {
             return MODE_TYPE.valueOf( name ).ordinal();
@@ -350,220 +325,130 @@ public class Mode {
         }
     }
 
-    public void compareString(String name){
-        MODE_TYPE.valueOf(name);
-    }
 
     //geeignet für Wenz und alle Soli (außer Herz)
-    public void comparisionAktualisieren(LinkedList<Card> c1, Mode.MODE_TYPE m)
+    void comparisionAktualisieren(LinkedList<Card> c1, Mode.MODE_TYPE m)
     {
-        Card temporary = null;
+        Card temporary;
         for(int i = c1.size(); i>0; i--)
         {
-            temporary = c1.getFirst();
-            c1.removeFirst();
-            if (m == WENZ && temporary.getRank().getName().equals("zehn"))
+            temporary = c1.removeFirst();
+            switch (m)
             {
-                temporary.getRank().setComparision(35);
-            }
-
-            if (m == WENZ && temporary.getRank().getName().equals("ober"))
-            {
-                temporary.getRank().setComparision(36);
-            }
-
-            if (m == SOLOSCHELLEN && temporary.getRank().getName().equals("sieben") && temporary.getColor().equals("schellen"))
-            {
-                temporary.getRank().setComparision(61);
-            }
-
-            if (m == SOLOSCHELLEN && temporary.getRank().getName().equals("acht") && temporary.getColor().equals("schellen"))
-            {
-                temporary.getRank().setComparision(62);
-            }
-
-            if (m == SOLOSCHELLEN && temporary.getRank().getName().equals("neun") && temporary.getColor().equals("schellen"))
-            {
-                temporary.getRank().setComparision(63);
-            }
-
-            if (m == SOLOSCHELLEN && temporary.getRank().getName().equals("koenig") && temporary.getColor().equals("schellen"))
-            {
-                temporary.getRank().setComparision(64);
-            }
-
-            if (m == SOLOSCHELLEN && temporary.getRank().getName().equals("zehn") && temporary.getColor().equals("schellen"))
-            {
-                temporary.getRank().setComparision(65);
-            }
-
-            if (m == SOLOSCHELLEN && temporary.getRank().getName().equals("ass") && temporary.getColor().equals("schellen"))
-            {
-                temporary.getRank().setComparision(66);
-            }
-
-            if (m == SOLOGRAS && temporary.getRank().getName().equals("sieben") && temporary.getColor().equals("laub"))
-            {
-                temporary.getRank().setComparision(61);
-            }
-
-            if (m == SOLOGRAS && temporary.getRank().getName().equals("acht") && temporary.getColor().equals("laub"))
-            {
-                temporary.getRank().setComparision(62);
-            }
-
-            if (m == SOLOGRAS && temporary.getRank().getName().equals("neun") && temporary.getColor().equals("laub"))
-            {
-                temporary.getRank().setComparision(63);
-            }
-
-            if (m == SOLOGRAS && temporary.getRank().getName().equals("koenig") && temporary.getColor().equals("laub"))
-            {
-                temporary.getRank().setComparision(64);
-            }
-
-            if (m == SOLOGRAS && temporary.getRank().getName().equals("zehn") && temporary.getColor().equals("laub"))
-            {
-                temporary.getRank().setComparision(65);
-            }
-
-            if (m == SOLOGRAS && temporary.getRank().getName().equals("ass") && temporary.getColor().equals("laub"))
-            {
-                temporary.getRank().setComparision(66);
-            }
-
-            if (m == SOLOEICHEL && temporary.getRank().getName().equals("sieben") && temporary.getColor().equals("eichel"))
-            {
-                temporary.getRank().setComparision(61);
-            }
-
-            if (m == SOLOEICHEL && temporary.getRank().getName().equals("acht") && temporary.getColor().equals("eichel"))
-            {
-                temporary.getRank().setComparision(62);
-            }
-
-            if (m == SOLOEICHEL && temporary.getRank().getName().equals("neun") && temporary.getColor().equals("eichel"))
-            {
-                temporary.getRank().setComparision(63);
-            }
-
-            if (m == SOLOEICHEL && temporary.getRank().getName().equals("koenig") && temporary.getColor().equals("eichel"))
-            {
-                temporary.getRank().setComparision(64);
-            }
-
-            if (m == SOLOEICHEL && temporary.getRank().getName().equals("zehn") && temporary.getColor().equals("eichel"))
-            {
-                temporary.getRank().setComparision(65);
-            }
-
-            if (m == SOLOEICHEL && temporary.getRank().getName().equals("ass") && temporary.getColor().equals("eichel"))
-            {
-                temporary.getRank().setComparision(66);
+                case WENZ:
+                    switch(temporary.getRank())
+                    {
+                        case ZEHN: temporary.getRank().setComparision(35);
+                        case OBER: temporary.getRank().setComparision(36);
+                    }
+                case SOLOSCHELLEN:
+                    if(temporary.getColor() == CardColor.SCHELLEN)
+                    {
+                        switch (temporary.getRank())
+                        {
+                            case SIEBEN: temporary.getRank().setComparision(61);
+                            case ACHT: temporary.getRank().setComparision(62);
+                            case NEUN: temporary.getRank().setComparision(63);
+                            case KOENIG: temporary.getRank().setComparision(64);
+                            case ZEHN: temporary.getRank().setComparision(65);
+                            case ASS: temporary.getRank().setComparision(66);
+                        }
+                    }
+                case SOLOGRAS:
+                    if(temporary.getColor() == CardColor.LAUB)
+                    {
+                        switch (temporary.getRank())
+                        {
+                            case SIEBEN: temporary.getRank().setComparision(61);
+                            case ACHT: temporary.getRank().setComparision(62);
+                            case NEUN: temporary.getRank().setComparision(63);
+                            case KOENIG: temporary.getRank().setComparision(64);
+                            case ZEHN: temporary.getRank().setComparision(65);
+                            case ASS: temporary.getRank().setComparision(66);
+                        }
+                    }
+                case SOLOEICHEL:
+                    if(temporary.getColor() == CardColor.EICHEL)
+                    {
+                        switch (temporary.getRank())
+                        {
+                            case SIEBEN: temporary.getRank().setComparision(61);
+                            case ACHT: temporary.getRank().setComparision(62);
+                            case NEUN: temporary.getRank().setComparision(63);
+                            case KOENIG: temporary.getRank().setComparision(64);
+                            case ZEHN: temporary.getRank().setComparision(65);
+                            case ASS: temporary.getRank().setComparision(66);
+                        }
+                    }
             }
 
         }
     }
 
     //geeignet für Ramsch, Solo Herz und alle Sauspiele
-    public void comparisionSetStandard(LinkedList<Card> c1)
+    void comparisionSetStandard(LinkedList<Card> c1)
     {
-        Card temporary = null;
+        Card temporary;
         for(int i = c1.size(); i>0; i--)
         {
-            if (temporary.getRank().getName().equals("sieben") && temporary.getColor().getName().equals("herz"))
+            temporary = c1.removeFirst();
+            if(temporary.getColor() == CardColor.HERZ)
             {
-                temporary.getRank().setComparision(61);
-            }
-
-            if (temporary.getRank().getName().equals("acht") && temporary.getColor().getName().equals("herz"))
-            {
-                temporary.getRank().setComparision(62);
-            }
-
-            if (temporary.getRank().getName().equals("neun") && temporary.getColor().getName().equals("herz"))
-            {
-                temporary.getRank().setComparision(63);
-            }
-
-            if (temporary.getRank().getName().equals("koenig") && temporary.getColor().getName().equals("herz"))
-            {
-                temporary.getRank().setComparision(64);
-            }
-
-            if (temporary.getRank().getName().equals("zehn") && temporary.getColor().getName().equals("herz"))
-            {
-                temporary.getRank().setComparision(65);
-            }
-
-            if (temporary.getRank().getName().equals("ass") && temporary.getColor().getName().equals("herz"))
-            {
-                temporary.getRank().setComparision(66);
+                switch (temporary.getRank())
+                {
+                    case SIEBEN: temporary.getRank().setComparision(61);
+                    case ACHT: temporary.getRank().setComparision(62);
+                    case NEUN: temporary.getRank().setComparision(63);
+                    case KOENIG: temporary.getRank().setComparision(64);
+                    case ZEHN: temporary.getRank().setComparision(65);
+                    case ASS: temporary.getRank().setComparision(66);
+                }
             }
         }
     }
 
     //muss immer gemacht werden
-    public void comparisionOberUnter(LinkedList<Card> c1)
+    void comparisionOberUnter(LinkedList<Card> c1)
     {
-        Card temporary = null;
+        Card temporary;
         for(int i = c1.size(); i>0; i--)
         {
-            if (temporary.getRank().getName().equals("unter") && temporary.getColor().getName().equals("schellen"))
+            temporary = c1.removeFirst();
+            if(temporary.getRank() == CardRank.UNTER)
             {
-                temporary.getRank().setComparision(71);
+                switch (temporary.getColor())
+                {
+                    case SCHELLEN: temporary.getRank().setComparision(71);
+                    case HERZ: temporary.getRank().setComparision(72);
+                    case LAUB: temporary.getRank().setComparision(73);
+                    case EICHEL: temporary.getRank().setComparision(74);
+                }
             }
-
-            if (temporary.getRank().getName().equals("unter") && temporary.getColor().getName().equals("herz"))
+            if(temporary.getRank() == CardRank.OBER)
             {
-                temporary.getRank().setComparision(72);
+                switch (temporary.getColor())
+                {
+                    case SCHELLEN: temporary.getRank().setComparision(81);
+                    case HERZ: temporary.getRank().setComparision(82);
+                    case LAUB: temporary.getRank().setComparision(83);
+                    case EICHEL: temporary.getRank().setComparision(84);
+                }
             }
-
-            if (temporary.getRank().getName().equals("unter") && temporary.getColor().getName().equals("laub"))
-            {
-                temporary.getRank().setComparision(73);
-            }
-
-            if (temporary.getRank().getName().equals("unter") && temporary.getColor().getName().equals("eichel"))
-            {
-                temporary.getRank().setComparision(74);
-            }
-
-            if (temporary.getRank().getName().equals("ober") && temporary.getColor().getName().equals("schellen"))
-            {
-                temporary.getRank().setComparision(81);
-            }
-
-            if (temporary.getRank().getName().equals("ober") && temporary.getColor().getName().equals("herz"))
-            {
-                temporary.getRank().setComparision(82);
-            }
-
-            if (temporary.getRank().getName().equals("ober") && temporary.getColor().getName().equals("laub"))
-            {
-                temporary.getRank().setComparision(83);
-            }
-
-            if (temporary.getRank().getName().equals("ober") && temporary.getColor().getName().equals("eichel"))
-            {
-                temporary.getRank().setComparision(84);
-            }
-
         }
     }
 
-    public boolean SauSpielSpielbar(LinkedList<Card> c1, Mode c2)
+    boolean SauSpielSpielbar(LinkedList<Card> c1, Mode c2)
     {
         //Wenn ein Spiel ein Sauspiel ist, dann
         if (c2.getModeType() == SAUSPIELGRAS || c2.getModeType() == SAUSPIELSCHELLEN || c2.getModeType() == SAUSPIELEICHEL)
         {
             switch (c2.getModeType()) {
                 case SAUSPIELGRAS:
-                    return assSuchen(c1, c2, "laub");
+                    return assSuchen(c1, "laub");
                 case SAUSPIELEICHEL:
-                    return assSuchen(c1, c2, "eichel");
+                    return assSuchen(c1, "eichel");
                 case SAUSPIELSCHELLEN:
-                    return assSuchen(c1, c2, "schellen");
+                    return assSuchen(c1, "schellen");
                 default:
                     return true;
             }
@@ -574,7 +459,7 @@ public class Mode {
         }
     }
 
-    public boolean assSuchen(LinkedList<Card> c3, Mode c4, String colorNew)
+    private boolean assSuchen(LinkedList<Card> c3, String colorNew)
     {
         for(int g=c3.size(); g>0; g--)
         {

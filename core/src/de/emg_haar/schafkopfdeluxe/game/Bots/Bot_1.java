@@ -575,7 +575,7 @@ public class Bot_1 extends Bot {
         if( anzahlTrumpf == 5 ) {
 
         }
-
+        return null;
     }
 
     //Verlust an Stichen wird geprüft, die beim Wenz verloren gehen

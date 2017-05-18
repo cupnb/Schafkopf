@@ -26,7 +26,7 @@ public class Mode {
         SOLOHERZ,
         RAMSCH;
 
-        //Methode, die einen Modues zum String macht
+        //Methode, die einen Modus zum String macht
         public String toString(){
             switch(this){
                 case SAUSPIELSCHELLEN :
@@ -327,7 +327,7 @@ public class Mode {
 
 
     //geeignet für Wenz und alle Soli (außer Herz)
-    void comparisionAktualisieren(LinkedList<Card> c1, Mode.MODE_TYPE m)
+    void comparisonAktualisieren(LinkedList<Card> c1, MODE_TYPE m)
     {
         Card temporary;
         for(int i = c1.size(); i>0; i--)
@@ -338,20 +338,20 @@ public class Mode {
                 case WENZ:
                     switch(temporary.getRank())
                     {
-                        case ZEHN: temporary.getRank().setComparision(35);
-                        case OBER: temporary.getRank().setComparision(36);
+                        case ZEHN: temporary.getRank().setComparison(35);
+                        case OBER: temporary.getRank().setComparison(36);
                     }
                 case SOLOSCHELLEN:
                     if(temporary.getColor() == CardColor.SCHELLEN)
                     {
                         switch (temporary.getRank())
                         {
-                            case SIEBEN: temporary.getRank().setComparision(61);
-                            case ACHT: temporary.getRank().setComparision(62);
-                            case NEUN: temporary.getRank().setComparision(63);
-                            case KOENIG: temporary.getRank().setComparision(64);
-                            case ZEHN: temporary.getRank().setComparision(65);
-                            case ASS: temporary.getRank().setComparision(66);
+                            case SIEBEN: temporary.getRank().setComparison(61);
+                            case ACHT: temporary.getRank().setComparison(62);
+                            case NEUN: temporary.getRank().setComparison(63);
+                            case KOENIG: temporary.getRank().setComparison(64);
+                            case ZEHN: temporary.getRank().setComparison(65);
+                            case ASS: temporary.getRank().setComparison(66);
                         }
                     }
                 case SOLOGRAS:
@@ -359,12 +359,12 @@ public class Mode {
                     {
                         switch (temporary.getRank())
                         {
-                            case SIEBEN: temporary.getRank().setComparision(61);
-                            case ACHT: temporary.getRank().setComparision(62);
-                            case NEUN: temporary.getRank().setComparision(63);
-                            case KOENIG: temporary.getRank().setComparision(64);
-                            case ZEHN: temporary.getRank().setComparision(65);
-                            case ASS: temporary.getRank().setComparision(66);
+                            case SIEBEN: temporary.getRank().setComparison(61);
+                            case ACHT: temporary.getRank().setComparison(62);
+                            case NEUN: temporary.getRank().setComparison(63);
+                            case KOENIG: temporary.getRank().setComparison(64);
+                            case ZEHN: temporary.getRank().setComparison(65);
+                            case ASS: temporary.getRank().setComparison(66);
                         }
                     }
                 case SOLOEICHEL:
@@ -372,12 +372,12 @@ public class Mode {
                     {
                         switch (temporary.getRank())
                         {
-                            case SIEBEN: temporary.getRank().setComparision(61);
-                            case ACHT: temporary.getRank().setComparision(62);
-                            case NEUN: temporary.getRank().setComparision(63);
-                            case KOENIG: temporary.getRank().setComparision(64);
-                            case ZEHN: temporary.getRank().setComparision(65);
-                            case ASS: temporary.getRank().setComparision(66);
+                            case SIEBEN: temporary.getRank().setComparison(61);
+                            case ACHT: temporary.getRank().setComparison(62);
+                            case NEUN: temporary.getRank().setComparison(63);
+                            case KOENIG: temporary.getRank().setComparison(64);
+                            case ZEHN: temporary.getRank().setComparison(65);
+                            case ASS: temporary.getRank().setComparison(66);
                         }
                     }
             }
@@ -386,7 +386,7 @@ public class Mode {
     }
 
     //geeignet für Ramsch, Solo Herz und alle Sauspiele
-    void comparisionSetStandard(LinkedList<Card> c1)
+    void comparisonSetStandard(LinkedList<Card> c1)
     {
         Card temporary;
         for(int i = c1.size(); i>0; i--)
@@ -396,19 +396,19 @@ public class Mode {
             {
                 switch (temporary.getRank())
                 {
-                    case SIEBEN: temporary.getRank().setComparision(61);
-                    case ACHT: temporary.getRank().setComparision(62);
-                    case NEUN: temporary.getRank().setComparision(63);
-                    case KOENIG: temporary.getRank().setComparision(64);
-                    case ZEHN: temporary.getRank().setComparision(65);
-                    case ASS: temporary.getRank().setComparision(66);
+                    case SIEBEN: temporary.getRank().setComparison(61);
+                    case ACHT: temporary.getRank().setComparison(62);
+                    case NEUN: temporary.getRank().setComparison(63);
+                    case KOENIG: temporary.getRank().setComparison(64);
+                    case ZEHN: temporary.getRank().setComparison(65);
+                    case ASS: temporary.getRank().setComparison(66);
                 }
             }
         }
     }
 
     //muss immer gemacht werden
-    void comparisionOberUnter(LinkedList<Card> c1)
+    void comparisonOberUnter(LinkedList<Card> c1)
     {
         Card temporary;
         for(int i = c1.size(); i>0; i--)
@@ -418,20 +418,20 @@ public class Mode {
             {
                 switch (temporary.getColor())
                 {
-                    case SCHELLEN: temporary.getRank().setComparision(71);
-                    case HERZ: temporary.getRank().setComparision(72);
-                    case LAUB: temporary.getRank().setComparision(73);
-                    case EICHEL: temporary.getRank().setComparision(74);
+                    case SCHELLEN: temporary.getRank().setComparison(71);
+                    case HERZ: temporary.getRank().setComparison(72);
+                    case LAUB: temporary.getRank().setComparison(73);
+                    case EICHEL: temporary.getRank().setComparison(74);
                 }
             }
             if(temporary.getRank() == CardRank.OBER)
             {
                 switch (temporary.getColor())
                 {
-                    case SCHELLEN: temporary.getRank().setComparision(81);
-                    case HERZ: temporary.getRank().setComparision(82);
-                    case LAUB: temporary.getRank().setComparision(83);
-                    case EICHEL: temporary.getRank().setComparision(84);
+                    case SCHELLEN: temporary.getRank().setComparison(81);
+                    case HERZ: temporary.getRank().setComparison(82);
+                    case LAUB: temporary.getRank().setComparison(83);
+                    case EICHEL: temporary.getRank().setComparison(84);
                 }
             }
         }

@@ -15,25 +15,25 @@ public class Player
     //Spiel, dem der Spieler beiwohnt
     protected Game game;
     //Punkte, die der Spieler besitzt
-    protected int points;
+    private int points;
     //Boolean zum Festlegen von Spieler bzw. Nicht-Spieler
-    protected boolean player;
+    private boolean player;
     //Boolean zum Festlegen, ob der Spieler spielen will, oder nicht
     protected boolean wannaplay;
     //Boolean zum festlegen, ob der Spieler online spielt, oder nicht
-    protected boolean online;
+    private boolean online;
     //Speichern der gewonnenen Stiche des Spielers
-    protected Stack<Card> stiche;
+    private Stack<Card> stiche;
     //Speichern der Punkt, die der Spieler hat
-    protected int punkte;
+    private int punkte;
     //Anzahl der Stiche zur
-    protected int stichanzahl;
+    private int stichanzahl;
     //Boolean ob man dran ist oder nicht
-    protected boolean turn;
-    //Boolean zur UNterschiedung zwischen Bot und Human
+    private boolean turn;
+    //Boolean zur Unterschiedung zwischen Bot und Human
     protected boolean bot;
     //Matrix, die für den Bot gebraucht wird --> Muss Karten speichern können
-    protected Card [][] botMatrix;
+    private Card [][] botMatrix;
 
     //Konstruktor der Klasse Player
     public Player(String name)
@@ -60,7 +60,7 @@ public class Player
     }
 
     //setter Methode von player
-    public void setPlayer(boolean p)
+    void setPlayer(boolean p)
     {
         player = p;
     }
@@ -75,21 +75,21 @@ public class Player
     // -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 
     //getter Methode von player
-    public boolean getPlayer()
+    boolean getPlayer()
     {
         return player;
     }
 
     //getter Methode von wannaplay
-    public boolean getWannaplay() { return wannaplay; }
+    boolean getWannaplay() { return wannaplay; }
 
     //Methode, die die Stichpunktanzahl des Players um 1 erhöht
-    public void stichpunkterhöhen(){
+    void stichpunkterhöhen(){
         stichanzahl = stichanzahl + 1;
     }
 
     //Gibt die Punkte des Spielers wieder
-    public int getPunkte(){
+    int getPunkte(){
 
         for (int y = stichanzahl * 4; y > 0; y--){
             points = points + stiche.pop().getPoints();
@@ -98,14 +98,14 @@ public class Player
     }
 
     //Stich von einem übergebenen Stack wird in stiche übertragen
-    public void addStich(Stack<Card> s){
+    void addStich(Stack<Card> s){
         for (int l = 0; l < 5; l++){
             stiche.push(s.pop());
         }
     }
 
     //Die Karten aus dem Stack werden auf die Hand gebracht
-    public void addCards(Stack<Card> c)
+    void addCards(Stack<Card> c)
     {
         hand.add(c.pop());
         hand.add(c.pop());
@@ -114,7 +114,7 @@ public class Player
     }
 
     //getter Methode von hand
-    public LinkedList<Card> getHand()
+    LinkedList<Card> getHand()
     {
         return hand;
     }
@@ -125,13 +125,7 @@ public class Player
         return name;
     }
 
-    //Die Person ist am Zug
-    public void yourTurn()
-    {
-        turn = true;
-    }
-
-    //setter MEthode von wannaplay
+    //setter Methode von wannaplay
     public void setWannaplay()
     {
         System.out.println("Spielst du?");
@@ -153,11 +147,11 @@ public class Player
 
 
     //Was will Player spielen, wenn er spielen will
-    public Mode.MODE_TYPE play()
+    Mode.MODE_TYPE play()
     {
 
         //darf nur gemacht werden, wenn wannaplay true ist
-        if (wannaplay == true) {
+        if (wannaplay) {
             System.out.println("Was spielst du?");
             Scanner scan = new Scanner(System.in);
             int l = scan.nextInt();
@@ -182,7 +176,7 @@ public class Player
     }
 
     //mögliche karten werden gezeigt, eine ausgewählt und gelegt
-    public Card kartelegen()
+    Card kartelegen()
     {
         Mode m = game.getMode();
         LinkedList<Card> temp = m.showPlayableCards(hand, game.getDump(), game.getCallingColor(), game.getMode().getModeType());
@@ -215,11 +209,11 @@ public class Player
     //getter Methode von bot
 
 
-    public boolean isBot() {
+    boolean isBot() {
         return bot;
     }
 
-    public void setMatrix(Card[][] newMatrix)
+    void setMatrix(Card[][] newMatrix)
     {
         botMatrix = newMatrix;
     }
@@ -227,10 +221,10 @@ public class Player
     //Scanner - noch in Arbeit
     public Mode.MODE_TYPE ScannerBenutzen()
     {
-        String input = new String("");
+        String input = "";
         Mode.MODE_TYPE modeuebergeben = null;
         Scanner s = new Scanner(input);
-        modeuebergeben = modeuebergeben.vergleiche(input);
+        modeuebergeben = Mode.MODE_TYPE.vergleiche(input);
         return modeuebergeben;
     }
 

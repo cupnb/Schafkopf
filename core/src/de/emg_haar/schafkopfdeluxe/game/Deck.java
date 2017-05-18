@@ -11,13 +11,13 @@ import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
 import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
 
 //Klasse für das Deck des Spiels. Enthält alle 32 Karten
-public class Deck {
+class Deck {
 
     //Karten werden in einem Stack gespeichert
     private Stack<Card> cards = new Stack<>();
 
     //Konstruktor der Klasse Deck
-    public Deck() {
+    Deck() {
         //Karten werden erzeugt
         for (CardColor color : CardColor.values()) {
             for (CardRank rank : CardRank.values()) {
@@ -29,7 +29,7 @@ public class Deck {
     }
 
     //Mischmethode --> Muss man eigentlich nicht verstehen (sie funktionier) --> Fragen an Lukas
-    public void initialize(Stack<Card> prevDumpedCards) {
+    void initialize(Stack<Card> prevDumpedCards) {
         List<Card> shuffleList2 = new ArrayList<>();
         List<Card> shuffleList = new ArrayList<>();
 
@@ -57,7 +57,7 @@ public class Deck {
     }
 
     //Packt 4 Karten vom Stack in ein neues Stack und gibt dieses zurueck
-    public Stack<Card> deal() {
+    Stack<Card> deal() {
         Stack<Card> deal = new Stack<>();
         deal.addAll(cards.subList(0, 4));
         cards.subList(0, 4).clear();

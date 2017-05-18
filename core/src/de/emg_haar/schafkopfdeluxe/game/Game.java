@@ -2,9 +2,7 @@ package de.emg_haar.schafkopfdeluxe.game;
 
 import java.util.LinkedList;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.Stack;
-import java.io.*;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
 import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
@@ -34,8 +32,6 @@ public class Game {
     private Deck deck;
     //Stack, der alle Karten aufnimmt --> wird zum Mischen in der nächsten Runde verwendet
     private Stack<Card> dump;
-    //Rundennummer (zählt nach jeder gespielte Partie hoch)
-    private int roundNumber;
     //Matrix zum Speichern der Karten --> Nötig für den Bot
     private Card[][] matrix;
     //Anzahl der gespielten Stiche
@@ -46,7 +42,8 @@ public class Game {
     //3 = Eichel
     //-1 = keine
     private int callingColor;
-
+    //Rundenummer
+    private int roundnumber;
 
     public Game(Player p0, Player p1, Player p2, Player p3) {
         //Random Zahl zur Bestimmung des Dealers in der ersten Runde
@@ -57,8 +54,8 @@ public class Game {
         mode = null;
 
         //irgendein Graphikzeugs
-        InputStreamReader Alpha = new InputStreamReader(System.in);
-        BufferedReader Eingabe = new BufferedReader(Alpha);
+        //InputStreamReader Alpha = new InputStreamReader(System.in);
+        //BufferedReader Eingabe = new BufferedReader(Alpha);
 
         //Referenz von Game wird den Spielern uebergeben
         p0.setGame(this);
@@ -79,47 +76,46 @@ public class Game {
 
         //Der Geber wird zufaellig bestimmt
         dealer = rnd.nextInt(4);
-        roundNumber = 0;
         matrix = new Card[4][8];
         playedStiche = 0;
         callingColor = -1;
+        roundnumber = 0;
         initialize();
     }
 
-    public int getStapel() {
-        if (played.empty()) {
-            return -1;
-        } else {
-            return 0;
-        }
-    }
 
-    public Mode getMode()
+    Mode getMode()
     {
         return mode;
     }
 
     //Fügt eine gespielte Karte zu dump und played hinzu
-    public void addgespielteKarte(Card f) {
+    void addgespielteKarte(Card f) {
         dump.add(f);
         played.add(f);
     }
 
-    public Stack getDump()
+    Stack getDump()
     {
         return dump;
     }
 
-    public void initialize() {
+    private void initialize() {
         //Ruffarbe wird zurückgesetzt
         setCallingColor(-1);
+        //Roundnumber wird um eins erhöht
+        roundnumber++;
         //Ruffarbe wird auf den Standard gesetzt
         mode.setTrumpfcolor(2);
         //PlayedStiche wird reseted
         playedStiche = 0;
-        //RoundNumber wird mit jeder gespielten Runde erhöht
-        roundNumber++;
-
+        //Deck wird gemischt
+        if (roundnumber != 0)
+        {
+            deck.initialize(dump);
+        }
+        //Dump wird geleert am Anfang der Runde
+        dump.clear();
         //Karten werden zu je 4 an die Spieler verteilt
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 4; j++) {
@@ -237,40 +233,32 @@ public class Game {
             setCallingColor(2);
         }
 
-        //Trumpfcolor wird aufgrund des MOdes ferstgelegt
-        if (mode.getModeType() == Mode.MODE_TYPE.SOLOGRAS) {
-            mode.setTrumpfcolor(3);
-        }
-
-        if (mode.getModeType() == Mode.MODE_TYPE.SOLOEICHEL) {
-            mode.setTrumpfcolor(4);
-        }
-
-        if (mode.getModeType() == Mode.MODE_TYPE.SOLOSCHELLEN) {
-            mode.setTrumpfcolor(1);
-        }
-
-        if (mode.getModeType() == Mode.MODE_TYPE.WENZ) {
-            mode.setTrumpfcolor(0);
+        //Trumpfcolor wird aufgrund des Modes ferstgelegt
+        switch (mode.getModeType())
+        {
+            case SOLOGRAS: mode.setTrumpfcolor(3);
+            case SOLOEICHEL: mode.setTrumpfcolor(4);
+            case SOLOSCHELLEN: mode.setTrumpfcolor(1);
+            case WENZ: mode.setTrumpfcolor(0);
         }
 
         //Vergleichswerte für Ober und Unter werden angepasst (z.B. Eichel Ober ist über Schellen Ober)
         for (int a = 0; a < 4; a++) {
-            mode.comparisionOberUnter(players[a].getHand());
+            mode.comparisonOberUnter(players[a].getHand());
         }
 
         //Vergleichswerte der Trumpfarbe werden angepasst (solange es nicht Herz ist) bzw. die Vergleichswerte werden für einen Wenz angepasst
         if (mode.getTrumpfcolor() == 0 || mode.getTrumpfcolor() == 1 || mode.getTrumpfcolor() == 3 || mode.getTrumpfcolor() == 4) {
 
             for (int b = 0; b < 4; b++) {
-                mode.comparisionAktualisieren(players[b].getHand(), mode.getModeType());
+                mode.comparisonAktualisieren(players[b].getHand(), mode.getModeType());
             }
         }
 
         //Vergleichswerte von Herz werden erhöht, wenn Herz Trumpffarbe ist
         if (mode.getTrumpfcolor() == 2) {
             for (int s = 0; s < 4; s++) {
-                mode.comparisionSetStandard(players[s].getHand());
+                mode.comparisonSetStandard(players[s].getHand());
             }
 
         }
@@ -292,7 +280,7 @@ public class Game {
     }
 
     //Methode für einen Stich
-    public void loop() {
+    private void loop() {
         //Stack mit dem Karten des letzten Stichs werden geleert
         played.clear();
         //Die Anzahl der gespielten Stiche wird um 1 erhöht
@@ -324,14 +312,14 @@ public class Game {
             } else {
                 //Vergleich der Spielkarten aufgrund der Farbe --> Farbe mit der höheren Zahl bei gleicher Farbe wird highest
                 if (Spielkarte.getColor() == highest.getColor()) {
-                    if (Spielkarte.getRank().getComparision() > highest.getRank().getComparision()) {
+                    if (Spielkarte.getRank().getComparison() > highest.getRank().getComparison()) {
                         highest = Spielkarte;
                         best = players[(dealer + 1 + x) % 4];
                     }
                 }
                 //Wenn es nicht die gleiche Farbe ist, bleibt die liegende Karte die höchste, außer der Vergleichswert ist größer als 60 (Vergleichswerte höher 60 --> Trumpf)
                 else {
-                    if (Spielkarte.getRank().getComparision() < 60) {
+                    if (Spielkarte.getRank().getComparison() < 60) {
                         highest = Spielkarte;
                         best = players[(dealer + 1 + x) % 4];
                     }
@@ -345,28 +333,8 @@ public class Game {
 
     }
 
-    //nächster Spieler wird ausgewählt
-    public void nextPlayer() {
-        switch (turnState) {
-            case P3:
-                System.out.println("Spieler 0 ist jetzt dran");
-                turnState = Turnstate.P0;
-            case P0:
-                System.out.println("Spieler 1 ist jetzt dran");
-                turnState = Turnstate.P1;
-            case P1:
-                System.out.println("Spieler 2 ist jetzt dran");
-                turnState = Turnstate.P2;
-            case P2:
-                System.out.println("Spieler 3 ist jetzt dran");
-                turnState = Turnstate.P3;
-        }
-
-    }
-
-
     //Suche nach einer bestimmten Karte aufgrund von 4 Listen und dem/der CardRank/CardColor
-    public int sucheKarte(LinkedList<Card> c1, LinkedList<Card> c2, LinkedList<Card> c3, LinkedList<Card> c4, CardRank gesuchtRank, CardColor gesuchtColor) {
+    private int sucheKarte(LinkedList<Card> c1, LinkedList<Card> c2, LinkedList<Card> c3, LinkedList<Card> c4, CardRank gesuchtRank, CardColor gesuchtColor) {
 
         //1. Liste wird durchsucht
         for (int i = c1.size(); i > 0; i--) {
@@ -404,17 +372,17 @@ public class Game {
     }
 
     //getter Methode
-    public int getCallingColor() {
+    int getCallingColor() {
         return callingColor;
     }
 
     //setter Methode
-    public void setCallingColor(int x) {
+    private void setCallingColor(int x) {
         callingColor = x;
     }
 
     //Methode, die am Ende aufgerufen wird
-    public void ende() {
+    private void ende() {
         //Punkte der Spieler
         int punktePlayer = 0;
         //Punkte der Nichtspieler

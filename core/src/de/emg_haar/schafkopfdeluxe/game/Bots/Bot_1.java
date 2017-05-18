@@ -551,11 +551,11 @@ public class Bot_1 extends Bot {
 
         // Besondere Wenze
 
-        if( anzahlUnter == 2 && EichelUnter == false && anzahlSau >= 3) {
+        if( anzahlUnter == 2 && !EichelUnter && anzahlSau >= 3) {
             return "WENZ";
         }
 
-        if ( anzahlUnter == 1 && EichelUnter == true && anzahlSau >= 3 && (anzahlSchmier - anzahlSau) >= 2 ){
+        if ((anzahlUnter == 1) && (EichelUnter) && (anzahlSau >= 3) && ((anzahlSchmier - anzahlSau) >= 2)){
             return "WENZ";
         }
 
@@ -780,7 +780,5 @@ public class Bot_1 extends Bot {
             default:
                 return 2;
         }
-
     }
-
 }

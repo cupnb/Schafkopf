@@ -20,10 +20,10 @@ public enum CardRank {
     private int comparison;
 
     //Konstruktor der Klasse CardRank
-    CardRank(String displayName, int points, int comparision) {
+    CardRank(String displayName, int points, int comparison) {
         this.name = displayName;
         this.points = points;
-        this.comparison = comparision;
+        this.comparison = comparison;
     }
 
     //getter Methode von name
@@ -39,13 +39,13 @@ public enum CardRank {
     }
 
     //setter Methode von comparision
-    public void setComparision(int comparision)
+    public void setComparison(int comparison)
     {
-        this.comparison = comparision;
+        this.comparison = comparison;
     }
 
     //getter Methode von comparision
-    public int getComparision()
+    public int getComparison()
     {
         return comparison;
     }

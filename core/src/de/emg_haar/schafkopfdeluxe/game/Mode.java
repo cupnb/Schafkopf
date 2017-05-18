@@ -120,9 +120,11 @@ public class Mode {
     LinkedList<Card> showPlayableCards(LinkedList<Card> c1, Stack<Card> c2, int Ruffarbe, MODE_TYPE c3)
     {
         //Karte, die im Stich ganz unten liegt
-        Card unten;
+        Card unten = null;
         //unterste Karte wird durch pop() vom Stack geholt
+        if(c2.lastElement() != null) {
             unten = c2.lastElement();
+        }
         //LinkedList wird in einen Array umgewandelt
         Card[] temporaryArray = new Card[c1.size()];
         //Erste Karte von der LinkedList wird einem Index zugeordnet und danach aus der LinkedList gelöscht

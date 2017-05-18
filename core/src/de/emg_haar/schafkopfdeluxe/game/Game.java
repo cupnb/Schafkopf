@@ -110,7 +110,7 @@ public class Game {
         //PlayedStiche wird reseted
         playedStiche = 0;
         //Deck wird gemischt
-        if (roundnumber != 0)
+        if (roundnumber != 1)
         {
             deck.initialize(dump);
         }

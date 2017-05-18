@@ -1,4 +1,4 @@
-package de.emg_haar.schafkopfdeluxe;
+/*package de.emg_haar.schafkopfdeluxe;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -11,7 +11,7 @@ import de.emg_haar.schafkopfdeluxe.game.Player;
 
 /**
  * Created by NoahB on 27.11.16.
- */
+
 
 public class MainMenu{
 
@@ -51,4 +51,4 @@ public class MainMenu{
         buttonAtlas.dispose();
     }
 
-}
+}*/

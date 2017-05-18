@@ -51,7 +51,7 @@ public class Game {
         //Initialisierung des Feld Players (siehe Attribute)
         players = new Player[4];
         //Mode wird zurückgesetzt
-        mode = null;
+        mode = new Mode(null);
 
         //irgendein Graphikzeugs
         //InputStreamReader Alpha = new InputStreamReader(System.in);
@@ -115,7 +115,9 @@ public class Game {
             deck.initialize(dump);
         }
         //Dump wird geleert am Anfang der Runde
-        dump.clear();
+        else {
+            dump.clear();
+        }
         //Karten werden zu je 4 an die Spieler verteilt
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 4; j++) {

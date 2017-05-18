@@ -147,6 +147,7 @@ public class Player
         }
         else
         {
+            System.out.println("Error. Tippe 1 für Spiel oder 0 für nicht spielen");
             k = sca.nextInt();
         }
     }

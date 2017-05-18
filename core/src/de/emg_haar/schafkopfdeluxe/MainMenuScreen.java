@@ -8,8 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 
 public class MainMenuScreen implements Screen
@@ -18,22 +22,26 @@ public class MainMenuScreen implements Screen
         private OrthographicCamera camera;
         private Schafkopf game;
         private Stage stage;
+        private Table table;
 
         public MainMenuScreen(Schafkopf gam)
             {
+                //camera = new OrthographicCamera(1280, 720);
                 game = gam;
-                stage = new Stage();
+                stage = new Stage(new FillViewport(1280, 720));
+                table = new Table(game.skin);
+                table.setFillParent(true);
 
 
                 Label title = new Label("Hauptmenu", game.skin);
                 title.setAlignment(Align.center);
-                title.setX((Gdx.graphics.getWidth() / 4));
+                title.setX(700);
                 title.setWidth(Gdx.graphics.getWidth());
-                stage.addActor(title);
+                table.addActor(title);
 
                 TextButton startButton = new TextButton("Spielen", game.skin);
-                startButton.setX((Gdx.graphics.getHeight() / 4) * 3);
-                startButton.setWidth(Gdx.graphics.getWidth() / 2);
+                startButton.setX(0);
+                startButton.setY(0);
                 startButton.addListener(new InputListener()
                     {
 
@@ -68,11 +76,13 @@ public class MainMenuScreen implements Screen
                                 return true;
                             }
                     });
-                stage.addActor(startButton);
-                stage.addActor(optionsButton);
+                table.addActor(startButton);
+                table.row();
+                table.addActor(optionsButton);
+                stage.addActor(table);
 
-                camera = new OrthographicCamera();
-                camera.setToOrtho(false, 720, 1280);
+                //camera = new OrthographicCamera();
+                //camera.setToOrtho(false, 720, 1280);
 
 
 

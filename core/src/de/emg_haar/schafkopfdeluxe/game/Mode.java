@@ -175,7 +175,7 @@ public class Mode {
                 for(int p=c3.length;p>0;p--)
                 {
                     //Wenn das Ass dabei ist wird der Boolean auf true gesetzt
-                    if(c3[p-1].getColor().convertToInt() == Ruffarbe && c3[p-1].getRank().getName().equals("ass"))
+                    if(c3[p-1].getColor().convertToInt() == Ruffarbe && c3[p-1].getRank() == CardRank.ASS)
                     {
                         ass = true;
                     }

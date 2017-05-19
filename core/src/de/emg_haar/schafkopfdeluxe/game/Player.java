@@ -126,7 +126,7 @@ public class Player
     }
 
     //setter Methode von wannaplay
-    public void setWannaplay()
+    public int setWannaplay()
     {
         System.out.println("Spielst du?");
         Scanner sca = new Scanner(System.in);
@@ -144,6 +144,7 @@ public class Player
             System.out.println("Error. Tippe 1 für Spiel oder 0 für nicht spielen");
             k = sca.nextInt();
         }
+        return k;
     }
 
 

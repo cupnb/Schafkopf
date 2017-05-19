@@ -122,7 +122,7 @@ public class Mode {
         //Karte, die im Stich ganz unten liegt
         Card unten = null;
         //unterste Karte wird durch pop() vom Stack geholt
-        if(c2.lastElement() != null) {
+        if(!c2.empty()) {
             unten = c2.lastElement();
         }
         //LinkedList wird in einen Array umgewandelt
@@ -446,11 +446,11 @@ public class Mode {
         {
             switch (c2.getModeType()) {
                 case SAUSPIELGRAS:
-                    return assSuchen(c1, "laub");
+                    return assSuchen(c1, CardColor.LAUB);
                 case SAUSPIELEICHEL:
-                    return assSuchen(c1, "eichel");
+                    return assSuchen(c1, CardColor.EICHEL);
                 case SAUSPIELSCHELLEN:
-                    return assSuchen(c1, "schellen");
+                    return assSuchen(c1, CardColor.SCHELLEN);
                 default:
                     return true;
             }
@@ -461,12 +461,12 @@ public class Mode {
         }
     }
 
-    private boolean assSuchen(LinkedList<Card> c3, String colorNew)
+    private boolean assSuchen(LinkedList<Card> c3, CardColor colorNew)
     {
         for(int g=c3.size(); g>0; g--)
         {
             Card card = c3.removeFirst();
-            if(card.getRank() == CardRank.ASS && card.getColor().getName().equals(colorNew))
+            if(card.getRank() == CardRank.ASS && card.getColor() == colorNew)
             {
                 return false;
             }

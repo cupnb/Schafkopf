@@ -1,4 +1,6 @@
 package de.emg_haar.schafkopfdeluxe.game.Bots;
+import com.badlogic.gdx.utils.UBJsonReader;
+
 import java.util.LinkedList;
 
 import de.emg_haar.schafkopfdeluxe.game.Mode;
@@ -57,128 +59,68 @@ public class Bot_1 extends Bot {
         // Anzahl Herz + Anzahl Ober + Anzahl Unter
         int anzahlTrumpf = 0;
         for(int i = 0; i <= 7; i++) {
-            Karte = hand.get(i);
             if(
-                    Karte.getColor() == CardColor.HERZ ||
-                    Karte.getRank() == CardRank.UNTER ||
-                    Karte.getRank() == CardRank.OBER
+                    hand.get(i).getColor() == CardColor.HERZ ||
+                    hand.get(i).getRank() == CardRank.UNTER ||
+                    hand.get(i).getRank() == CardRank.OBER
                     ){
                 anzahlTrumpf++;
             }
         }
 
         // Anzahl der Säue, die nicht Trumpf sind
+        //Wofür wird die anzahlFarbSau gebraucht?
+        //Ulli
         int anzahlFarbSau = 0;
         for( int i = 0; i <= 7; i++ ) {
-            Karte = hand.get(i);
             if(
-                    Karte.getRank() == CardRank.ASS &&
-                    Karte.getColor() != CardColor.HERZ
+                    hand.get(i).getRank() == CardRank.ASS &&
+                    hand.get(i).getColor() != CardColor.HERZ
                     ) {
                 anzahlFarbSau++;
             }
         }
 
         // Anzahl der Säue
-        int anzahlSau = 0;
-        for( int i = 0; i <= 7; i++ ) {
-            Karte = hand.get(i);
-            if(
-                    Karte.getRank() == CardRank.ASS
-                    ) {
-                anzahlSau++;
-            }
-        }
+        int anzahlSau = anzahlKarten(CardRank.ASS);
 
         // Anzahl Ober
-        int anzahlOber = 0;
-        for( int i = 0; i <= 7; i++ ) {
-            Karte = hand.get(i);
-            if( Karte.getRank() == CardRank.OBER ) {
-                anzahlOber++;
-            }
-        }
+        int anzahlOber = anzahlKarten(CardRank.OBER);
 
         // Anzahl Unter
-        int anzahlUnter = 0;
-        for( int i = 0; i <= 7; i++ ) {
-            Karte = hand.get(i);
-            if( Karte.getRank() == CardRank.UNTER ) {
-                anzahlUnter++;
-            }
-        }
+        int anzahlUnter = anzahlKarten(CardRank.UNTER);
 
         // Anzahl Ober außer SchellenOber
+        //Wofür ist Anzahl Brems nötig?
+        //Ulli
         int anzahlBrems = anzahlOber;
         for( int i = 0; i <= 7; i++ ) {
-            Karte = hand.get(i);
             if(
-                    Karte.getRank() == CardRank.OBER &&
-                    Karte.getColor() == CardColor.SCHELLEN
+                    hand.get(i).getRank() == CardRank.OBER &&
+                    hand.get(i).getColor() == CardColor.SCHELLEN
                     ) {
                 anzahlBrems--;
             }
         }
 
         // Anzahl Eichel, die nicht Trumpf sind
-        int anzahlFarbEichel = 0;
-        for( int i = 0; i <= 7; i++ ) {
-            Karte = hand.get(i);
-            if(
-                    Karte.getColor() == CardColor.EICHEL &&
-                    Karte.getRank() != CardRank.OBER &&
-                    Karte.getRank() != CardRank.UNTER
-                    ) {
-                anzahlFarbEichel++;
-            }
-        }
+        int anzahlFarbEichel = anzahlFarbKartenFinden(CardColor.EICHEL);
 
-        // Anzahl Herz, die nicht Obber oder Unter sind
-        int anzahlFarbHerz = 0;
-        for( int i = 0; i <= 7; i++ ) {
-            Karte = hand.get(i);
-            if(
-                    Karte.getColor() == CardColor.HERZ &&
-                    Karte.getRank() != CardRank.OBER &&
-                    Karte.getRank() != CardRank.UNTER
-                    ) {
-                anzahlFarbHerz++;
-            }
-        }
+        // Anzahl Herz, die nicht Ober oder Unter sind
+        int anzahlFarbHerz = anzahlFarbKartenFinden(CardColor.HERZ);
 
         // Anzahl Gras, die nicht Trumpf sind
-        int anzahlFarbGras = 0;
-        for( int i = 0; i <= 7; i++ ) {
-            Karte = hand.get(i);
-            if(
-                    Karte.getColor() == CardColor.LAUB &&
-                    Karte.getRank() != CardRank.OBER &&
-                    Karte.getRank() != CardRank.UNTER
-                    ) {
-                anzahlFarbGras++;
-            }
-        }
+        int anzahlFarbGras = anzahlFarbKartenFinden(CardColor.LAUB);
 
         // Anzahl Schelle, die nicht Trumpf sind
-        int anzahlFarbSchelle = 0;
-        for( int i = 0; i <= 7; i++ ) {
-            Karte = hand.get(i);
-            if(
-                    Karte.getColor() == CardColor.SCHELLEN &&
-                    Karte.getRank() != CardRank.OBER &&
-                    Karte.getRank() != CardRank.UNTER
-                    ) {
-                anzahlFarbSchelle++;
-            }
-        }
+        int anzahlFarbSchelle = anzahlFarbKartenFinden(CardColor.SCHELLEN);
 
         // Anzahl Säue + Anzahl 10er
         int anzahlSchmier = 0;
         for( int i = 0; i <= 7; i++ ) {
-            Karte = hand.get(i);
             if(
-                    Karte.getRank() == CardRank.ASS ||
-                    Karte.getRank() == CardRank.ZEHN
+                    hand.get(i).getRank() == CardRank.ASS ||
+                    hand.get(i).getRank() == CardRank.ZEHN
                     ) {
                 anzahlSchmier++;
             }
@@ -396,10 +338,9 @@ public class Bot_1 extends Bot {
         // Eichel Unter auf der Hand?
         boolean EichelUnter = false;
         for (int i = 0; i <= 7; i++) {
-            Karte = hand.get(i);
             if (
-                    Karte.getRank() == CardRank.UNTER &&
-                    Karte.getColor() == CardColor.EICHEL
+                    hand.get(i).getRank() == CardRank.UNTER &&
+                    hand.get(i).getColor() == CardColor.EICHEL
                     ) {
                 EichelUnter = true;
             }
@@ -415,10 +356,10 @@ public class Bot_1 extends Bot {
              */
             LinkedList<Card> temphand = new LinkedList();
             LinkedList<Card> UnterListe = new LinkedList();
-            LinkedList<Card> EichelListe = new LinkedList();
-            LinkedList<Card> GrasListe = new LinkedList();
-            LinkedList<Card> HerzListe = new LinkedList();
-            LinkedList<Card> SchelleListe = new LinkedList();
+            LinkedList<Card> EichelListe = listenFuellen(hand, CardColor.EICHEL);
+            LinkedList<Card> GrasListe = listenFuellen(hand, CardColor.LAUB);
+            LinkedList<Card> HerzListe = listenFuellen(hand, CardColor.HERZ);
+            LinkedList<Card> SchelleListe = listenFuellen(hand, CardColor.SCHELLEN);
 
             // Stiche, die einen abgehen werden
             int verlust = 0;
@@ -427,48 +368,15 @@ public class Bot_1 extends Bot {
                 verlust++;
             }
 
+            //Das hier ist nur eine Referenz. Das heißt, dass am Ende deine Hand leer ist
+            //muss mit .clone() gemacht werden denke ich
+            //Ulli
             temphand = hand;
 
             for( int i = 0; i < temphand.size(); i++ ) {
                 Karte = temphand.get(i);
-                if( Karte.getRank() == CardRank.UNTER ) {
+                if( temphand.get(i).getRank() == CardRank.UNTER ) {
                     UnterListe.add(Karte);
-                    temphand.remove(Karte);
-                    i--;
-                }
-            }
-
-            for( int i = 0; i < temphand.size(); i++ ) {
-                Karte = temphand.get(i);
-                if( Karte.getColor() == CardColor.EICHEL ) {
-                    EichelListe.add(Karte);
-                    temphand.remove(Karte);
-                    i--;
-                }
-            }
-
-            for( int i = 0; i < temphand.size(); i++ ) {
-                Karte = temphand.get(i);
-                if( Karte.getColor() == CardColor.LAUB ) {
-                    GrasListe.add(Karte);
-                    temphand.remove(Karte);
-                    i--;
-                }
-            }
-
-            for( int i = 0; i < temphand.size(); i++ ) {
-                Karte = temphand.get(i);
-                if( Karte.getColor() == CardColor.HERZ ) {
-                    HerzListe.add(Karte);
-                    temphand.remove(Karte);
-                    i--;
-                }
-            }
-
-            for( int i = 0; i < temphand.size(); i++ ) {
-                Karte = temphand.get(i);
-                if( Karte.getColor() == CardColor.SCHELLEN ) {
-                    SchelleListe.add(Karte);
                     temphand.remove(Karte);
                     i--;
                 }
@@ -564,6 +472,9 @@ public class Bot_1 extends Bot {
         }
 
 
+        //Was soll das hier? :D
+        //Da passiert doch gar nichts.....Wird nicht mal was zurückgegeben
+        //Ulli
         // Schritt 6: Sauspiel
 
         // Ist das Blatt gut genug?
@@ -579,7 +490,7 @@ public class Bot_1 extends Bot {
     }
 
     //Verlust an Stichen wird geprüft, die beim Wenz verloren gehen
-    public int verlustpruefen(LinkedList<Card> c1)
+    private int verlustpruefen(LinkedList<Card> c1)
     {
         //Wenn die LinkedList leer ist, dann geht kein Stich verloren, weil der Bot 0 Karten der Farbe auf der Hand hat
         if (c1.getFirst() == null) {
@@ -768,7 +679,7 @@ public class Bot_1 extends Bot {
     }
 
     //Karte wird geprüft, ob sie ein Ass, König oder Zehn ist --> Sonst automatisch König
-    public int rankFinden(Card c1)
+    private int rankFinden(Card c1)
     {
         switch (c1.getRank()) {
             case ASS:
@@ -780,5 +691,56 @@ public class Bot_1 extends Bot {
             default:
                 return 2;
         }
+    }
+
+    //Methode zum Finden von Farbkarten
+    private int anzahlFarbKartenFinden(CardColor c1)
+    {
+        //Anzahl der Farbkarten auf der Hand
+        int anzahlFarbKarte = 0;
+        //Hand wird durchlaufen
+        for( int i = 0; i <= 7; i++ ) {
+            //Wenn die Karte eine Farbkarte ist, dann wird die Anzahl der Farbkarten um eins erhöht
+            if(hand.get(i).getColor() == c1 && hand.get(i).getRank() != CardRank.OBER && hand.get(i).getRank() != CardRank.UNTER)
+            {
+                anzahlFarbKarte++;
+            }
+        }
+        //Rückgabe von anzahlFarbKarte
+        return anzahlFarbKarte;
+    }
+
+    //Methode zum Füllen einer Liste mit einer bestimmen Art einer Karte
+    //hand wird als c1 übergeben. Könnte man theoretisch auch über einen Typecast machen, sodass hier eine weitere Liste als Hand fungiert. Man kann nicht direkt hand nehmen, da diese sonst über removeFirst() geleert wird
+    private LinkedList<Card> listenFuellen(LinkedList<Card> c1, CardColor c2)
+    {
+        //Liste, die am Ende zurückgegeben wird
+        LinkedList<Card> templist = new LinkedList<>();
+        //Hand wird durchlaufen
+        for( int i = 0; i < c1.size(); i++ ) {
+            //Wenn die Karte der zu entsprechenden Art übereinstimmt, wird sie zur templist hinzugefügt
+            if( c1.getFirst().getColor() == c2 ) {
+                templist.add(c1.removeFirst());
+                i--;
+            }
+        }
+        //templist wird zurückgegeben
+        return templist;
+    }
+
+    //Methode zum Berechnen der Anzahl von bestimmten Karten aufgrund eines CardRanks
+    private int anzahlKarten(CardRank c1)
+    {
+        //Int, der am Ende zurückgegeben wird
+        int tempint = 0;
+        //Hand wird durchlaufen
+        for( int i = 0; i <= 7; i++ ) {
+            //Wenn eine Karte mit dem bestimmten Rank auf der Hand vorhanden ist, dann wird empint um eins erhöht
+            if(hand.get(i).getRank() == c1) {
+                tempint++;
+            }
+        }
+        //tempint wird zurückgegeben
+        return tempint;
     }
 }

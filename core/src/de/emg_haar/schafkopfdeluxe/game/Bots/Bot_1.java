@@ -53,9 +53,6 @@ public class Bot_1 extends Bot {
 
         // Hilfsvariablen:
 
-        // Hilskarte
-        Card Karte;
-
         // Anzahl Herz + Anzahl Ober + Anzahl Unter
         int anzahlTrumpf = 0;
         for(int i = 0; i <= 7; i++) {
@@ -374,10 +371,9 @@ public class Bot_1 extends Bot {
             temphand = hand;
 
             for( int i = 0; i < temphand.size(); i++ ) {
-                Karte = temphand.get(i);
                 if( temphand.get(i).getRank() == CardRank.UNTER ) {
-                    UnterListe.add(Karte);
-                    temphand.remove(Karte);
+                    UnterListe.add(temphand.get(i));
+                    temphand.remove(temphand.get(i));
                     i--;
                 }
             }

@@ -33,7 +33,6 @@ class Deck {
         List<Card> shuffleList2 = new ArrayList<>();
         List<Card> shuffleList = new ArrayList<>();
 
-        int z = 0;
         Random x = new Random();
         int kartenRaus = x.nextInt(15) + 5;
         Random y = new Random();

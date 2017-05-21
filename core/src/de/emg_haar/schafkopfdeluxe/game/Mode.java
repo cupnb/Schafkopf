@@ -85,7 +85,7 @@ public class Mode {
     //-1 = keine
     private int trumpfcolor;
 
-    public Mode(MODE_TYPE m)
+    Mode(MODE_TYPE m)
     {
         mode_type = m;
         trumpfcolor = -1;

@@ -1,9 +1,7 @@
 package de.emg_haar.schafkopfdeluxe.game.Bots;
-import de.emg_haar.schafkopfdeluxe.game.Mode;
 import de.emg_haar.schafkopfdeluxe.game.Player;
-import de.emg_haar.schafkopfdeluxe.game.card.Card;
 
-public class Bot extends Player {
+class Bot extends Player {
 
     /*
 
@@ -24,7 +22,7 @@ public class Bot extends Player {
     */
 
 
-    public Bot(){
+    Bot(){
         super("Rudi");
         wannaplay = false;  // Rudi spielt nie!
         bot = true;

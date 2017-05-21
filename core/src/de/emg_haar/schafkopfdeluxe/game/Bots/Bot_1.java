@@ -351,12 +351,11 @@ public class Bot_1 extends Bot {
              * Wofür ist die temphand da und wieso brauchst du diese Unterlisten?
              * Ulli
              */
-            LinkedList<Card> temphand = new LinkedList();
             LinkedList<Card> UnterListe = new LinkedList();
-            LinkedList<Card> EichelListe = listenFuellen(hand, CardColor.EICHEL);
-            LinkedList<Card> GrasListe = listenFuellen(hand, CardColor.LAUB);
-            LinkedList<Card> HerzListe = listenFuellen(hand, CardColor.HERZ);
-            LinkedList<Card> SchelleListe = listenFuellen(hand, CardColor.SCHELLEN);
+            LinkedList<Card> EichelListe = listenFuellen(CardColor.EICHEL);
+            LinkedList<Card> GrasListe = listenFuellen(CardColor.LAUB);
+            LinkedList<Card> HerzListe = listenFuellen(CardColor.HERZ);
+            LinkedList<Card> SchelleListe = listenFuellen(CardColor.SCHELLEN);
 
             // Stiche, die einen abgehen werden
             int verlust = 0;
@@ -365,16 +364,10 @@ public class Bot_1 extends Bot {
                 verlust++;
             }
 
-            //Das hier ist nur eine Referenz. Das heißt, dass am Ende deine Hand leer ist
-            //muss mit .clone() gemacht werden denke ich
-            //Ulli
-            temphand = hand;
-
-            for( int i = 0; i < temphand.size(); i++ ) {
-                if( temphand.get(i).getRank() == CardRank.UNTER ) {
-                    UnterListe.add(temphand.get(i));
-                    temphand.remove(temphand.get(i));
-                    i--;
+            for( int i = hand.size(); i > 0; i-- ) {
+                if( hand.get(i-1).getRank() == CardRank.UNTER )
+                {
+                    UnterListe.add(hand.get(i-1));
                 }
             }
 
@@ -382,22 +375,6 @@ public class Bot_1 extends Bot {
             verlust = verlust + verlustpruefen(GrasListe);
             verlust = verlust + verlustpruefen(HerzListe);
             verlust = verlust + verlustpruefen(SchelleListe);
-
-
-            // Wir gehen alle Listen durch
-            for( int i = 0; i <= 3; i++ ) {
-                if( i == 0) {
-                    temphand = EichelListe;
-                }
-                if( i == 1 ) {
-                    temphand = GrasListe;
-                }
-                if( i == 2 ) {
-                    temphand = HerzListe;
-                }
-                if( i == 3 ) {
-                    temphand = SchelleListe;
-                }
 
                 /*
 
@@ -445,7 +422,6 @@ public class Bot_1 extends Bot {
 
                  */
 
-            }
 
             if ( verlust <= 3 ) {
                 return "WENZ";
@@ -497,17 +473,13 @@ public class Bot_1 extends Bot {
         //c2[1] --> Zehn
         //c2[2] --> König
         boolean[] c2 = new boolean[3];
-        //LinkedList wird geclonet, damit man eine LinkedList leeren kann
-        LinkedList<Card> c3 = (LinkedList<Card>) c1.clone();
         //LinkedList wird durchsucht, ob das Ass, die zehn und der König auf der Hand sind
-        for(int z = c3.size(); z>0; z--)
+        for(int z = c1.size(); z>0; z--)
         {
             //Durchsuchen
-            int rank = rankFinden(c3.getFirst());
+            int rank = rankFinden(c1.get(z-1));
             //True setzen
             c2[rank] = true;
-            //Erste Karte entfernen, damit die nächste genommen werden kann
-            c3.removeFirst();
         }
 
         //Durchlaufen, je nachdem wie viele Karten der Farbe der Bot hat
@@ -708,16 +680,15 @@ public class Bot_1 extends Bot {
 
     //Methode zum Füllen einer Liste mit einer bestimmen Art einer Karte
     //hand wird als c1 übergeben. Könnte man theoretisch auch über einen Typecast machen, sodass hier eine weitere Liste als Hand fungiert. Man kann nicht direkt hand nehmen, da diese sonst über removeFirst() geleert wird
-    private LinkedList<Card> listenFuellen(LinkedList<Card> c1, CardColor c2)
+    private LinkedList<Card> listenFuellen(CardColor c2)
     {
         //Liste, die am Ende zurückgegeben wird
         LinkedList<Card> templist = new LinkedList<>();
         //Hand wird durchlaufen
-        for( int i = 0; i < c1.size(); i++ ) {
+        for( int i = hand.size(); i > 0; i-- ) {
             //Wenn die Karte der zu entsprechenden Art übereinstimmt, wird sie zur templist hinzugefügt
-            if( c1.getFirst().getColor() == c2 ) {
-                templist.add(c1.removeFirst());
-                i--;
+            if( hand.get(i-1).getColor() == c2 ) {
+                templist.add(hand.get(i-1));
             }
         }
         //templist wird zurückgegeben

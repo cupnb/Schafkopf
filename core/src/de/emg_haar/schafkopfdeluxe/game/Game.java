@@ -108,7 +108,7 @@ public class Game {
         //Ruffarbe wird auf den Standard gesetzt
         mode.setTrumpfcolor(2);
         //Mode wird zurückgesetzt
-        mode = null;
+        mode.setModeType(null);
         //PlayedStiche wird reseted
         playedStiche = 0;
         //Deck wird gemischt

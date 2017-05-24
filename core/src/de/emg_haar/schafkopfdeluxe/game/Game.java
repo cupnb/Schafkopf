@@ -341,35 +341,31 @@ public class Game {
     private int sucheKarte(LinkedList<Card> c1, LinkedList<Card> c2, LinkedList<Card> c3, LinkedList<Card> c4, CardRank gesuchtRank, CardColor gesuchtColor) {
 
         //1. Liste wird durchsucht
-        for (int i = c1.size(); i > 0; i--) {
-            if (c1.getFirst().getColor() == gesuchtColor && c1.getFirst().getRank() == gesuchtRank) {
+        for (Card karte:c1) {
+            if (karte.getColor() == gesuchtColor && karte.getRank() == gesuchtRank) {
                 return 0;
             }
-            c1.removeFirst();
         }
 
         //2. Liste wird durchsucht
-        for (int i = c2.size(); i > 0; i--) {
-            if (c2.getFirst().getColor() == gesuchtColor && c2.getFirst().getRank() == gesuchtRank) {
+        for (Card karte:c2) {
+            if (karte.getColor() == gesuchtColor && karte.getRank() == gesuchtRank) {
                 return 1;
             }
-            c1.removeFirst();
         }
 
         //3. Liste wird durchsucht
-        for (int i = c3.size(); i > 0; i--) {
-            if (c3.getFirst().getColor() == gesuchtColor && c3.getFirst().getRank() == gesuchtRank) {
+        for (Card karte:c3) {
+            if (karte.getColor() == gesuchtColor && karte.getRank() == gesuchtRank) {
                 return 2;
             }
-            c3.removeFirst();
         }
 
         //4. Liste wird durchsucht
-        for (int i = c4.size(); i > 0; i--) {
-            if (c4.getFirst().getColor() == gesuchtColor && c4.getFirst().getRank() == gesuchtRank) {
+        for (Card karte:c4) {
+            if (karte.getColor() == gesuchtColor && karte.getRank() == gesuchtRank) {
                 return 3;
             }
-            c4.removeFirst();
         }
 
         return -1;

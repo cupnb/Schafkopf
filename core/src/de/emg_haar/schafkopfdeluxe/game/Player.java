@@ -183,9 +183,9 @@ public class Player
         Mode m = game.getMode();
         LinkedList<Card> temp = m.showPlayableCards(hand, game.getDump(), game.getCallingColor(), game.getMode().getModeType());
         System.out.println("Du hast die Karten : ");
-        for (int tempo = temp.size(); tempo > 0; tempo--)
+        for (Card karte: temp)
         {
-            System.out.println(temp.peekFirst().getColor() + "mit Wert" + temp.poll().getRank());
+            System.out.println(karte.getColor() + "mit Wert" + karte.getRank());
             //Gibt spielbare Karten aus
         }
         System.out.println("Gib eine Karte ein");

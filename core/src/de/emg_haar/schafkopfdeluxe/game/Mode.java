@@ -130,7 +130,7 @@ public class Mode {
         //Erste Karte von der LinkedList wird einem Index zugeordnet und danach aus der LinkedList gelöscht
         for(int j=c1.size(); j>0; j--)
         {
-            temporaryArray[j]= c1.removeFirst();
+            temporaryArray[j-1]= c1.removeFirst();
         }
         //LinkedList die am Ende zurückgegeben wird
         LinkedList<Card> giveBack = new LinkedList<>();
@@ -331,8 +331,7 @@ public class Mode {
     //geeignet für Wenz und alle Soli (außer Herz)
     void comparisonAktualisieren(LinkedList<Card> c1, MODE_TYPE m)
     {
-        Card temporary;
-        for(int i = c1.size(); i>0; i--)
+        for(Card temporary: c1)
         {
             temporary = c1.removeFirst();
             switch (m)
@@ -390,8 +389,7 @@ public class Mode {
     //geeignet für Ramsch, Solo Herz und alle Sauspiele
     void comparisonSetStandard(LinkedList<Card> c1)
     {
-        Card temporary;
-        for(int i = c1.size(); i>0; i--)
+        for(Card temporary:c1)
         {
             temporary = c1.removeFirst();
             if(temporary.getColor() == CardColor.HERZ)
@@ -412,8 +410,7 @@ public class Mode {
     //muss immer gemacht werden
     void comparisonOberUnter(LinkedList<Card> c1)
     {
-        Card temporary;
-        for(int i = c1.size(); i>0; i--)
+        for(Card temporary: c1)
         {
             temporary = c1.removeFirst();
             if(temporary.getRank() == CardRank.UNTER)
@@ -463,10 +460,9 @@ public class Mode {
 
     private boolean assSuchen(LinkedList<Card> c3, CardColor colorNew)
     {
-        for(int g=c3.size(); g>0; g--)
+        for(Card karte:c3)
         {
-            Card card = c3.removeFirst();
-            if(card.getRank() == CardRank.ASS && card.getColor() == colorNew)
+            if(karte.getRank() == CardRank.ASS && karte.getColor() == colorNew)
             {
                 return false;
             }

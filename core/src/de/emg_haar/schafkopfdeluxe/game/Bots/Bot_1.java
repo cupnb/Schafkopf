@@ -347,10 +347,6 @@ public class Bot_1 extends Bot {
         if( anzahlUnter >= 3 || ( anzahlUnter == 2 && EichelUnter) ) {
 
             // Wir sortieren die Karten in folgende Unterlisten:
-            /*
-             * Wofür ist die temphand da und wieso brauchst du diese Unterlisten?
-             * Ulli
-             */
             LinkedList<Card> UnterListe = new LinkedList();
             LinkedList<Card> EichelListe = listenFuellen(CardColor.EICHEL);
             LinkedList<Card> GrasListe = listenFuellen(CardColor.LAUB);
@@ -364,10 +360,10 @@ public class Bot_1 extends Bot {
                 verlust++;
             }
 
-            for( int i = hand.size(); i > 0; i-- ) {
-                if( hand.get(i-1).getRank() == CardRank.UNTER )
+            for( Card karte :hand ) {
+                if(karte.getRank() == CardRank.UNTER )
                 {
-                    UnterListe.add(hand.get(i-1));
+                    UnterListe.add(karte);
                 }
             }
 
@@ -474,10 +470,10 @@ public class Bot_1 extends Bot {
         //c2[2] --> König
         boolean[] c2 = new boolean[3];
         //LinkedList wird durchsucht, ob das Ass, die zehn und der König auf der Hand sind
-        for(int z = c1.size(); z>0; z--)
+        for(Card karte:c1)
         {
             //Durchsuchen
-            int rank = rankFinden(c1.get(z-1));
+            int rank = rankFinden(karte);
             //True setzen
             c2[rank] = true;
         }
@@ -685,10 +681,10 @@ public class Bot_1 extends Bot {
         //Liste, die am Ende zurückgegeben wird
         LinkedList<Card> templist = new LinkedList<>();
         //Hand wird durchlaufen
-        for( int i = hand.size(); i > 0; i-- ) {
+        for(Card karte: hand) {
             //Wenn die Karte der zu entsprechenden Art übereinstimmt, wird sie zur templist hinzugefügt
-            if( hand.get(i-1).getColor() == c2 ) {
-                templist.add(hand.get(i-1));
+            if( karte.getColor() == c2 ) {
+                templist.add(karte);
             }
         }
         //templist wird zurückgegeben

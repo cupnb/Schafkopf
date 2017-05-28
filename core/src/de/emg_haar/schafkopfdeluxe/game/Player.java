@@ -185,7 +185,7 @@ public class Player
         System.out.println("Du hast die Karten : ");
         for (Card karte: temp)
         {
-            System.out.println(karte.getColor() + "mit Wert" + karte.getRank());
+            System.out.println(karte.getColor() + " mit Wert " + karte.getRank());
             //Gibt spielbare Karten aus
         }
         System.out.println("Gib eine Karte ein");

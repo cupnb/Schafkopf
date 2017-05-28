@@ -307,7 +307,7 @@ public class Mode {
             if (unten == null) {
                 return true;
             }
-            //Wenn die unterste Karte die gleiche Farbe hat, wie die geprüfte und die Karte kein Ober bzw. Unter ist, darf sie gelegt werden
+            //Wenn die unterste Karte die gleiche Farbe hat, wie die geprüfte und die Karte kein Unter ist, darf sie gelegt werden
             if (c1.getColor() == unten.getColor() && c1.getRank() != CardRank.UNTER) {
                 return true;
             }

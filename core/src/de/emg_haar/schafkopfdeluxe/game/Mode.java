@@ -233,7 +233,7 @@ public class Mode {
                     //Durchschauen, ob das Ass auf der Hand ist
                     for (int z = c3.length; z > 0; z--) {
                         //Wenn ja, wird der boolean auf true gesetzt
-                        if (c3[z - 1].getColor().convertToInt() == Ruffarbe && c3[z - 1].getRank().getName().equals("ass")) {
+                        if (c3[z - 1].getColor().convertToInt() == Ruffarbe && c3[z - 1].getRank() == CardRank.ASS) {
                             ass = true;
                         }
                     }
@@ -252,8 +252,6 @@ public class Mode {
                 boolean weitereKarteOU = false;
                 //Durchsuchen des Feldes auf andere Karten der gleichen Farben, die nicht der gesuchte Ober bzw. Unter sind
                 for (int q = c3.length; q > 0; q--) {
-                    //Kann man die Warnings ändern??
-                    //- Ulli
                     if (c3[q - 1].getColor() == unten.getColor() && c1.getRank() != CardRank.UNTER && c1.getRank() != CardRank.OBER) {
                         weitereKarteOU = true;
                     }
@@ -333,7 +331,6 @@ public class Mode {
     {
         for(Card temporary: c1)
         {
-            temporary = c1.removeFirst();
             switch (m)
             {
                 case WENZ:
@@ -391,7 +388,6 @@ public class Mode {
     {
         for(Card temporary:c1)
         {
-            temporary = c1.removeFirst();
             if(temporary.getColor() == CardColor.HERZ)
             {
                 switch (temporary.getRank())
@@ -412,7 +408,6 @@ public class Mode {
     {
         for(Card temporary: c1)
         {
-            temporary = c1.removeFirst();
             if(temporary.getRank() == CardRank.UNTER)
             {
                 switch (temporary.getColor())

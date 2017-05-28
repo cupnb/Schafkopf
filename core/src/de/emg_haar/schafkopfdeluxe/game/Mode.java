@@ -276,7 +276,7 @@ public class Mode {
 
     private boolean pruefenSoloRamschWenz(Card c1, Card unten, Card[] c3, MODE_TYPE c4)
     {
-        if(c4 == SOLOEICHEL || c4 == SOLOGRAS || c4 == SOLOHERZ || c4 == SOLOSCHELLEN) {
+        if(c4 == SOLOEICHEL || c4 == SOLOGRAS || c4 == SOLOHERZ || c4 == SOLOSCHELLEN || c4 == RAMSCH) {
             //Wenn noch keine Karte liegt, darf der Spiler frei wählen, welche Karte er legen will --> Jede Karte darf gelegt werden
             if (unten == null) {
                 return true;
@@ -301,17 +301,31 @@ public class Mode {
                 return !farbeVorhanden;
             }
         }
-        else if (c4 == WENZ)
-        {
-            //Nächste Woche Programmierteam
-            //Ulli
-            return false;
-        }
         else
         {
-            //Nächste Woche Programmierteam
-            //Ulli
-            return false;
+            //Wenn noch keine Karte liegt, darf der Spiler frei wählen, welche Karte er legen will --> Jede Karte darf gelegt werden
+            if (unten == null) {
+                return true;
+            }
+            //Wenn die unterste Karte die gleiche Farbe hat, wie die geprüfte und die Karte kein Ober bzw. Unter ist, darf sie gelegt werden
+            if (c1.getColor() == unten.getColor() && c1.getRank() != CardRank.UNTER) {
+                return true;
+            }
+            //Sonst wird geschaut, ob noch weitere Karten der Farbe auf der Hand sind
+            else {
+                //Boolean, der auf true gesetzt wird, sobald der Player eine Farbkarte der zuerst gespielten Karte hat
+                boolean farbeVorhanden = false;
+                //Durchlaufen des Feldes zum Suchen einer Farbkarte der zuerst gespielten Karte
+                for (int i = 0; i < c3.length; i--) {
+                    //Wenn der Spieler eine weitere Farbkarte auf der Hand hat, wird der Boolean auf true gesetzt
+                    if (c1.getColor() == unten.getColor() && c1.getRank() != CardRank.UNTER) {
+                        farbeVorhanden = true;
+                    }
+                }
+                //Wenn eine Farbkarte vorhanden ist, darf der Spieler sie nicht spielen
+                //Wenn er keine weitere Farbkarte vorhanden ist, darf er sie legen
+                return !farbeVorhanden;
+            }
         }
     }
 

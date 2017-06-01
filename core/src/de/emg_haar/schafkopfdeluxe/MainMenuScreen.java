@@ -4,16 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 
 public class MainMenuScreen implements Screen
@@ -29,19 +26,18 @@ public class MainMenuScreen implements Screen
                 //camera = new OrthographicCamera(1280, 720);
                 game = gam;
                 stage = new Stage(new FillViewport(1280, 720));
+
                 table = new Table(game.skin);
                 table.setFillParent(true);
 
 
-                Label title = new Label("Hauptmenu", game.skin);
-                title.setAlignment(Align.center);
+                //Label title = new Label("Hauptmenu", game.skin);
+                /*title.setAlignment(Align.center);
                 title.setX(700);
-                title.setWidth(Gdx.graphics.getWidth());
-                table.addActor(title);
+                title.setWidth(Gdx.graphics.getWidth());*/
+                //table.addActor(title);
 
                 TextButton startButton = new TextButton("Spielen", game.skin);
-                startButton.setX(0);
-                startButton.setY(0);
                 startButton.addListener(new InputListener()
                     {
 
@@ -76,9 +72,10 @@ public class MainMenuScreen implements Screen
                                 return true;
                             }
                     });
-                table.addActor(startButton);
+                table.add(startButton);
                 table.row();
-                table.addActor(optionsButton);
+                table.add(optionsButton);
+                table.setDebug(true);
                 stage.addActor(table);
 
                 //camera = new OrthographicCamera();
@@ -101,6 +98,8 @@ public class MainMenuScreen implements Screen
                 Gdx.gl.glClearColor(0, 0, 0.2f, 1);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 stage.act();
+                stage.getBatch().begin();
+                stage.getBatch().draw(new Texture("Bilder/Hauptmenue.png"), 0, 0);
                 stage.draw();
 
 

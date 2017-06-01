@@ -24,12 +24,8 @@ public class Player
     private boolean online;
     //Speichern der gewonnenen Stiche des Spielers
     private Stack<Card> stiche;
-    //Speichern der Punkt, die der Spieler hat
-    private int punkte;
     //Anzahl der Stiche zur
     private int stichanzahl;
-    //Boolean ob man dran ist oder nicht
-    private boolean turn;
     //Boolean zur Unterschiedung zwischen Bot und Human
     protected boolean bot;
     //Matrix, die für den Bot gebraucht wird --> Muss Karten speichern können
@@ -45,9 +41,7 @@ public class Player
         player = false;
         hand = new LinkedList<>();
         online = false;
-        turn = false;
-        stiche = new Stack<Card>();
-        punkte = 0;
+        stiche = new Stack<>();
         stichanzahl = 0;
         bot = false;
         botMatrix = new Card[4][8];
@@ -79,9 +73,6 @@ public class Player
     {
         return player;
     }
-
-    //getter Methode von wannaplay
-    boolean getWannaplay() { return wannaplay; }
 
     //Methode, die die Stichpunktanzahl des Players um 1 erhöht
     void stichpunkterhöhen(){
@@ -126,7 +117,7 @@ public class Player
     }
 
     //setter Methode von wannaplay
-    public int setWannaplay()
+    int setWannaplay()
     {
         System.out.println("Spielst du?");
         Scanner sca = new Scanner(System.in);
@@ -218,16 +209,6 @@ public class Player
     void setMatrix(Card[][] newMatrix)
     {
         botMatrix = newMatrix;
-    }
-
-    //Scanner - noch in Arbeit
-    public Mode.MODE_TYPE ScannerBenutzen()
-    {
-        String input = "";
-        Mode.MODE_TYPE modeuebergeben = null;
-        Scanner s = new Scanner(input);
-        modeuebergeben = Mode.MODE_TYPE.vergleiche(input);
-        return modeuebergeben;
     }
 
 }

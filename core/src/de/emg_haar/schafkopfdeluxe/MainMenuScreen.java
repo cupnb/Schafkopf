@@ -25,7 +25,7 @@ public class MainMenuScreen implements Screen
             {
                 //camera = new OrthographicCamera(1280, 720);
                 game = gam;
-                stage = new Stage(new FillViewport(1280, 720));
+                stage = new Stage(new FillViewport(720, 1280));
 
                 table = new Table(game.skin);
                 table.setFillParent(true);
@@ -71,14 +71,14 @@ public class MainMenuScreen implements Screen
                             {
                                 return true;
                             }
-                    });
-                table.add(startButton);
-                table.row();
-                table.add(optionsButton);
-                table.setDebug(true);
-                stage.addActor(table);
+            });
+        table.add(startButton);
+        table.row();
+        table.add(optionsButton);
+        table.setDebug(true);
+        stage.addActor(table);
 
-                //camera = new OrthographicCamera();
+        //camera = new OrthographicCamera();
                 //camera.setToOrtho(false, 720, 1280);
 
 
@@ -99,7 +99,8 @@ public class MainMenuScreen implements Screen
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 stage.act();
                 stage.getBatch().begin();
-                stage.getBatch().draw(new Texture("Bilder/Hauptmenue.png"), 0, 0);
+                stage.getBatch().draw(new Texture("Bilder/HauptmenuePortrait.png"), 0, 0);
+                stage.getBatch().end();
                 stage.draw();
 
 

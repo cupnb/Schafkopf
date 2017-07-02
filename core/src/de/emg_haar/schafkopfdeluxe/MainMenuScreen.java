@@ -20,12 +20,15 @@ public class MainMenuScreen implements Screen
         private Schafkopf game;
         private Stage stage;
         private Table table;
+        private Screen[] screens;
 
         public MainMenuScreen(Schafkopf gam)
             {
                 //camera = new OrthographicCamera(1280, 720);
                 game = gam;
                 stage = new Stage(new FillViewport(720, 1280));
+                screens = new Screen[3];
+                screens[1] = new OptionsScreen(game);
 
                 table = new Table(game.skin);
                 table.setFillParent(true);

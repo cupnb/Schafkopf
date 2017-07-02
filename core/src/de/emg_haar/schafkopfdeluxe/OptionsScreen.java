@@ -18,7 +18,7 @@ public class OptionsScreen implements Screen
         public OptionsScreen(Schafkopf gam)
             {
                 game = gam;
-                stage = new Stage(new FillViewport(1280, 720));
+                stage = new Stage(new FillViewport(720, 1280));
 
                 Label title = new Label("Optionen", game.skin);
                 title.setAlignment(Align.center);
@@ -29,13 +29,13 @@ public class OptionsScreen implements Screen
                 CheckBox soundButton = new CheckBox("Sounds", game.skin);
                 soundButton.setX(Gdx.graphics.getWidth()/2);
                 soundButton.setY(Gdx.graphics.getHeight()/2);
-                soundButton.addListener(new InputListener()
+                        soundButton.addListener(new InputListener()
                     {
 
                         @Override
                         public void touchUp(InputEvent event, float x, float y, int pointer, int button)                      {
-                                game.setScreen(new GameScreen(game));
-                            }
+                        game.setScreen(new GameScreen(game));
+                    }
 
                         @Override
                         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)

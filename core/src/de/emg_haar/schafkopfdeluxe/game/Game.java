@@ -44,6 +44,8 @@ public class Game {
     private int callingColor;
     //Rundenummer
     private int roundnumber;
+    //Anzahl der SPieler, die selbst spielen wollen
+    int anzahlSpielenWollen;
 
     public Game(Player p0, Player p1, Player p2, Player p3) {
         //Random Zahl zur Bestimmung des Dealers in der ersten Runde
@@ -80,6 +82,7 @@ public class Game {
         playedStiche = 0;
         callingColor = -1;
         roundnumber = 0;
+        anzahlSpielenWollen = 0;
         initialize();
     }
 
@@ -111,6 +114,8 @@ public class Game {
         mode.setModeType(null);
         //PlayedStiche wird reseted
         playedStiche = 0;
+        //anzahlSpielenWollen wird zurückgesetzt
+        anzahlSpielenWollen = 0;
         //Deck wird gemischt
         if (roundnumber != 1)
         {
@@ -138,33 +143,15 @@ public class Game {
         } else if (dealer == 3) {
             turnState = Turnstate.P0;
         }
-
-        //Abfrage wer spielen WILL
-
-        //int zum "Anfänger" der "Fragerunde"
-        int auswähler = (dealer + 1);
-        //Anzahl der Leute, die spielen wollen
-        int anzahlSpielenWollen = 0;
-        //boolean Feld zur Bestimmung, wer spielen will und wer davon spielt
         boolean[] willSpieler = new boolean[4];
-        //for: Abfrage wer spielen will --> True setzen des jeweiligen Indexes
-        for (int i = 0; i < 4; i++) {
-            if (players[(auswähler + i) % 4].setWannaplay() != 0) {
-
-                willSpieler[i] = true;
-                //Anzahl der Personen, die spielen wollen wird um 1 erhöht
-                anzahlSpielenWollen = anzahlSpielenWollen + 1;
-            } else {
-                willSpieler[i] = false;
-            }
-        }
+        willSpieler = spielenWill();
         //Abfrage wer SPIELT
         //int zum Anfänger des Auswahlverfahrens
-        int willspieler = (dealer + 1);
-        //Arry Mode zur Auswahl des Mode's durch Ausnutzen des Enums
+        int willspieler = (dealer + 1) % 4;
+        //Array Mode zur Auswahl des Mode's durch Ausnutzen des Enums
         Mode[] modefeld = new Mode[4];
         //int zur Festlegung des endgültigen Spielers --> Festlegen von Spieler und NIcht-Spieler
-        int endgültigerPlayer = 4;
+        int endgültigerPlayer = -1;
         //Wenn niemand spielen will --> Ramsch
         if (anzahlSpielenWollen == 0) {
             mode.setModeType(RAMSCH);
@@ -179,10 +166,15 @@ public class Game {
                         mode.setModeType(players[p].play());
                         endgültigerPlayer = p;
                     }
+                    //Sonst wird nochmal abgefragt, wer spielen will und diese Prozedere von vorne angefangen
+                    else
+                    {
+                        willSpieler = spielenWill();
+                    }
                 }
             }
         }
-        //Wenn mehr als eine Person spielen will, wird aufgrnd der Ordinalzahl des Modes abgewägt, was gespielt wird
+        //Wenn mehr als eine Person spielen will, wird aufgrund der Ordinalzahl des Modes abgewägt, was gespielt wird
         if (anzahlSpielenWollen > 1) {
             //Modes der Spieler, die spielen wollen werden aufgenommen in das Mode Array
             for (int i = 0; i < 4; i++) {
@@ -238,6 +230,7 @@ public class Game {
         }
 
         //Trumpfcolor wird aufgrund des Modes ferstgelegt
+
         switch (mode.getModeType())
         {
             case SOLOGRAS: mode.setTrumpfcolor(3);
@@ -447,5 +440,26 @@ public class Game {
                 }
             }
         }
+    }
+
+    public boolean[] spielenWill()
+    {
+        //int zum "Anfänger" der "Fragerunde"
+        int auswähler = (dealer + 1);
+        //Anzahl der Leute, die spielen wollen
+        //boolean Feld zur Bestimmung, wer spielen will und wer davon spielt
+        boolean[] willSpieler = new boolean[4];
+        //for: Abfrage wer spielen will --> True setzen des jeweiligen Indexes
+        for (int i = 0; i < 4; i++) {
+            if (players[(auswähler + i) % 4].setWannaplay() != 0) {
+                willSpieler[i] = true;
+                //Anzahl der Personen, die spielen wollen wird um 1 erhöht
+                anzahlSpielenWollen = anzahlSpielenWollen + 1;
+            } else {
+                willSpieler[i] = false;
+            }
+
+        }
+        return willSpieler;
     }
 }

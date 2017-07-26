@@ -10,7 +10,7 @@ import de.emg_haar.schafkopfdeluxe.game.card.Card;
 import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
 import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
 
-//Klasse für das Deck des Spiels. Enthält alle 32 Karten
+//Klasse für das Deck des Spiels. Enthält alle 32 Karten Hallu
 class Deck {
 
     //Karten werden in einem Stack gespeichert

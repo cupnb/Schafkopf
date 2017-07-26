@@ -445,12 +445,12 @@ public class Game {
     public boolean[] spielenWill()
     {
         //int zum "Anfänger" der "Fragerunde"
-        int auswähler = (dealer + 1);
-        //Anzahl der Leute, die spielen wollen
-        //boolean Feld zur Bestimmung, wer spielen will und wer davon spielt
-        boolean[] willSpieler = new boolean[4];
-        //for: Abfrage wer spielen will --> True setzen des jeweiligen Indexes
-        for (int i = 0; i < 4; i++) {
+            int auswähler = (dealer + 1);
+            //Anzahl der Leute, die spielen wollen
+            //boolean Feld zur Bestimmung, wer spielen will und wer davon spielt
+            boolean[] willSpieler = new boolean[4];
+            //for: Abfrage wer spielen will --> True setzen des jeweiligen Indexes
+            for (int i = 0; i < 4; i++) {
             if (players[(auswähler + i) % 4].setWannaplay() != 0) {
                 willSpieler[i] = true;
                 //Anzahl der Personen, die spielen wollen wird um 1 erhöht

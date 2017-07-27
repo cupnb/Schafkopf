@@ -170,6 +170,7 @@ public class Player
     //mögliche karten werden gezeigt, eine ausgewählt und gelegt
     Card kartelegen()
     {
+        Card playingCard = null;
         Mode m = game.getMode();
         LinkedList<Card> temp = m.showPlayableCards(hand, game.getDump(), game.getCallingColor(), game.getMode().getModeType());
         System.out.println("Du hast die Karten : ");
@@ -182,15 +183,16 @@ public class Player
         Scanner sc = new Scanner(System.in);
         int k = sc.nextInt();
         if (k > hand.size() - 1 || k < 1){
-            System.out.println("Error. Wert nicht möglich! Neue Eingabe")
+            System.out.println("Error. Wert nicht möglich! Neue Eingabe");
             k = sc.nextInt();
         }
         else {
-            Card playingCard = hand.get(k - 1);
+            playingCard = hand.get(k - 1);
             hand.remove(k - 1);
             game.addgespielteKarte(playingCard);
-            return playingCard;
+
         }
+        return playingCard;
         //habe ich jetzt mal in loop() in Game gemacht -Ulli
     }
 

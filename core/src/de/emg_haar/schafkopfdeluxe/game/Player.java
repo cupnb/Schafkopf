@@ -31,9 +31,12 @@ public class Player
     //Matrix, die für den Bot gebraucht wird --> Muss Karten speichern können
     private Card [][] botMatrix;
 
+    private int laenge;
+
     //Konstruktor der Klasse Player
     public Player(String name)
     {
+        laenge = 8;
         this.name = name;
         wannaplay = false;
         game = null;
@@ -183,7 +186,7 @@ public class Player
         Scanner sc = new Scanner(System.in);
         int k = sc.nextInt();
         System.out.println(hand.size());
-        if (k > hand.size() || k < 1){
+        if (k > laenge || k < 1){
             System.out.println("Error. Wert nicht möglich! Neue Eingabe");
             k = sc.nextInt();
         }
@@ -191,7 +194,7 @@ public class Player
             playingCard = hand.get(k - 1);
             hand.remove(k - 1);
             game.addgespielteKarte(playingCard);
-
+            laenge = laenge - 1;
         }
         return playingCard;
         //habe ich jetzt mal in loop() in Game gemacht -Ulli

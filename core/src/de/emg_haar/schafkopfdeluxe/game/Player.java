@@ -182,7 +182,8 @@ public class Player
         System.out.println("Gib eine Karte ein");
         Scanner sc = new Scanner(System.in);
         int k = sc.nextInt();
-        if (k > hand.size() - 1 || k < 1){
+        System.out.println(hand.size());
+        if (k > hand.size() || k < 1){
             System.out.println("Error. Wert nicht möglich! Neue Eingabe");
             k = sc.nextInt();
         }

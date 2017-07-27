@@ -18,8 +18,7 @@ public class Schafkopf extends ApplicationAdapter
 	public void render ()
 	{
 	}
-	
-	@Override
+    @Override
 	public void dispose ()
 	{
 

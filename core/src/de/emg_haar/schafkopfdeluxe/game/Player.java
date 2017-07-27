@@ -182,13 +182,16 @@ public class Player
         System.out.println("Gib eine Karte ein");
         Scanner sc = new Scanner(System.in);
         int k = sc.nextInt();
-        while (k > hand.size() - 1 || k < 1){
+        if (k > hand.size() - 1 || k < 1){
+            System.out.println("Error. Wert nicht möglich! Neue Eingabe")
             k = sc.nextInt();
         }
-        Card playingCard = hand.get(k - 1);
-        hand.remove(hand.get(k - 1));
-        game.addgespielteKarte(playingCard);
-        return playingCard;
+        else {
+            Card playingCard = hand.get(k - 1);
+            hand.remove(k - 1);
+            game.addgespielteKarte(playingCard);
+            return playingCard;
+        }
         //habe ich jetzt mal in loop() in Game gemacht -Ulli
     }
 

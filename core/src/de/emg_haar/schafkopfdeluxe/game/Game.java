@@ -45,7 +45,7 @@ public class Game {
     //Rundenummer
     private int roundnumber;
     //Anzahl der SPieler, die selbst spielen wollen
-    int anzahlSpielenWollen;
+    private int anzahlSpielenWollen;
 
     public Game(Player p0, Player p1, Player p2, Player p3) {
         //Random Zahl zur Bestimmung des Dealers in der ersten Runde
@@ -143,11 +143,11 @@ public class Game {
         } else if (dealer == 3) {
             turnState = Turnstate.P0;
         }
-        boolean[] willSpieler = new boolean[4];
+        boolean[] willSpieler;
         willSpieler = spielenWill(4);
         //Abfrage wer SPIELT
         //int zum Anfänger des Auswahlverfahrens
-        int willspieler = (dealer + 1) % 4;
+        int willspieler_number = (dealer + 1) % 4;
         //Array Mode zur Auswahl des Mode's durch Ausnutzen des Enums
         Mode[] modefeld = new Mode[4];
         //int zur Festlegung des endgültigen Spielers --> Festlegen von Spieler und NIcht-Spieler
@@ -178,7 +178,7 @@ public class Game {
         if (anzahlSpielenWollen > 1) {
             //Modes der Spieler, die spielen wollen werden aufgenommen in das Mode Array
             for (int i = 0; i < 4; i++) {
-                modefeld[i].setModeType(players[(willspieler + i) % 4].play());
+                modefeld[i].setModeType(players[(willspieler_number + i) % 4].play());
             }
 
             //vergleicht ob jemand der später spielen will einen höher priorisierten Mode spielen will (über die Ordinalzahl)
@@ -452,16 +452,16 @@ public class Game {
             //Anzahl der Leute, die spielen wollen
             //boolean Feld zur Bestimmung, wer spielen will und wer davon spielt
             boolean[] willSpieler = new boolean[4];
-            //for: Abfrage wer spielen will --> True setzen des jeweiligen Indexes
+
 
         //Erste Runde für Standardwert = 4
         if(x == 4) {
-            //Alle vier Spieler werden abgefragt, ob sie spielen wollen mithilfe von for
+            //for: Abfrage wer spielen will --> True setzen des jeweiligen Indexes
             for (int i = 0; i < 4; i++) {
                 if (players[(auswähler + i) % 4].setWannaplay() != 0) {
                     willSpieler[i] = true;
                     //Anzahl der Personen, die spielen wollen wird um 1 erhöht
-                    anzahlSpielenWollen = anzahlSpielenWollen + 1;
+                    anzahlSpielenWollen = anzahlSpielenWollen++;
                 } else {
                     willSpieler[i] = false;
                 }

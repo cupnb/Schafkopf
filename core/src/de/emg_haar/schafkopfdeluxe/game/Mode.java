@@ -11,7 +11,7 @@ import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
 import static de.emg_haar.schafkopfdeluxe.game.Mode.MODE_TYPE.*;
 
 
-//Klasse die alles um den Spielmodus enthält
+//Klasse die alles um den Spielmodus enthält Test1
 public class Mode {
     //Enumeration für alle Modes
     enum MODE_TYPE

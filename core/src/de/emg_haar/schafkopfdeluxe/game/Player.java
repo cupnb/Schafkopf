@@ -157,7 +157,6 @@ public class Player
                 case 6 : return Mode.MODE_TYPE.SOLOGRAS;
                 case 7 : return Mode.MODE_TYPE.SOLOEICHEL;
                 case 8 : return Mode.MODE_TYPE.SOLOHERZ;
-                case 9 : return Mode.MODE_TYPE.RAMSCH;
                 default : System.out.println("Error"); play();
             }
         }

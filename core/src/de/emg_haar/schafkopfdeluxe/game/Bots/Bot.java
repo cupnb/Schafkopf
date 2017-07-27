@@ -24,8 +24,8 @@ class Bot extends Player {
 
     Bot(){
         super("Rudi");
-        wannaplay = false;  // Rudi spielt nie!
-        bot = true;
+        //wannaplay = false;  // Rudi spielt nie!
+        //bot = true;
     }
 
 }

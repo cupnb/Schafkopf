@@ -1,4 +1,4 @@
-package de.emg_haar.schafkopfdeluxe.game.Bots;
+/*package de.emg_haar.schafkopfdeluxe.game.Bots;
 import com.badlogic.gdx.utils.UBJsonReader;
 
 import java.util.LinkedList;
@@ -11,7 +11,7 @@ import sun.awt.image.ImageWatched;
 
 public class Bot_1 extends Bot {
 
-    /*
+
 
     Die Attribute, die Bot_1 erbt:
 
@@ -28,14 +28,14 @@ public class Bot_1 extends Bot {
     protected boolean turn;
     protected boolean bot;
 
-    */
+
 
     public Bot_1() {
         this.name = "Faust";
         bot = true;
     }
 
-    /**
+
      * Um das zu verstehen, bieten sich die Methoden an, die ich aus Javadocs habe:
      * https://docs.oracle.com/javase/8/docs/api/index.html?java/util/LinkedList.html
      *
@@ -43,7 +43,7 @@ public class Bot_1 extends Bot {
      * Sie erleichtern aber so gut wie ALLES, was danach kommt.
      *
      * @return gewünschter Spielmodus des Bots
-     */
+
     private String chooseGamemode() {
 
         // Es braucht alle 8 Karten auf der Hand.
@@ -123,7 +123,7 @@ public class Bot_1 extends Bot {
             }
         }
 
-        /*
+
         Es tut mir so Leid, dass das so unüberisichtlich ist.
         Hier eine Zusammenfassung der Hilfsvariablen:
 
@@ -138,7 +138,7 @@ public class Bot_1 extends Bot {
         anzahlFarbGras
         anzahlFarbSchelle
         anzahlSchmier
-         */
+
 
 
 
@@ -372,7 +372,7 @@ public class Bot_1 extends Bot {
             verlust = verlust + verlustpruefen(HerzListe);
             verlust = verlust + verlustpruefen(SchelleListe);
 
-                /*
+
 
                 kleine Karte heißt: König oder schwächer
 
@@ -416,7 +416,7 @@ public class Bot_1 extends Bot {
                 ohne Sau und mit 10er => 1 Stich
                 mit Sau => 0 Stiche
 
-                 */
+
 
 
             if ( verlust <= 3 ) {
@@ -707,3 +707,4 @@ public class Bot_1 extends Bot {
         return tempint;
     }
 }
+*/

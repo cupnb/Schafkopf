@@ -9,17 +9,17 @@ import de.emg_haar.schafkopfdeluxe.game.card.Card;
 public class Player
 {
     //"Hand" des Spielers --> Speichern aller 8 Karten in einer Liste
-    protected LinkedList<Card> hand;
+    private LinkedList<Card> hand;
     //Name des Spielers
-    protected String name;
+    private String name;
     //Spiel, dem der Spieler beiwohnt
-    protected Game game;
+    private Game game;
     //Punkte, die der Spieler besitzt
     private int points;
     //Boolean zum Festlegen von Spieler bzw. Nicht-Spieler
     private boolean player;
     //Boolean zum Festlegen, ob der Spieler spielen will, oder nicht
-    protected boolean wannaplay;
+    private boolean wannaplay;
     //Boolean zum festlegen, ob der Spieler online spielt, oder nicht
     private boolean online;
     //Speichern der gewonnenen Stiche des Spielers
@@ -27,10 +27,10 @@ public class Player
     //Anzahl der Stiche zur
     private int stichanzahl;
     //Boolean zur Unterschiedung zwischen Bot und Human
-    protected boolean bot;
+    private boolean bot;
     //Matrix, die für den Bot gebraucht wird --> Muss Karten speichern können
     private Card [][] botMatrix;
-
+    //Listenlänge von der Hamd
     private int laenge;
 
     //Konstruktor der Klasse Player
@@ -191,8 +191,8 @@ public class Player
             k = sc.nextInt();
         }
         else {
-            playingCard = hand.get(k - 1);
-            hand.remove(k - 1);
+            playingCard = hand.get(k);
+            hand.remove(k);
             game.addgespielteKarte(playingCard);
             laenge = laenge - 1;
         }

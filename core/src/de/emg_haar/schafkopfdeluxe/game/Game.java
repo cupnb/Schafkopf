@@ -203,7 +203,7 @@ public class Game {
         {
             mode.setModeType(RAMSCH);
         }
-        if (endgültigerPlayer < 4) {
+        if (endgültigerPlayer  == 0 || endgültigerPlayer == 1 || endgültigerPlayer == 2 || endgültigerPlayer == 3) {
             //Spieler wird gesetzt
             players[endgültigerPlayer].setPlayer(true);
         }
@@ -459,9 +459,9 @@ public class Game {
             //for: Abfrage wer spielen will --> True setzen des jeweiligen Indexes
             for (int i = 0; i < 4; i++) {
                 if (players[(auswähler + i) % 4].setWannaplay() != 0) {
-                    willSpieler[i] = true;
+                    willSpieler[(auswähler + i) % 4] = true;
                     //Anzahl der Personen, die spielen wollen wird um 1 erhöht
-                    anzahlSpielenWollen = anzahlSpielenWollen++;
+                    anzahlSpielenWollen = anzahlSpielenWollen + 1;
                 } else {
                     willSpieler[i] = false;
                 }

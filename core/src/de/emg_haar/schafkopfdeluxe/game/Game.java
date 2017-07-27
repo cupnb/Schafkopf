@@ -144,7 +144,7 @@ public class Game {
             turnState = Turnstate.P0;
         }
         boolean[] willSpieler = new boolean[4];
-        willSpieler = spielenWill();
+        willSpieler = spielenWill(4);
         //Abfrage wer SPIELT
         //int zum Anfänger des Auswahlverfahrens
         int willspieler = (dealer + 1) % 4;
@@ -169,7 +169,7 @@ public class Game {
                     //Sonst wird nochmal abgefragt, wer spielen will und diese Prozedere von vorne angefangen
                     else
                     {
-                        willSpieler = spielenWill();
+                        willSpieler = spielenWill(p);
                     }
                 }
             }
@@ -442,23 +442,51 @@ public class Game {
         }
     }
 
-    public boolean[] spielenWill()
+    private boolean[] spielenWill(int x)
     {
+        //int x zum Abfragen, ob ein Spieler einen Fehler beim Eingeben eines Spielmodus gemacht hat
+        //wenn ja --> darf nicht mehr an der nächsten Fragerunde teilnehmen
+        //Standardwert, wenn noch keine Frageunde vorbei ist = 4
         //int zum "Anfänger" der "Fragerunde"
             int auswähler = (dealer + 1);
             //Anzahl der Leute, die spielen wollen
             //boolean Feld zur Bestimmung, wer spielen will und wer davon spielt
             boolean[] willSpieler = new boolean[4];
             //for: Abfrage wer spielen will --> True setzen des jeweiligen Indexes
-            for (int i = 0; i < 4; i++) {
-            if (players[(auswähler + i) % 4].setWannaplay() != 0) {
-                willSpieler[i] = true;
-                //Anzahl der Personen, die spielen wollen wird um 1 erhöht
-                anzahlSpielenWollen = anzahlSpielenWollen + 1;
-            } else {
-                willSpieler[i] = false;
-            }
 
+        //Erste Runde für Standardwert = 4
+        if(x == 4) {
+            //Alle vier Spieler werden abgefragt, ob sie spielen wollen mithilfe von for
+            for (int i = 0; i < 4; i++) {
+                if (players[(auswähler + i) % 4].setWannaplay() != 0) {
+                    willSpieler[i] = true;
+                    //Anzahl der Personen, die spielen wollen wird um 1 erhöht
+                    anzahlSpielenWollen = anzahlSpielenWollen + 1;
+                } else {
+                    willSpieler[i] = false;
+                }
+
+            }
+        }
+        //Else für die zweiten Fragerunden
+        else
+        {
+            //Alle vier Spieler werden abgefragt, ob sie spielen wollen mithilfe von for
+            for (int i = 0; i < 4; i++)
+            {
+                //Wenn der Spieler keine Fehler gemacht hat beim Auswählen des Spiels, wird er ganz normal gefragt
+                //Sonst passiert gar nichts
+                if (i != x)
+                {
+                    if (players[(auswähler + i) % 4].setWannaplay() != 0) {
+                        willSpieler[i] = true;
+                        //Anzahl der Personen, die spielen wollen wird um 1 erhöht
+                        anzahlSpielenWollen = anzahlSpielenWollen + 1;
+                    } else {
+                        willSpieler[i] = false;
+                    }
+                }
+            }
         }
         return willSpieler;
     }

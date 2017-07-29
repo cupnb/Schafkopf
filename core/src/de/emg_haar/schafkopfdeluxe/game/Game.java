@@ -7,6 +7,7 @@ import de.emg_haar.schafkopfdeluxe.game.card.Card;
 import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
 import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
 
+import static de.emg_haar.schafkopfdeluxe.game.Mode.MODE_TYPE.NICHTS;
 import static de.emg_haar.schafkopfdeluxe.game.Mode.MODE_TYPE.RAMSCH;
 
 //Hauptklasse, die alles steuert, und über die das Game hauptsächlich läuft --> Vergleiche typisches Schafkopfspiel
@@ -15,13 +16,6 @@ public class Game {
     //Feld für die Spieler; 4 Spieler werden dem Feld im Konstruktor zugewiesen
     private Player[] players;
 
-    //dient zur Bestimmung, wer dran ist
-    private enum Turnstate {
-        P0, P1, P2, P3
-    }
-
-    //speichert, wer dran ist
-    private Turnstate turnState;
     //Person, die imaginär die Karten austeilt; wichtig für Ansage wer spielt und wer rauskommt
     private int dealer;
     //Stack für die Karten, die gerade im Stich gespielt wurden
@@ -53,7 +47,7 @@ public class Game {
         //Initialisierung des Feld Players (siehe Attribute)
         players = new Player[4];
         //Mode wird zurückgesetzt
-        mode = new Mode(null);
+        mode = new Mode(NICHTS);
 
         //irgendein Graphikzeugs
         //InputStreamReader Alpha = new InputStreamReader(System.in);
@@ -111,7 +105,7 @@ public class Game {
         //Ruffarbe wird auf den Standard gesetzt
         mode.setTrumpfcolor(2);
         //Mode wird zurückgesetzt
-        mode.setModeType(null);
+        mode.setModeType(NICHTS);
         //PlayedStiche wird reseted
         playedStiche = 0;
         //anzahlSpielenWollen wird zurückgesetzt
@@ -132,24 +126,11 @@ public class Game {
             }
         }
 
-        //Der anfangende Spieler wird im turnState festgelegt
-
-        if (dealer == 0) {
-            turnState = Turnstate.P1;
-        } else if (dealer == 1) {
-            turnState = Turnstate.P2;
-        } else if (dealer == 2) {
-            turnState = Turnstate.P3;
-        } else if (dealer == 3) {
-            turnState = Turnstate.P0;
-        }
         boolean[] willSpieler;
         willSpieler = spielenWill(4);
         //Abfrage wer SPIELT
-        //int zum Anfänger des Auswahlverfahrens
-        int willspieler_number = (dealer + 1) % 4;
         //Array Mode zur Auswahl des Mode's durch Ausnutzen des Enums
-        Mode[] modefeld = new Mode[4];
+        Mode.MODE_TYPE[] modefeld = new Mode.MODE_TYPE[4];
         //int zur Festlegung des endgültigen Spielers --> Festlegen von Spieler und NIcht-Spieler
         int endgültigerPlayer = -1;
         //Wenn niemand spielen will --> Ramsch
@@ -166,7 +147,7 @@ public class Game {
                         mode.setModeType(players[p].play());
                         endgültigerPlayer = p;
                     }
-                    //Sonst wird nochmal abgefragt, wer spielen will und diese Prozedere von vorne angefangen
+                    //Sonst wird nochmal abgefragt, wer spielen will und diese Prozedere von vorne angefangen (p ist der Spieler, der es nicht hinbekommen hat einen richtigen Mode zu wählen)
                     else
                     {
                         willSpieler = spielenWill(p);
@@ -178,20 +159,27 @@ public class Game {
         if (anzahlSpielenWollen > 1) {
             //Modes der Spieler, die spielen wollen werden aufgenommen in das Mode Array
             for (int i = 0; i < 4; i++) {
-                modefeld[i].setModeType(players[(willspieler_number + i) % 4].play());
+                if(willSpieler[i])
+                {
+                    modefeld[i] = players[(dealer + 1 + i) % 4].play();
+                }
+                else
+                {
+                    modefeld[i] = NICHTS;
+                }
             }
 
             //vergleicht ob jemand der später spielen will einen höher priorisierten Mode spielen will (über die Ordinalzahl)
             for (int z = 0; z < 4; z++) {
                 if (modefeld[z] != null) {
                     //erster Mode wird gesetzt
-                    if (mode == null) {
-                        mode.setModeType(modefeld[z].getModeType());
+                    if (mode.getModeType() == NICHTS) {
+                        mode.setModeType(modefeld[z]);
                         endgültigerPlayer = z;
                     }
                     //Vergleich der Modes aufgrund der Ordinalzahl im Enum
-                    if (modefeld[z].getOrdinal(modefeld[z].toString()) > mode.getOrdinal(mode.toString())) {
-                        mode.setModeType(modefeld[z].getModeType());
+                    if (modefeld[z].getOrdinal(modefeld[z].toString()) > mode.getModeType().getOrdinal(mode.toString())) {
+                        mode.setModeType(modefeld[z]);
                         endgültigerPlayer = z;
                     }
 
@@ -199,7 +187,8 @@ public class Game {
             }
             //Mode fürSpiel ist der endgültige Mode
         }
-        if(mode == null)
+        //Kontrollfunktion, falls der Mode nicht ausgewählt werden konnte
+        if(mode.getModeType() == NICHTS)
         {
             mode.setModeType(RAMSCH);
         }

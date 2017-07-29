@@ -4,6 +4,8 @@ package de.emg_haar.schafkopfdeluxe.game;
 import java.util.LinkedList;
 import java.util.Stack;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
 import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
@@ -11,11 +13,12 @@ import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
 import static de.emg_haar.schafkopfdeluxe.game.Mode.MODE_TYPE.*;
 
 
-//Klasse die alles um den Spielmodus enthält Test1
-public class Mode {
+//Klasse die alles um den Spielmodus enthält
+class Mode {
     //Enumeration für alle Modes
     enum MODE_TYPE
     {
+        NICHTS,
         SAUSPIELSCHELLEN,
         SAUSPIELGRAS,
         SAUSPIELEICHEL,
@@ -47,6 +50,8 @@ public class Mode {
                     return "SOLOHERZ";
                 case RAMSCH :
                     return "RAMSCH";
+                case NICHTS :
+                    return "NICHTS";
             }
             return null;
         }
@@ -71,8 +76,20 @@ public class Mode {
                 return MODE_TYPE.SOLOHERZ;
             else if(value.equalsIgnoreCase(RAMSCH.toString()))
                 return MODE_TYPE.RAMSCH;
+            else if (value.equalsIgnoreCase(NICHTS.toString()))
+                return MODE_TYPE.NICHTS;
             else
                 return null;
+        }
+
+        int getOrdinal(String name)
+        {
+            try {
+                return MODE_TYPE.valueOf( name ).ordinal();
+            }
+            catch ( IllegalArgumentException e ) {
+                return -1;
+            }
         }
     }
 
@@ -329,15 +346,7 @@ public class Mode {
         }
     }
 
-    int getOrdinal(String name)
-    {
-        try {
-            return MODE_TYPE.valueOf( name ).ordinal();
-        }
-        catch ( IllegalArgumentException e ) {
-            return -1;
-        }
-    }
+
 
 
     //geeignet für Wenz und alle Soli (außer Herz)

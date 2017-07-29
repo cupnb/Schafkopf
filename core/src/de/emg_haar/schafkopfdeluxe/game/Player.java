@@ -160,7 +160,7 @@ public class Player
                 case 6 : return Mode.MODE_TYPE.SOLOGRAS;
                 case 7 : return Mode.MODE_TYPE.SOLOEICHEL;
                 case 8 : return Mode.MODE_TYPE.SOLOHERZ;
-                default : System.out.println("Error"); play();
+                default : System.err.println("Error"); play();
             }
         }
         else

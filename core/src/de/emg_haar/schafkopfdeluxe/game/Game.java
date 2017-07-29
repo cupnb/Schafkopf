@@ -77,6 +77,7 @@ public class Game {
         callingColor = -1;
         roundnumber = 0;
         anzahlSpielenWollen = 0;
+        System.out.println("Konstruktor fertig abgeschlossen");
         initialize();
     }
 
@@ -98,6 +99,7 @@ public class Game {
     }
 
     private void initialize() {
+        System.out.println("Methode initialize aufgerufen");
         //Ruffarbe wird zurückgesetzt
         setCallingColor(-1);
         //Roundnumber wird um eins erhöht
@@ -125,7 +127,17 @@ public class Game {
                 players[j].addCards(deck.deal());
             }
         }
+        System.out.println(" ----- Die Karten der Spieler werden ausgegeben -----");
+        for(int l = 0; l<4; l++)
+        {
+            for (Card karte : players[l].getHand()) {
+                System.out.println("Spieler " +l +" : " +karte.getColor() + " mit Wert " + karte.getRank());
+                //Gibt Karten aus
+            }
+            System.out.println("");
+        }
 
+        System.out.println("Auswahlverfahren für den Mode gestartet");
         boolean[] willSpieler;
         willSpieler = spielenWill(4);
         //Abfrage wer SPIELT
@@ -134,22 +146,21 @@ public class Game {
         //int zur Festlegung des endgültigen Spielers --> Festlegen von Spieler und NIcht-Spieler
         int endgültigerPlayer = -1;
         //Wenn niemand spielen will --> Ramsch
-        if (anzahlSpielenWollen == 0) {
-            mode.setModeType(RAMSCH);
-        }
         //Wenn genau eine Person spielen will, dann wird der gewünschte Mode der Person genommen
         if (anzahlSpielenWollen == 1) {
+            System.out.println("1 Spieler will spielen. Sein Spielmodus wird übernommen");
             for (int p = 0; p < 4; p++) {
                 if (willSpieler[p]) {
+                    mode.setModeType(players[p].play());
                     //es wird nachgeprüft, ob der Spieler mit seiner Hand spielen darf --> Sauspiel darf nur ohne die Rufass gespielt werden
                     if (mode.SauSpielSpielbar(players[p].getHand(), mode))
                     {
-                        mode.setModeType(players[p].play());
                         endgültigerPlayer = p;
                     }
                     //Sonst wird nochmal abgefragt, wer spielen will und diese Prozedere von vorne angefangen (p ist der Spieler, der es nicht hinbekommen hat einen richtigen Mode zu wählen)
                     else
                     {
+                        mode.setModeType(NICHTS);
                         willSpieler = spielenWill(p);
                     }
                 }
@@ -157,6 +168,7 @@ public class Game {
         }
         //Wenn mehr als eine Person spielen will, wird aufgrund der Ordinalzahl des Modes abgewägt, was gespielt wird
         if (anzahlSpielenWollen > 1) {
+            System.out.println("2-4 Spieler wollen spielen. Sein Spielmodus wird übernommen");
             //Modes der Spieler, die spielen wollen werden aufgenommen in das Mode Array
             for (int i = 0; i < 4; i++) {
                 if(willSpieler[i])
@@ -187,35 +199,45 @@ public class Game {
             }
             //Mode fürSpiel ist der endgültige Mode
         }
-        //Kontrollfunktion, falls der Mode nicht ausgewählt werden konnte
-        if(mode.getModeType() == NICHTS)
-        {
+
+        if (anzahlSpielenWollen == 0) {
+            System.out.println("0 Spieler wollen spielen. Ramsch wird ausgewählt");
             mode.setModeType(RAMSCH);
         }
+
         if (endgültigerPlayer  == 0 || endgültigerPlayer == 1 || endgültigerPlayer == 2 || endgültigerPlayer == 3) {
             //Spieler wird gesetzt
             players[endgültigerPlayer].setPlayer(true);
+            System.out.println("Spieler " +endgültigerPlayer +" spielt");
         }
 
-        //Zweiter Spieler wird gesucht: Bei Sauspiel Eichel
-        if (mode.getModeType() == Mode.MODE_TYPE.SAUSPIELEICHEL) {
-            int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(), CardRank.ASS, CardColor.EICHEL);
-            players[now].setPlayer(true);
-            setCallingColor(3);
-        }
-
-        //Zweiter Spieler wird gesucht: Bei Sauspiel Schellen
-        if (mode.getModeType() == Mode.MODE_TYPE.SAUSPIELSCHELLEN) {
-            int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(), CardRank.ASS, CardColor.SCHELLEN);
-            players[now].setPlayer(true);
-            setCallingColor(1);
-        }
-
-        //Zweiter Spieler wird gesucht: Bei Sauspiel Gras
-        if (mode.getModeType() == Mode.MODE_TYPE.SAUSPIELGRAS) {
-            int now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(), CardRank.ASS, CardColor.LAUB);
-            players[now].setPlayer(true);
-            setCallingColor(2);
+        //Hilfsvariable
+        int now;
+        //Mitspieler wird gesucht
+        switch (mode.getModeType())
+        {
+            case SAUSPIELEICHEL:
+                now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(), CardRank.ASS, CardColor.EICHEL);
+                players[now].setPlayer(true);
+                setCallingColor(3);
+                System.out.println("Zusammen mit " +now );
+                break;
+            case SAUSPIELSCHELLEN:
+                now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(), CardRank.ASS, CardColor.SCHELLEN);
+                players[now].setPlayer(true);
+                setCallingColor(1);
+                System.out.println("Zusammen mit " +now );
+                break;
+            case SAUSPIELGRAS:
+                now = sucheKarte(players[0].getHand(), players[1].getHand(), players[2].getHand(), players[3].getHand(), CardRank.ASS, CardColor.LAUB);
+                players[now].setPlayer(true);
+                setCallingColor(2);
+                System.out.println("Zusammen mit " +now );
+                break;
+            //Kontrollfunktion, falls der Mode nicht ausgewählt werden konnte
+            case NICHTS:
+                mode.setModeType(RAMSCH);
+                System.err.println("Kein Spielmodus ausgwählt. Ramsch wurde als Spielmodus gesetzt");
         }
 
         //Trumpfcolor wird aufgrund des Modes ferstgelegt
@@ -248,6 +270,7 @@ public class Game {
             }
 
         }
+
 
         //Aufruf der Methode loop führt 8 Stiche durch
         for (int i = 0; i < 8; i++) {
@@ -437,11 +460,11 @@ public class Game {
         //wenn ja --> darf nicht mehr an der nächsten Fragerunde teilnehmen
         //Standardwert, wenn noch keine Frageunde vorbei ist = 4
         //int zum "Anfänger" der "Fragerunde"
-            int auswähler = (dealer + 1);
-            //Anzahl der Leute, die spielen wollen
-            //boolean Feld zur Bestimmung, wer spielen will und wer davon spielt
-            boolean[] willSpieler = new boolean[4];
-
+        System.out.println("Methode spielenWill aufgerufen");
+        int auswähler = (dealer + 1);
+        //Anzahl der Leute, die spielen wollen
+        //boolean Feld zur Bestimmung, wer spielen will und wer davon spielt
+        boolean[] willSpieler = new boolean[4];
 
         //Erste Runde für Standardwert = 4
         if(x == 4) {
@@ -451,8 +474,10 @@ public class Game {
                     willSpieler[(auswähler + i) % 4] = true;
                     //Anzahl der Personen, die spielen wollen wird um 1 erhöht
                     anzahlSpielenWollen = anzahlSpielenWollen + 1;
+                    System.out.println("spielenWill TRUE");
                 } else {
                     willSpieler[i] = false;
+                    System.out.println("spielenWill FALSE");
                 }
 
             }
@@ -471,12 +496,15 @@ public class Game {
                         willSpieler[i] = true;
                         //Anzahl der Personen, die spielen wollen wird um 1 erhöht
                         anzahlSpielenWollen = anzahlSpielenWollen + 1;
+                        System.out.println("spielenWill TRUE");
                     } else {
                         willSpieler[i] = false;
+                        System.out.println("spielenWill FALSE");
                     }
                 }
             }
         }
+        System.out.println("spielenWill abgeschlossen");
         return willSpieler;
     }
 }

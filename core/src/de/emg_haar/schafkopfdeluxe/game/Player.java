@@ -28,8 +28,6 @@ public class Player
     private int stichanzahl;
     //Boolean zur Unterschiedung zwischen Bot und Human
     private boolean bot;
-    //Matrix, die für den Bot gebraucht wird --> Muss Karten speichern können
-    private Card [][] botMatrix;
     //Listenlänge von der Hamd
     private int laenge;
 
@@ -47,7 +45,6 @@ public class Player
         stiche = new Stack<>();
         stichanzahl = 0;
         bot = false;
-        botMatrix = new Card[4][8];
     }
 
     //setter Methode von game
@@ -206,17 +203,4 @@ public class Player
         online = true;
         //Problem: muss irgendwie in MainMenu vom Player gewählt werden
     }
-
-    //getter Methode von bot
-
-
-    boolean isBot() {
-        return bot;
-    }
-
-    void setMatrix(Card[][] newMatrix)
-    {
-        botMatrix = newMatrix;
-    }
-
 }

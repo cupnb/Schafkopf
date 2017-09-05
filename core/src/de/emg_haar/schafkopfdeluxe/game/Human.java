@@ -211,4 +211,16 @@ public class Human implements Player
     //Methode, die vollständigkeithalber dem Human übergeben werden muss (bleibt leer)
     public void setMatrix(Card[][] matrix)
     {}
+
+    public void giveMode(Mode.MODE_TYPE m) {
+        System.out.println("Der gespielte Mode ist: " +m);
+    }
+
+    public void giveSpielender(int p) {
+        System.out.println("Der Spieler " +p+1 +" spielt");
+    }
+
+    public void giveNumber(int n) {
+        System.out.println("Du bis Spieler Nummer " +n+1);
+    }
 }

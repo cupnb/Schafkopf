@@ -4,6 +4,8 @@ import java.util.Stack;
 
 import de.emg_haar.schafkopfdeluxe.game.*;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
+import de.emg_haar.schafkopfdeluxe.game.card.CardColor;
+import de.emg_haar.schafkopfdeluxe.game.card.CardRank;
 
 
 public class Bot implements Player
@@ -17,6 +19,10 @@ public class Bot implements Player
     private Card [][] botMatrix;
     private Stack<Card> stiche;
     private int stichanzahl;
+    private boolean[] mitspieler;
+    private Mode.MODE_TYPE gamemode;
+    private int spielender;
+    private int playernumber;
 
     Bot()
     {
@@ -29,9 +35,13 @@ public class Bot implements Player
         botMatrix = new Card[4][8];
         stiche = new Stack<>();
         stichanzahl = 0;
+        mitspieler = new boolean[4];
+        gamemode = Mode.MODE_TYPE.NICHTS;
+        spielender = 0;
+        playernumber = 0;
     }
 
-
+    //------------------------Anfang Default Methoden------------------
     //Methode, die die Stichpunktanzahl des Players um 1 erhöht
     public void stichpunkterhöhen(){
         stichanzahl = stichanzahl + 1;
@@ -43,6 +53,12 @@ public class Bot implements Player
 
     public boolean getPlayer() {
         return player;
+    }
+
+    public void giveNumber(int n)
+    {
+        mitspieler[n] = true;
+        playernumber = n;
     }
 
     //Gibt die Punkte des Spielers wieder
@@ -89,9 +105,8 @@ public class Bot implements Player
         return null;
     }
 
-    public void onlineSpiel() {
-
-    }
+    public void onlineSpiel()
+    {}
 
     public Card[][] getBotMatrix() {
         return botMatrix;
@@ -99,6 +114,15 @@ public class Bot implements Player
 
     public void setMatrix(Card[][] botMatrix) {
         this.botMatrix = botMatrix;
+    }
+
+    public void giveMode(Mode.MODE_TYPE m) {
+        gamemode = m;
+    }
+
+    public void giveSpielender(int p)
+    {
+        spielender = p;
     }
 
     public LinkedList<Card> getHand() {
@@ -119,6 +143,53 @@ public class Bot implements Player
             stiche.push(s.pop());
         }
     }
+    //------------------------Ende Default Methoden--------------------
+
+    public void bestimmeMitspielerAnfang()
+    {
+
+        if(spielender != playernumber)
+        {
+            if(gamemode == Mode.MODE_TYPE.SOLOEICHEL || gamemode == Mode.MODE_TYPE.SOLOGRAS|| gamemode == Mode.MODE_TYPE.SOLOHERZ || gamemode == Mode.MODE_TYPE.SOLOSCHELLEN || gamemode == Mode.MODE_TYPE.WENZ)
+            {
+                for(int i = 0; i<4; i++)
+                {
+                    mitspieler[i] = i != spielender;
+                }
+            }
+            else if(gamemode == Mode.MODE_TYPE.SAUSPIELEICHEL)
+            {
+                for(Card karte:hand)
+                {
+                    if(karte.getRank() == CardRank.ASS && karte.getColor() == CardColor.EICHEL)
+                    {
+                        mitspieler[spielender] = true;
+                    }
+                }
+            }
+            else if(gamemode == Mode.MODE_TYPE.SAUSPIELGRAS)
+            {
+                for(Card karte:hand)
+                {
+                    if(karte.getRank() == CardRank.ASS && karte.getColor() == CardColor.LAUB)
+                    {
+                        mitspieler[spielender] = true;
+                    }
+                }
+            }
+            else if(gamemode == Mode.MODE_TYPE.SAUSPIELSCHELLEN)
+            {
+                for(Card karte:hand)
+                {
+                    if(karte.getRank() == CardRank.ASS && karte.getColor() == CardColor.SCHELLEN)
+                    {
+                        mitspieler[spielender] = true;
+                    }
+                }
+            }
+        }
+    }
+
 
     public Card legeKarte()
     {

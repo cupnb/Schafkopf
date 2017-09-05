@@ -22,4 +22,7 @@ public interface Player
     void onlineSpiel();
     boolean isBot();
     void setMatrix(Card[][] matrix);
+    void giveMode(Mode.MODE_TYPE m);
+    void giveSpielender(int p);
+    void giveNumber(int n);
 }

@@ -41,7 +41,7 @@ public class Game {
     //Anzahl der SPieler, die selbst spielen wollen
     private int anzahlSpielenWollen;
 
-    public Game(Player p0, Player p1, Player p2, Player p3) {
+    public Game(Human p0, Human p1, Human p2, Human p3) {
         //Random Zahl zur Bestimmung des Dealers in der ersten Runde
         Random rnd = new Random();
         //Initialisierung des Feld Players (siehe Attribute)
@@ -137,6 +137,11 @@ public class Game {
             System.out.println("");
         }
 
+        for(int o = 0; o<4; o++)
+        {
+            players[o].giveNumber(o);
+        }
+
         System.out.println("Auswahlverfahren für den Mode gestartet");
         boolean[] willSpieler;
         willSpieler = spielenWill(4);
@@ -210,7 +215,10 @@ public class Game {
             players[endgültigerPlayer].setPlayer(true);
             System.out.println("Spieler " +endgültigerPlayer +" spielt");
         }
-
+        for (int e = 0; e<4; e++)
+        {
+            players[e].giveSpielender(endgültigerPlayer);
+        }
         //Hilfsvariable
         int now;
         //Mitspieler wird gesucht
@@ -271,6 +279,10 @@ public class Game {
 
         }
 
+        //Mode wird an die Spieler bzw. Bots übergeben
+        for(int b = 0; b<4; b++) {
+            players[b].giveMode(mode.getModeType());
+        }
 
         //Aufruf der Methode loop führt 8 Stiche durch
         for (int i = 0; i < 8; i++) {

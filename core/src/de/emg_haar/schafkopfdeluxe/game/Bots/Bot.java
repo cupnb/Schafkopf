@@ -1,5 +1,4 @@
 package de.emg_haar.schafkopfdeluxe.game.Bots;
-import de.emg_haar.schafkopfdeluxe.game.Player;
 
 class Bot extends Player {
 

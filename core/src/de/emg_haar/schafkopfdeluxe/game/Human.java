@@ -6,7 +6,7 @@ import java.util.Scanner;
 import de.emg_haar.schafkopfdeluxe.game.card.Card;
 
 //Klasse, die alle Methoden um den Spieler beinhaltet
-public class Human
+public class Human implements Player
 {
     //"Hand" des Spielers --> Speichern aller 8 Karten in einer Liste
     private LinkedList<Card> hand;
@@ -54,7 +54,7 @@ public class Human
     }
 
     //setter Methode von player
-    void setPlayer(boolean p)
+    public void setPlayer(boolean p)
     {
         player = p;
     }
@@ -69,18 +69,18 @@ public class Human
     // -#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 
     //getter Methode von player
-    boolean getPlayer()
+    public boolean getPlayer()
     {
         return player;
     }
 
     //Methode, die die Stichpunktanzahl des Players um 1 erhöht
-    void stichpunkterhöhen(){
+    public void stichpunkterhöhen(){
         stichanzahl = stichanzahl + 1;
     }
 
     //Gibt die Punkte des Spielers wieder
-    int getPunkte(){
+    public int getPunkte(){
 
         for (int y = stichanzahl * 4; y > 0; y--){
             points = points + stiche.pop().getPoints();
@@ -89,14 +89,14 @@ public class Human
     }
 
     //Stich von einem übergebenen Stack wird in stiche übertragen
-    void addStich(Stack<Card> s){
+    public void addStich(Stack<Card> s){
         for (int l = 0; l < 5; l++){
             stiche.push(s.pop());
         }
     }
 
     //Die Karten aus dem Stack werden auf die Hand gebracht
-    void addCards(Stack<Card> c)
+    public void addCards(Stack<Card> c)
     {
         hand.add(c.pop());
         hand.add(c.pop());
@@ -105,7 +105,7 @@ public class Human
     }
 
     //getter Methode von hand
-    LinkedList<Card> getHand()
+    public LinkedList<Card> getHand()
     {
         return hand;
     }
@@ -117,7 +117,7 @@ public class Human
     }
 
     //setter Methode von wannaplay
-    int setWannaplay()
+    public int setWannaplay()
     {
         System.out.println("Spielst du?");
         Scanner sca = new Scanner(System.in);
@@ -140,7 +140,7 @@ public class Human
 
 
     //Was will Player spielen, wenn er spielen will
-    Mode.MODE_TYPE play()
+    public Mode.MODE_TYPE play()
     {
 
         //darf nur gemacht werden, wenn wannaplay true ist
@@ -168,7 +168,7 @@ public class Human
     }
 
     //mögliche karten werden gezeigt, eine ausgewählt und gelegt
-    Card kartelegen()
+    public Card kartelegen()
     {
         Card playingCard = null;
         Mode m = game.getMode();
@@ -202,5 +202,10 @@ public class Human
     {
         online = true;
         //Problem: muss irgendwie in MainMenu vom Player gewählt werden
+    }
+
+    public boolean isBot()
+    {
+        return false;
     }
 }

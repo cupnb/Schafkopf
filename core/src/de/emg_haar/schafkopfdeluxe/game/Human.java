@@ -24,7 +24,7 @@ public class Human implements Player
     private boolean online;
     //Speichern der gewonnenen Stiche des Spielers
     private Stack<Card> stiche;
-    //Anzahl der Stiche zur
+    //Anzahl der Stiche zur Auszählung
     private int stichanzahl;
     //Boolean zur Unterschiedung zwischen Bot und Human
     private boolean bot;
@@ -203,9 +203,12 @@ public class Human implements Player
         online = true;
         //Problem: muss irgendwie in MainMenu vom Player gewählt werden
     }
-
+    //Methode, die sagt, dass der Spieler kein Bot, sondern ein Human ist
     public boolean isBot()
     {
         return false;
     }
+    //Methode, die vollständigkeithalber dem Human übergeben werden muss (bleibt leer)
+    public void setMatrix(Card[][] matrix)
+    {}
 }

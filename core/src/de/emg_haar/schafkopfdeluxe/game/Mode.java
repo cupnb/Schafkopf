@@ -14,9 +14,9 @@ import static de.emg_haar.schafkopfdeluxe.game.Mode.MODE_TYPE.*;
 
 
 //Klasse die alles um den Spielmodus enthält
-class Mode {
+public class Mode {
     //Enumeration für alle Modes
-    enum MODE_TYPE
+    public enum MODE_TYPE
     {
         NICHTS,
         SAUSPIELSCHELLEN,

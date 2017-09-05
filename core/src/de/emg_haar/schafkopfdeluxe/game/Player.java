@@ -21,4 +21,5 @@ public interface Player
     Card kartelegen();
     void onlineSpiel();
     boolean isBot();
+    void setMatrix(Card[][] matrix);
 }

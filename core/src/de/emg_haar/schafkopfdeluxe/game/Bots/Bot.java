@@ -14,9 +14,9 @@ public class Bot implements Player
     private int points;
     private boolean player;
     private boolean wannaplay;
-    private boolean bot;
     private Card [][] botMatrix;
-    private
+    private Stack<Card> stiche;
+    private int stichanzahl;
 
     Bot()
     {
@@ -26,12 +26,40 @@ public class Bot implements Player
         points = 0;
         player = false;
         hand = new LinkedList<>();
-        bot = true;
         botMatrix = new Card[4][8];
+        stiche = new Stack<>();
+        stichanzahl = 0;
     }
 
-    public int getPoints() {
+
+    //Methode, die die Stichpunktanzahl des Players um 1 erhöht
+    public void stichpunkterhöhen(){
+        stichanzahl = stichanzahl + 1;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean getPlayer() {
+        return player;
+    }
+
+    //Gibt die Punkte des Spielers wieder
+    public int getPunkte(){
+
+        for (int y = stichanzahl * 4; y > 0; y--){
+            points = points + stiche.pop().getPoints();
+        }
         return points;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public void setPlayer(boolean p) {
+        player = p;
     }
 
     public void setPoints(int points) {
@@ -42,11 +70,34 @@ public class Bot implements Player
         return wannaplay;
     }
 
+    public boolean isBot()
+    {
+        return true;
+    }
+
+    //1 heißt ja; 0 heißt nein
+    public int setWannaplay()
+    {
+        return 0;
+    }
+
+    public Mode.MODE_TYPE play() {
+        return null;
+    }
+
+    public Card kartelegen() {
+        return null;
+    }
+
+    public void onlineSpiel() {
+
+    }
+
     public Card[][] getBotMatrix() {
         return botMatrix;
     }
 
-    public void setBotMatrix(Card[][] botMatrix) {
+    public void setMatrix(Card[][] botMatrix) {
         this.botMatrix = botMatrix;
     }
 
@@ -54,11 +105,19 @@ public class Bot implements Player
         return hand;
     }
 
-    public void setHand(Stack<Card> c) {
+    public void addCards(Stack<Card> c)
+    {
         hand.add(c.pop());
         hand.add(c.pop());
         hand.add(c.pop());
         hand.add(c.pop());
+    }
+
+    //Stich von einem übergebenen Stack wird in stiche übertragen
+    public void addStich(Stack<Card> s){
+        for (int l = 0; l < 5; l++){
+            stiche.push(s.pop());
+        }
     }
 
     public Card legeKarte()
@@ -112,6 +171,8 @@ public class Bot implements Player
     {
 
     }
+
+
     //---------------------------Ende Spielmechanik Methoden-------------------------------------
 
 
